@@ -1,10 +1,37 @@
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import dts from "vite-plugin-dts";
+import { resolve } from "path";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src"),
+    },
   },
+  build: {
+    lib: {
+      entry: resolve(__dirname, "src/index.tsx"),
+      name: "SporteevComponents",
+      formats: ["es", "umd"],
+      fileName: (format) => `sporteev-components.${format}.js`,
+    },
+    outDir: "dist",
+    rollupOptions: {
+      external: ["react", "react-dom"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+        },
+      },
+    },
+    sourcemap: true,
+  },
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+    }),
+  ],
 });
