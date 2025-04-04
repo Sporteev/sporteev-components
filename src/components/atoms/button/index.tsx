@@ -1,16 +1,16 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all",
   {
+    defaultVariants: {
+      variant: "primary",
+      size: "medium",
+      danger: false,
+    },
     variants: {
-      defaultVariants: {
-        variant: "primary",
-        size: "medium",
-        danger: false,
-      },
       variant: {
         primary: "bg-primary-80 text-neutral-10 hover:bg-primary-90",
         secondary: "bg-primary-20 text-primary-80 hover:bg-primary-30",
@@ -83,12 +83,22 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
+interface ButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled">,
     VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, danger, disabled, ...props }, ref) => {
+  (
+    {
+      className,
+      variant = "primary",
+      size = "medium",
+      danger = false,
+      disabled = false,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <button
         className={cn(
@@ -105,3 +115,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = "Button";
 
 export { Button };
+export type { ButtonProps };
