@@ -68,9 +68,9 @@ npm login
 
 You'll be prompted for your npm username, password, and email.
 
-2. If publishing under the @sporteev organization:
+2. Publishing under the @sporteev organization:
 
-   - Make sure you're a member of the organization
+   - Make sure you're a member of the organization. Check in your [NPM profile page](https://www.npmjs.com/settings/farahnazihah/profile)
    - Verify the package name in `package.json` starts with `@sporteev/`
 
 3. Choose the appropriate release command based on the type of changes:

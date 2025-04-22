@@ -8,9 +8,9 @@ const labelVariants = cva(
       color: {
         primary: "bg-primary-20 text-primary-80",
         tertiary: "bg-tertiary-30 text-tertiary-70",
-        success: "bg-success-accent text-success-primary",
-        warning: "bg-warning-accent text-warning-primary",
-        danger: "bg-danger-accent text-danger-primary",
+        success: "bg-success-accent text-success-main",
+        warning: "bg-warning-accent text-warning-main",
+        danger: "bg-danger-accent text-danger-main",
         gray: "bg-neutral-40 text-neutral-80",
         dark: "bg-neutral-70 text-neutral-30",
       },
