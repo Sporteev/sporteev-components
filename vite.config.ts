@@ -15,8 +15,8 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, "src/index.tsx"),
       name: "SporteevComponents",
-      formats: ["es", "umd"],
-      fileName: (format) => `sporteev-components.${format}.js`,
+      formats: ["es"],
+      fileName: "sporteev-components",
     },
     outDir: "dist",
     rollupOptions: {
@@ -26,14 +26,18 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        preserveModules: true,
+        preserveModulesRoot: "src",
+        entryFileNames: "[name].js",
         assetFileNames: (assetInfo) => {
           const source = assetInfo.source.toString();
           if (source.includes(".css")) return "sporteev-components.css";
-          return "asset";
+          return "assets/[name][extname]";
         },
       },
     },
     sourcemap: true,
+    minify: true,
   },
   css: {
     postcss: {
@@ -44,6 +48,8 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
+      include: ["src/**/*"],
+      exclude: ["src/**/*.stories.tsx", "src/**/*.test.tsx"],
     }),
   ],
 });

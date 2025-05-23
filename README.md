@@ -1,6 +1,16 @@
-# @sporteev/sporteev-components
+# Sporteev Components
 
-A collection of reusable React components for Sporteev applications.
+A React component library for Sporteev applications, built with TypeScript, Tailwind CSS, and Vite.
+
+## Features
+
+- 🎨 Modern and accessible UI components
+- ⚡ Built with Vite for fast development and building
+- 📦 Tree-shakeable and optimized for production
+- 🎭 Support for different variants and states
+- 📱 Responsive and mobile-friendly
+- 🎯 TypeScript support
+- 🎨 Tailwind CSS integration
 
 ## Installation
 
@@ -8,34 +18,25 @@ A collection of reusable React components for Sporteev applications.
 npm install @sporteev/sporteev-components
 ```
 
-That's it! The package includes all necessary dependencies and styles. Just import and use the components:
+## Usage
 
-```jsx
-import { InfoBox } from "@sporteev/sporteev-components";
+Simply import and use the components:
+
+```tsx
+import { Button } from "@sporteev/sporteev-components";
 
 function App() {
   return (
-    <InfoBox variant="info" title="Welcome">
-      This is a simple example of using our components.
-    </InfoBox>
+    <Button variant="primary" size="medium">
+      Click me
+    </Button>
   );
 }
 ```
 
-For detailed component documentation and examples, visit our [Storybook](https://components.sporteev.id).
-
 ## Development
 
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Run Storybook
-npm run storybook
-```
+For development and contribution guidelines, please visit our [GitHub repository](https://github.com/sporteev/sporteev-components).
 
 ## License
 

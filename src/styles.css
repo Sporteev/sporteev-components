@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add any custom styles for your components here */
+
+@layer base {
+  :root {
+    --primary-10: #e6f0ff;
+    --primary-20: #cce0ff;
+    --primary-30: #99c2ff;
+    --primary-40: #66a3ff;
+    --primary-50: #3385ff;
+    --primary-60: #0066ff;
+    --primary-70: #0052cc;
+    --primary-80: #003d99;
+    --primary-90: #002966;
+    --primary-100: #001433;
+
+    --tertiary-30: #ffe6cc;
+    --tertiary-70: #cc8533;
+
+    --success-accent: #e6ffe6;
+    --success-main: #00cc00;
+
+    --warning-accent: #fff2e6;
+    --warning-main: #ff9900;
+
+    --danger-accent: #ffe6e6;
+    --danger-main: #ff0000;
+
+    --neutral-10: #f2f2f2;
+    --neutral-30: #b3b3b3;
+    --neutral-40: #999999;
+    --neutral-70: #4d4d4d;
+    --neutral-80: #333333;
+  }
+}
