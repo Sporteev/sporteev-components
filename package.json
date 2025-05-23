@@ -1,20 +1,20 @@
 {
   "name": "@sporteev/sporteev-components",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "style": "dist/assets/style.css",
+  "main": "dist/sporteev-components.umd.js",
+  "module": "dist/sporteev-components.es.js",
+  "types": "dist/sporteev-components.d.ts",
+  "style": "dist/styles.css",
   "private": false,
   "version": "0.0.8",
   "type": "module",
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "types": "./dist/sporteev-components.d.ts",
+      "import": "./dist/sporteev-components.es.js",
+      "require": "./dist/sporteev-components.umd.js"
     },
-    "./styles.css": "./dist/assets/style.css"
+    "./styles.css": "./dist/styles.css"
   },
   "files": [
     "dist/",

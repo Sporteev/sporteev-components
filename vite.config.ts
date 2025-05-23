@@ -16,6 +16,7 @@ export default defineConfig({
       entry: "src/index.tsx",
       formats: ["es", "umd"],
       name: "sporteev-components",
+      fileName: (format) => `sporteev-components.${format}.js`,
     },
     outDir: "dist",
     rollupOptions: {
@@ -26,10 +27,9 @@ export default defineConfig({
           "react-dom": "ReactDOM",
         },
         preserveModules: false,
-        entryFileNames: "[name].js",
         assetFileNames: (assetInfo) => {
           const source = assetInfo.source.toString();
-          if (source.includes(".css")) return "sporteev-components.css";
+          if (source.includes(".css")) return "styles.css";
           return "assets/[name][extname]";
         },
       },
