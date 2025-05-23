@@ -5,7 +5,7 @@
   "types": "dist/sporteev-components.d.ts",
   "style": "dist/styles.css",
   "private": false,
-  "version": "0.0.8",
+  "version": "0.0.9",
   "type": "module",
   "sideEffects": false,
   "exports": {
