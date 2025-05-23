@@ -2,6 +2,8 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { resolve } from "path";
+import tailwindcss from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 export default defineConfig({
   resolve: {
@@ -24,9 +26,19 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        assetFileNames: (assetInfo) => {
+          const source = assetInfo.source.toString();
+          if (source.includes(".css")) return "sporteev-components.css";
+          return "asset";
+        },
       },
     },
     sourcemap: true,
+  },
+  css: {
+    postcss: {
+      plugins: [tailwindcss, autoprefixer],
+    },
   },
   plugins: [
     react(),

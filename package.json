@@ -17,7 +17,8 @@
   "files": [
     "dist/",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "styles.css"
   ],
   "scripts": {
     "dev": "vite",
@@ -33,10 +34,15 @@
     "release:major": "npm run build && npm version major -m \"Release v%s\" && npm publish --access public"
   },
   "dependencies": {
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
+    "tailwindcss": "^3.4.1",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss": "^3.4.1"
+    "clsx": "^2.1.0",
+    "class-variance-authority": "^0.7.0",
+    "lucide-react": "^0.344.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
@@ -57,7 +63,6 @@
     "eslint-plugin-react-refresh": "^0.4.11",
     "eslint-plugin-storybook": "^0.8.0",
     "globals": "^15.9.0",
-    "lucide-react": "^0.344.0",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
@@ -66,9 +71,5 @@
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2",
     "vite-plugin-dts": "^4.5.3"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
   }
 }
