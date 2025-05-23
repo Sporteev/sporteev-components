@@ -1,18 +1,10 @@
-# Sporteev Components
+# @sporteev/sporteev-components
 
-A React component library for Sporteev applications, built with TypeScript, Tailwind CSS, and Vite.
-
-## Features
-
-- 🎨 Modern and accessible UI components
-- ⚡ Built with Vite for fast development and building
-- 📦 Tree-shakeable and optimized for production
-- 🎭 Support for different variants and states
-- 📱 Responsive and mobile-friendly
-- 🎯 TypeScript support
-- 🎨 Tailwind CSS integration
+A reusable React component library for Sporteev projects, built with Tailwind CSS.
 
 ## Installation
+
+Install the package and its peer dependencies:
 
 ```bash
 npm install @sporteev/sporteev-components
@@ -20,24 +12,47 @@ npm install @sporteev/sporteev-components
 
 ## Usage
 
-Simply import and use the components:
+1. **Configure Tailwind CSS**
 
-```tsx
-import { Button } from "@sporteev/sporteev-components";
+Make sure your project is set up with Tailwind CSS. If not, follow the [Tailwind installation guide](https://tailwindcss.com/docs/installation).
+
+Update your `tailwind.config.js` to include the component library:
+
+```js
+module.exports = {
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/@sporteev/sporteev-components/dist/**/*.{js,jsx,ts,tsx}",
+  ],
+  // ...your theme and plugins
+};
+```
+
+2. **Use the components**
+
+```jsx
+import { Button, InfoBox, Modal } from "@sporteev/sporteev-components";
 
 function App() {
   return (
-    <Button variant="primary" size="medium">
-      Click me
-    </Button>
+    <div>
+      <Button variant="primary">Click me</Button>
+      <InfoBox variant="info">This is an info box</InfoBox>
+    </div>
   );
 }
 ```
 
 ## Development
 
-For development and contribution guidelines, please visit our [GitHub repository](https://github.com/sporteev/sporteev-components).
+- Run `npm run dev` to start the development server.
+- Run `npm run build` to build the library.
+- Run `npm run storybook` to develop and preview components in isolation.
+
+## Publishing
+
+- Use `npm run release:patch`, `npm run release:minor`, or `npm run release:major` to version and publish the package.
 
 ## License
 
-MIT © [Sporteev](https://sporteev.id)
+MIT
