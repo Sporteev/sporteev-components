@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+  }
+}
+
+/* Component-specific styles */
+@layer components {
+  /* Add any component-specific styles here */
+  .sporteev-button {
+    @apply rounded-lg px-4 py-2 font-medium transition-colors;
+  }
+
+  .sporteev-button-primary {
+    @apply bg-primary-70 text-white hover:bg-primary-80;
+  }
+
+  .sporteev-button-secondary {
+    @apply bg-secondary-20 text-secondary-100 hover:bg-secondary-30;
+  }
+}

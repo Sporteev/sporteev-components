@@ -11,7 +11,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "src/index.tsx"),
+      entry: resolve(__dirname, "src/main.tsx"),
       name: "SporteevComponents",
       formats: ["es", "umd"],
       fileName: (format) => `sporteev-components.${format}.js`,
@@ -24,9 +24,18 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
+        assetFileNames: (assetInfo) => {
+          return assetInfo.name === "style.css"
+            ? "sporteev-components.css"
+            : assetInfo.name || "unknown";
+        },
       },
     },
     sourcemap: true,
+    cssCodeSplit: false,
+  },
+  css: {
+    postcss: "./postcss.config.js",
   },
   plugins: [
     react(),

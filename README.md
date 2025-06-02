@@ -10,6 +10,14 @@ npm install @sporteev/sporteev-components
 
 ## Usage
 
+1. Import the library's CSS file to your project's main entry point (usually `index.tsx` or `main.tsx`):
+
+```tsx
+import "@sporteev/sporteev-components/styles.css";
+```
+
+2. Use the components in your app:
+
 ```tsx
 import { Button } from "@sporteev/sporteev-components";
 

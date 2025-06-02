@@ -4,7 +4,7 @@
   "module": "dist/sporteev-components.es.js",
   "types": "dist/sporteev-components.d.ts",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.15",
   "type": "module",
   "sideEffects": false,
   "exports": {
@@ -12,7 +12,8 @@
       "types": "./dist/sporteev-components.d.ts",
       "import": "./dist/sporteev-components.es.js",
       "require": "./dist/sporteev-components.umd.js"
-    }
+    },
+    "./styles.css": "./dist/sporteev-components.css"
   },
   "files": [
     "dist/",

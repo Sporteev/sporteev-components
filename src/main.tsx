@@ -1,13 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
+import "./styles.css";
 
-const Page = () => {
-  return <div className="flex flex-col gap-4 p-4">Testing page</div>;
-};
+// Export styles
+export * from "./styles.css";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <Page />
-  </React.StrictMode>
-);
+// Export components
+export * from "./index";
