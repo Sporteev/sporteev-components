@@ -7,6 +7,8 @@ module.exports = {
         "soft-gradient": "linear-gradient(to right, #58AEFF, #6F72FF)",
       },
       colors: {
+        white: "#FFFFFF",
+        black: "#000000",
         primary: {
           100: "#001C37",
           90: "#00325A",
@@ -56,19 +58,19 @@ module.exports = {
           10: "#FFFFFF",
         },
         danger: {
-          main: "#BA1A1A", // Danger color
+          main: "#BA1A1A",
           accent: "#FFEDEA",
           "main-hover": "#EA2B2B",
           "accent-hover": "#FFE0DB",
         },
         warning: {
-          main: "#EEA604", // Warning color
+          main: "#EEA604",
           accent: "#FFF7E4",
           "main-hover": "#FAB61D",
           "accent-hover": "#FFF2D2",
         },
         success: {
-          main: "#007A0D", // Success color
+          main: "#007A0D",
           accent: "#D6FFDA",
           "main-hover": "#089016",
           "accent-hover": "#C1FFC8",
@@ -79,7 +81,21 @@ module.exports = {
           dark: "linear-gradient(90deg, #2F3033 0%, #5D5E61 100%)",
         },
       },
+      fontFamily: {
+        sans: [
+          "ui-sans-serif",
+          "system-ui",
+          "sans-serif",
+          "Apple Color Emoji",
+          "Segoe UI Emoji",
+          "Segoe UI Symbol",
+          "Noto Color Emoji",
+        ],
+      },
     },
   },
   plugins: [],
+  corePlugins: {
+    preflight: false,
+  },
 };

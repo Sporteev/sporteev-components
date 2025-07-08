@@ -1,6 +1,10 @@
 src/
+*.stories.*
+*.test.*
+*.spec.*
+.storybook/
+.vite/
+node_modules/
 tsconfig.json
 vite.config.ts
-*.test.ts
-*.test.tsx
-.git/
+*.log

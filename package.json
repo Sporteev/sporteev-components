@@ -21,8 +21,9 @@
     "LICENSE"
   ],
   "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && vite build",
     "dev": "vite",
-    "build": "vite build && tsc --declaration --allowJs --outDir dist",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",

@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all",
+  "btn flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all",
   {
     defaultVariants: {
       variant: "primary",
@@ -15,13 +15,13 @@ const buttonVariants = cva(
         primary: "bg-primary-80 text-neutral-10 hover:bg-primary-90",
         secondary: "bg-primary-20 text-primary-80 hover:bg-primary-30",
         outline:
-          "border-2 border-primary-80 text-primary-80 hover:bg-primary-80 hover:text-neutral-20",
+          "border-2 border-primary-80 text-primary-80 bg-white hover:bg-primary-80 hover:text-neutral-20",
         ghost: "bg-primary-10 text-primary-80 hover:bg-primary-20",
       },
       size: {
-        large: "px-8 py-3 text-lg",
-        medium: "px-6 py-2 text-md",
-        small: "px-4 py-1 text-sm",
+        large: "px-8 h-12 text-lg font-semibold",
+        medium: "px-6 h-10 text-md font-semibold",
+        small: "px-4 h-8 text-xs font-semibold",
       },
       danger: {
         true: "",
@@ -29,6 +29,10 @@ const buttonVariants = cva(
       },
       disabled: {
         true: "",
+        false: "",
+      },
+      fullWidth: {
+        true: "w-full",
         false: "",
       },
     },
@@ -95,6 +99,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       size = "medium",
       danger = false,
       disabled = false,
+      fullWidth = false,
       ...props
     },
     ref
@@ -102,7 +107,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         className={cn(
-          buttonVariants({ variant, size, danger, disabled, className })
+          buttonVariants({
+            variant,
+            size,
+            danger,
+            disabled,
+            className,
+            fullWidth,
+          })
         )}
         disabled={!!disabled}
         ref={ref}

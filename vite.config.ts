@@ -11,7 +11,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: resolve(__dirname, "src/main.tsx"),
+      entry: resolve(__dirname, "src/index.tsx"),
       name: "SporteevComponents",
       formats: ["es", "umd"],
       fileName: (format) => `sporteev-components.${format}.js`,
@@ -40,7 +40,18 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
+      include: ["src/**/*.tsx", "src/**/*.ts"],
+      exclude: ["src/**/*.stories.tsx", "src/**/*.test.tsx"],
+      rollupTypes: true,
       insertTypesEntry: true,
+      compilerOptions: {
+        baseUrl: ".",
+        paths: {
+          "@/*": ["./src/*"],
+        },
+      },
+      outDir: "dist",
+      copyDtsFiles: false,
     }),
   ],
 });
