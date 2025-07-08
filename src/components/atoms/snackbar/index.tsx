@@ -54,7 +54,7 @@ const Snackbar = ({
       <div className="flex flex-grow items-center gap-2 md:w-[30vw]">
         <LogoFlat size={40} />
         <div className="flex w-full flex-col">
-          <h3 className="font-medium">{title}</h3>
+          <h4 className="font-semibold">{title}</h4>
           {body && <p className="text-sm opacity-90">{body}</p>}
         </div>
       </div>

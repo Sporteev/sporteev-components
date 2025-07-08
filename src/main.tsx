@@ -1,11 +1,12 @@
 import "./styles.css";
-import "./index.css";
 import "./dev.css";
 
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Button, InfoBox } from "@/components/atoms";
 import { Modal } from "@/components/molecules";
+import { Snackbar, useSnackbar } from "@/components/atoms/snackbar";
+import { LabelChip } from "@/components/atoms/label-chip";
 import { X, Check, Trash2, Save } from "lucide-react";
 
 const Page = () => {
@@ -13,9 +14,51 @@ const Page = () => {
   const [isSmallModalOpen, setIsSmallModalOpen] = useState(false);
   const [isLargeModalOpen, setIsLargeModalOpen] = useState(false);
   const [isDangerModalOpen, setIsDangerModalOpen] = useState(false);
+  const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
+      {/* LabelChip Demo Row */}
+      <div className="mb-4 flex flex-wrap gap-2">
+        <LabelChip
+          size="small"
+          text="Primary"
+          color="primary"
+          icon={<Check />}
+        />
+        <LabelChip
+          size="medium"
+          text="Success"
+          color="success"
+          icon={<Check />}
+        />
+        <LabelChip
+          size="large"
+          text="Warning"
+          color="warning"
+          icon={<Check />}
+        />
+        <LabelChip text="Danger" color="danger" icon={<Check />} />
+        <LabelChip text="Gray" color="gray" icon={<Check />} />
+        <LabelChip text="Dark" color="dark" />
+        <LabelChip text="Large" color="primary" size="large" />
+        <LabelChip text="Small" color="primary" size="small" />
+      </div>
+      {/* Snackbar Demo Button */}
+      <Button
+        onClick={() =>
+          showSnackbar({
+            title: "Hello from Snackbar!",
+            body: "This is a demo notification.",
+            variant: "primary",
+            duration: 3000,
+          })
+        }
+      >
+        Show Snackbar
+      </Button>
+      {/* Render Snackbar if present */}
+      {snackbar && <Snackbar {...snackbar} onClose={hideSnackbar} />}
       <div className="space-y-8">
         {/* Primary Buttons */}
         <div className="space-y-2">
@@ -130,11 +173,11 @@ const Page = () => {
             This is a simple modal with a single action button. The content is
             centered and uses the full width of the modal.
           </p>
-          <div className="rounded-lg bg-neutral-10 p-4">
+          <div className="rounded-lg bg-neutral-10">
             <p className="text-sm text-neutral-60">
               You can add any content here, including:
             </p>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-sm text-neutral-60">
+            <ul className="list-inside list-disc space-y-1 text-sm text-neutral-60">
               <li>Text and paragraphs</li>
               <li>Lists and bullet points</li>
               <li>Cards and containers</li>
@@ -234,29 +277,11 @@ const Page = () => {
         ]}
       >
         <div className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <h3 className="font-medium text-neutral-90">Section 1</h3>
-              <p className="text-neutral-70">
-                Large modals are perfect for complex content that requires more
-                space. You can use grid layouts to organize information
-                effectively.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h3 className="font-medium text-neutral-90">Section 2</h3>
-              <p className="text-neutral-70">
-                The content can be split into multiple columns or sections,
-                making it easier to scan and understand.
-              </p>
-            </div>
-          </div>
-
-          <div className="rounded-lg bg-neutral-10 p-4">
+          <div className="rounded-lg bg-neutral-10">
             <h3 className="font-medium text-neutral-90">
               Additional Information
             </h3>
-            <p className="mt-2 text-neutral-70">
+            <p className="text-neutral-70">
               You can include various types of content in a large modal:
             </p>
             <ul className="mt-2 list-inside list-disc space-y-1 text-neutral-70">
@@ -267,12 +292,6 @@ const Page = () => {
               <li>Interactive elements</li>
             </ul>
           </div>
-
-          <InfoBox variant="warning" title="Note">
-            Large modals should be used when you need to display complex
-            information or when the content requires more space to be properly
-            understood.
-          </InfoBox>
         </div>
       </Modal>
 

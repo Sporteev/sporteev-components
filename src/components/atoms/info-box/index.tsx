@@ -29,7 +29,7 @@ const iconVariants = cva("h-6 w-6 shrink-0", {
   },
 });
 
-const titleVariants = cva("font-bold", {
+const titleVariants = cva("font-bold mb-2 mt-0", {
   variants: {
     variant: {
       info: "text-primary-70",

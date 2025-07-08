@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { type ReactNode } from "react";
 
 const labelVariants = cva(
-  "flex items-center gap-2 rounded-lg font-medium w-fit",
+  "flex items-center gap-1 rounded-lg font-medium w-fit",
   {
     variants: {
       color: {
@@ -15,9 +15,9 @@ const labelVariants = cva(
         dark: "bg-neutral-70 text-neutral-30",
       },
       size: {
-        small: "py-1 px-2 text-sm",
-        medium: "py-2 px-3 text-sm",
-        large: "py-2 px-3 text-md",
+        small: "h-6 px-2 text-xs",
+        medium: "h-8 px-3 text-sm",
+        large: "h-10 px-3 text-md",
       },
     },
   }
