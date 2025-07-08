@@ -8,9 +8,9 @@ const modalVariants = cva(
   {
     variants: {
       size: {
-        small: "[&>div]:max-w-sm",
-        medium: "[&>div]:max-w-md",
-        large: "[&>div]:max-w-4xl",
+        small: "[&>div]:max-w-sm [&>div]:min-w-[20rem]", // min-w-80
+        medium: "[&>div]:max-w-md [&>div]:min-w-[28rem]", // min-w-112
+        large: "[&>div]:max-w-4xl [&>div]:min-w-[48rem]", // min-w-192
       },
     },
     defaultVariants: {
@@ -81,7 +81,7 @@ const Modal: React.FC<ModalProps> = ({
       >
         <div className={cn("p-6", contentClassName)}>
           {title && (
-            <h2 className="mb-4 w-full text-center text-xl font-semibold text-neutral-90">
+            <h2 className="mb-4 mt-0 w-full text-center text-xl font-semibold text-neutral-90">
               {title}
             </h2>
           )}
