@@ -25,19 +25,3 @@
     --ring: 222.2 84% 4.9%;
   }
 }
-
-/* Component-specific styles */
-@layer components {
-  /* Add any component-specific styles here */
-  .sporteev-button {
-    @apply rounded-lg px-4 py-2 font-medium transition-colors;
-  }
-
-  .sporteev-button-primary {
-    @apply bg-primary-70 text-white hover:bg-primary-80;
-  }
-
-  .sporteev-button-secondary {
-    @apply bg-secondary-20 text-secondary-100 hover:bg-secondary-30;
-  }
-}

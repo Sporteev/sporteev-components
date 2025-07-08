@@ -1,12 +1,12 @@
 import "./styles.css";
 import "./index.css";
+import "./dev.css";
 
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Button, InfoBox } from "@/components/atoms";
 import { Modal } from "@/components/molecules";
 import { X, Check, Trash2, Save } from "lucide-react";
-import "./index.css";
 
 const Page = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
