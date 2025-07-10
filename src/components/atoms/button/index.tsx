@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "btn flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all",
+  "btn cursor-pointer flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all",
   {
     defaultVariants: {
       variant: "primary",

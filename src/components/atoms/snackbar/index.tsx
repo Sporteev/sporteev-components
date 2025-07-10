@@ -1,10 +1,17 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { LogoFlat } from "@/components/icons";
 
 const snackbarVariants = cva(
-  "fixed flex items-start gap-3 rounded-lg px-4 py-3 shadow-lg transition-all duration-300 ease-in-out md:bottom-4 md:right-4 md:left-auto md:top-auto md:translate-x-0 md:w-auto md:max-w-md w-[calc(100%-2rem)] top-4 left-4 -translate-y-full data-[state=open]:translate-y-0 md:p-4 p-3",
+  [
+    "fixed flex items-start gap-3 rounded-lg shadow-lg",
+    "transition-all duration-300 ease-in-out",
+    "md:bottom-4 md:left-4 md:right-auto md:top-auto",
+    "md:w-auto md:max-w-[40%]",
+    "w-[calc(100%-2rem-1.5rem)] max-w-full",
+    "top-4 left-4 p-3",
+  ].join(" "),
   {
     variants: {
       variant: {
@@ -30,6 +37,7 @@ interface SnackbarProps extends VariantProps<typeof snackbarVariants> {
   action?: ReactNode;
   duration?: number;
   onClose?: () => void;
+  icon?: ReactNode;
 }
 
 const Snackbar = ({
@@ -39,20 +47,70 @@ const Snackbar = ({
   action,
   duration = 3000,
   onClose,
+  icon,
 }: SnackbarProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
   useEffect(() => {
+    // Slide in animation
+    const slideInTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+
+    // Auto close timer
     if (duration && onClose) {
-      const timer = setTimeout(() => {
-        onClose();
+      const closeTimer = setTimeout(() => {
+        handleClose();
       }, duration);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(slideInTimer);
+        clearTimeout(closeTimer);
+      };
     }
+
+    return () => clearTimeout(slideInTimer);
   }, [duration, onClose]);
 
+  const handleClose = () => {
+    setIsClosing(true);
+    // Wait for slide-out animation to complete before calling onClose
+    setTimeout(() => {
+      onClose?.();
+    }, 300); // Match the CSS transition duration
+  };
+
   return (
-    <div className={cn(snackbarVariants({ variant }))} data-state="open">
+    <div
+      className={cn(
+        snackbarVariants({ variant }),
+        // Slide animations - horizontal for both mobile and desktop
+        isVisible && !isClosing ? "translate-x-0" : "-translate-x-full"
+      )}
+      data-state={isVisible && !isClosing ? "open" : "closed"}
+    >
+      {/* Close button */}
+      <button
+        onClick={handleClose}
+        className="absolute right-2 top-2 rounded-full bg-transparent p-1 text-inherit"
+        aria-label="Close snackbar"
+        tabIndex={-1}
+      >
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+          style={{ color: "inherit" }}
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
       <div className="flex flex-grow items-center gap-2 md:w-[30vw]">
-        <LogoFlat size={40} />
+        {icon || <LogoFlat size={32} />}
         <div className="flex w-full flex-col">
           <h4 className="font-semibold">{title}</h4>
           {body && <p className="text-sm opacity-90">{body}</p>}

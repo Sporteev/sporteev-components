@@ -5,6 +5,7 @@ type SnackbarVariant = NonNullable<SnackbarProps["variant"]>;
 
 interface UseSnackbarOptions extends Omit<SnackbarProps, "onClose"> {
   duration?: number;
+  icon?: React.ReactNode;
 }
 
 export const useSnackbar = () => {
@@ -24,7 +25,8 @@ export const useSnackbar = () => {
       title: string,
       body?: string,
       action?: SnackbarProps["action"],
-      duration?: number
+      duration?: number,
+      icon?: React.ReactNode
     ) => {
       showSnackbar({
         title,
@@ -32,6 +34,7 @@ export const useSnackbar = () => {
         action,
         variant,
         duration,
+        icon,
       });
     },
     [showSnackbar]

@@ -4,13 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const modalVariants = cva(
-  "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50",
+  "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4",
   {
     variants: {
       size: {
-        small: "[&>div]:max-w-sm [&>div]:min-w-[20rem]", // min-w-80
-        medium: "[&>div]:max-w-md [&>div]:min-w-[28rem]", // min-w-112
-        large: "[&>div]:max-w-4xl [&>div]:min-w-[48rem]", // min-w-192
+        small:
+          "[&>div]:w-full [&>div]:max-w-sm [&>div]:md:min-w-[20rem] [&>div]:max-h-[50vh] [&>div]:overflow-y-auto", // min-w-80
+        medium:
+          "[&>div]:w-full [&>div]:max-w-md [&>div]:md:min-w-[32rem] [&>div]:max-h-[70vh] [&>div]:overflow-y-auto", // min-w-112
+        large:
+          "[&>div]:w-full [&>div]:max-w-4xl [&>div]:md:min-w-[48rem] [&>div]:max-h-[90vh] [&>div]:overflow-y-auto", // min-w-192
       },
     },
     defaultVariants: {
@@ -79,7 +82,10 @@ const Modal: React.FC<ModalProps> = ({
         ref={modalRef}
         className="relative mx-auto overflow-hidden rounded-2xl bg-white"
       >
-        <div className={cn("p-6", contentClassName)}>
+        <div
+          className={cn("overflow-y-auto p-6", contentClassName)}
+          style={{ maxHeight: "inherit" }}
+        >
           {title && (
             <h2 className="mb-4 mt-0 w-full text-center text-xl font-semibold text-neutral-90">
               {title}
@@ -89,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {actions.length > 0 && (
-          <div className="border-t border-neutral-20 bg-neutral-10 px-6 py-4">
+          <div className="sticky bottom-0 left-0 z-10 border-t border-neutral-20 bg-neutral-10 px-6 py-4">
             <div
               className={cn(
                 "grid gap-3",
