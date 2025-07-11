@@ -1,11 +1,11 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { LogoFlat } from "@/components/icons";
 
 const snackbarVariants = cva(
   [
-    "fixed flex items-start gap-3 rounded-lg shadow-lg",
+    "fixed flex flex-col items-start gap-3 rounded-lg shadow-lg",
     "transition-all duration-300 ease-in-out",
     "md:bottom-4 md:left-4 md:right-auto md:top-auto",
     "md:w-auto md:max-w-[40%]",
@@ -36,7 +36,7 @@ interface SnackbarProps extends VariantProps<typeof snackbarVariants> {
   body?: string;
   action?: ReactNode;
   duration?: number;
-  onClose?: () => void;
+  onClose: () => void;
   icon?: ReactNode;
 }
 
@@ -51,6 +51,13 @@ const Snackbar = ({
 }: SnackbarProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+
+  const handleClose = useCallback(() => {
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose?.();
+    }, 300);
+  }, [onClose]);
 
   useEffect(() => {
     // Slide in animation
@@ -70,15 +77,7 @@ const Snackbar = ({
     }
 
     return () => clearTimeout(slideInTimer);
-  }, [duration, onClose]);
-
-  const handleClose = () => {
-    setIsClosing(true);
-    // Wait for slide-out animation to complete before calling onClose
-    setTimeout(() => {
-      onClose?.();
-    }, 300); // Match the CSS transition duration
-  };
+  }, [duration, handleClose, onClose]);
 
   return (
     <div
@@ -111,12 +110,12 @@ const Snackbar = ({
 
       <div className="flex flex-grow items-center gap-2 md:w-[30vw]">
         {icon || <LogoFlat size={32} />}
-        <div className="flex w-full flex-col">
+        <div className="flex w-full flex-col gap-2">
           <h4 className="font-semibold">{title}</h4>
           {body && <p className="text-sm opacity-90">{body}</p>}
+          {action && <div className="">{action}</div>}
         </div>
       </div>
-      {action && <div className="ml-auto shrink-0">{action}</div>}
     </div>
   );
 };

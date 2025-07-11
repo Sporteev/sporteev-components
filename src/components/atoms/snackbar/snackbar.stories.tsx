@@ -1,5 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta } from "@storybook/react";
 import { Snackbar } from ".";
+import { useSnackbar } from "./useSnackbar";
+import { Button } from "../button";
 
 const meta: Meta<typeof Snackbar> = {
   title: "Atoms/Snackbar",
@@ -59,7 +61,7 @@ const meta: Meta<typeof Snackbar> = {
     },
     title: {
       control: "text",
-      description: "The main message of the snackbar",
+      description: "The main message of the snackbar. Bold text.",
       defaultValue: "Snackbar Title",
     },
     body: {
@@ -68,82 +70,117 @@ const meta: Meta<typeof Snackbar> = {
       defaultValue: "This is the body of the snackbar",
     },
     duration: {
-      control: false,
+      control: "number",
       description: "Duration in milliseconds before auto-closing",
     },
     action: {
       control: false,
-      description: "The action button to display",
+      description:
+        "The action button to display. Can be a button or a link. Or anything as long it's ReactNode.",
+    },
+    onClose: {
+      control: false,
+      description:
+        "The function to close the snackbar. You must pass hideSnackbar as the onClose function. If you provide a custom onClose, make sure to call hideSnackbar within it.",
+      required: true,
     },
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof Snackbar>;
 
-const textBody =
-  "The sun was shining brightly in the clear blue sky. Birds were chirping melodiously as they flitted from tree to tree.";
+const WithHookDemoComponent = ({ variant, title, body, action }) => {
+  const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
+  return (
+    <div>
+      <Button
+        onClick={() =>
+          showSnackbar({ variant, title, body, action, duration: 3000 })
+        }
+      >
+        Show Snackbar
+      </Button>
+      {snackbar && (
+        <Snackbar {...snackbar} action={action} onClose={hideSnackbar} />
+      )}
+    </div>
+  );
+};
 
-export const Primary: Story = {
+export const WithHookDemo = {
+  render: (args) => <WithHookDemoComponent {...args} />,
   args: {
-    title: "Primary Snackbar",
-    body: textBody,
     variant: "primary",
+    title: "Hook-based Snackbar",
+    body: "This snackbar is triggered using the useSnackbar hook.",
+    action: (
+      <Button
+        variant="primary"
+        size="small"
+        className="!h-6 !text-[10px]"
+        onClick={() => alert("Action clicked!")}
+      >
+        Action
+      </Button>
+    ),
   },
-};
+  argTypes: {
+    variant: {
+      control: "select",
+      options: [
+        "primary",
+        "tertiary",
+        "success",
+        "warning",
+        "danger",
+        "gray",
+        "dark",
+        "light",
+      ],
+    },
+    title: { control: "text" },
+    body: { control: "text" },
+    action: { control: false },
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+import { useSnackbar } from "./useSnackbar";
+import { Snackbar } from ".";
+import { Button } from "../button";
 
-export const Tertiary: Story = {
-  args: {
-    title: "Tertiary Snackbar",
-    body: "This is a tertiary snackbar message",
-    variant: "tertiary",
-  },
-};
+const { snackbar, show, hideSnackbar } = useSnackbar();
 
-export const Success: Story = {
-  args: {
-    title: "Success Message",
-    body: "Operation completed successfully",
-    variant: "success",
-  },
-};
+const actionButton = <Button onClick={() => alert('Action clicked!')}>Action</Button>;
 
-export const Warning: Story = {
-  args: {
-    title: "Warning Message",
-    body: "Please check your input",
-    variant: "warning",
+return (
+  <div>
+    <Button
+      onClick={() =>
+        show(
+          variant,
+          title,
+          body,
+          actionButton,
+          3000
+        )
+      }
+    >
+      Show Snackbar
+    </Button>
+    {snackbar && (
+      <Snackbar
+        {...snackbar}
+        action={actionButton}
+        onClose={hideSnackbar}
+      />
+    )}
+  </div>
+);
+        `,
+      },
+    },
   },
-};
-
-export const Danger: Story = {
-  args: {
-    title: "Error Message",
-    body: "Something went wrong",
-    variant: "danger",
-  },
-};
-
-export const Gray: Story = {
-  args: {
-    title: "Gray Message",
-    body: textBody,
-    variant: "gray",
-  },
-};
-
-export const Dark: Story = {
-  args: {
-    title: "Dark Message",
-    body: textBody,
-    variant: "dark",
-  },
-};
-
-export const Light: Story = {
-  args: {
-    title: "Light Message",
-    body: textBody,
-    variant: "light",
-  },
+  name: "Snackbar",
 };

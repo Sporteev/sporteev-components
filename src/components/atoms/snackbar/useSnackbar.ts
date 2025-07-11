@@ -1,8 +1,6 @@
 import { useState, useCallback } from "react";
 import type { SnackbarProps } from "./index";
 
-type SnackbarVariant = NonNullable<SnackbarProps["variant"]>;
-
 interface UseSnackbarOptions extends Omit<SnackbarProps, "onClose"> {
   duration?: number;
   icon?: React.ReactNode;
@@ -19,31 +17,9 @@ export const useSnackbar = () => {
     setSnackbar(null);
   }, []);
 
-  const show = useCallback(
-    (
-      variant: SnackbarVariant,
-      title: string,
-      body?: string,
-      action?: SnackbarProps["action"],
-      duration?: number,
-      icon?: React.ReactNode
-    ) => {
-      showSnackbar({
-        title,
-        body,
-        action,
-        variant,
-        duration,
-        icon,
-      });
-    },
-    [showSnackbar]
-  );
-
   return {
     snackbar,
     showSnackbar,
     hideSnackbar,
-    show,
   };
 };
