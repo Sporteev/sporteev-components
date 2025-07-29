@@ -8,11 +8,7 @@ export interface RadioButtonProps {
   checked?: boolean;
   onChange?: (value: string) => void;
   disabled?: boolean;
-  required?: boolean;
-  error?: boolean;
-  errorMessage?: string;
   helperText?: string;
-  className?: string;
   labelClassName?: string;
   helperTextClassName?: string;
 }
@@ -23,9 +19,6 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   checked = false,
   onChange,
   disabled = false,
-  required = false,
-  error = false,
-  errorMessage,
   helperText,
   labelClassName,
   helperTextClassName,
@@ -46,12 +39,10 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   };
 
   const inputStateClasses = {
-    error: "accent-danger-main",
     normal: "accent-primary-70",
   };
 
   const helperTextStateClasses = {
-    error: "text-danger-main",
     normal: "text-neutral-60",
   };
 
@@ -62,11 +53,11 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   };
 
   const getInputClasses = () => {
-    return error ? inputStateClasses.error : inputStateClasses.normal;
+    return inputStateClasses.normal;
   };
 
   const getHelperTextClasses = () => {
-    return error ? helperTextStateClasses.error : helperTextStateClasses.normal;
+    return helperTextStateClasses.normal;
   };
 
   const containerClasses = cn(baseContainerClasses, getContainerClasses());
@@ -76,8 +67,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   const labelClasses = cn(
     "font-medium select-none",
     {
-      "text-danger-main": error,
-      "text-neutral-100": !error && !disabled,
+      "text-neutral-100": !disabled,
       "text-neutral-80": disabled,
     },
     labelClassName
@@ -89,8 +79,6 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     helperTextClassName
   );
 
-  const displayHelperText = error && errorMessage ? errorMessage : helperText;
-
   return (
     <div className="flex flex-col justify-center">
       <label className={containerClasses}>
@@ -101,19 +89,17 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
             checked={checked}
             onChange={handleChange}
             disabled={disabled}
-            required={required}
             className={inputClasses}
           />
           {label && (
             <Text variant="bold-medium-text" className={labelClasses}>
               {label}
-              {required && <span className="ml-1 text-red-500">*</span>}
             </Text>
           )}
         </div>
-        {displayHelperText && (
+        {helperText && (
           <Text variant="multiline-small-text" className={helperTextClasses}>
-            {displayHelperText}
+            {helperText}
           </Text>
         )}
       </label>

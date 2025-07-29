@@ -3,7 +3,7 @@ import { useState } from "react";
 import { RadioButton } from "./index";
 
 const meta: Meta<typeof RadioButton> = {
-  title: "Molecules/RadioButton",
+  title: "Atoms/RadioButton",
   component: RadioButton,
   parameters: {
     layout: "centered",
@@ -35,31 +35,12 @@ export const Checked: Story = {
   },
 };
 
-// Required Field
-export const Required: Story = {
-  args: {
-    label: "Required Option",
-    value: "required",
-    required: true,
-  },
-};
-
 // With Helper Text
 export const WithHelperText: Story = {
   args: {
     label: "Option with Helper Text",
     value: "option1",
     helperText: "This is helpful information about this option",
-  },
-};
-
-// Error State
-export const Error: Story = {
-  args: {
-    label: "Error Option",
-    value: "error",
-    error: true,
-    errorMessage: "This field is required",
   },
 };
 

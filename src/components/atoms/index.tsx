@@ -4,3 +4,4 @@ export * from "./info-box";
 export * from "./label-chip";
 export * from "./snackbar";
 export * from "./text";
+export * from "./radio-button";
