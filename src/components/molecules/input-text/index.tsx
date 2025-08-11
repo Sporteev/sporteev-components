@@ -39,7 +39,10 @@ export interface TextAreaProps
 
 export type InputTextComponentProps = InputTextProps | TextAreaProps;
 
-export const InputText: React.FC<InputTextComponentProps> = (props) => {
+export const InputText = React.forwardRef<
+  HTMLInputElement | HTMLTextAreaElement,
+  InputTextComponentProps
+>((props, ref) => {
   const {
     label,
     placeholder,
@@ -135,6 +138,7 @@ export const InputText: React.FC<InputTextComponentProps> = (props) => {
           )}
 
           <textarea
+            ref={ref as React.Ref<HTMLTextAreaElement>}
             className={cn(baseInputClasses, {
               "pl-10": startAdornment,
               "pr-10": endAdornment || showHelperIcon,
@@ -187,6 +191,7 @@ export const InputText: React.FC<InputTextComponentProps> = (props) => {
         )}
 
         <input
+          ref={ref as React.Ref<HTMLInputElement>}
           type={type}
           className={cn(baseInputClasses, {
             "pl-10": startAdornment,
@@ -220,6 +225,8 @@ export const InputText: React.FC<InputTextComponentProps> = (props) => {
       )}
     </div>
   );
-};
+});
+
+InputText.displayName = "InputText";
 
 export default InputText;
