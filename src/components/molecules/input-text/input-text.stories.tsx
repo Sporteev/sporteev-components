@@ -12,7 +12,6 @@ const meta: Meta<typeof InputText> = {
   argTypes: {
     label: { control: "text" },
     placeholder: { control: "text" },
-    error: { control: "boolean" },
     errorMessage: { control: "text" },
     helperText: { control: "text" },
     required: { control: "boolean" },
@@ -60,7 +59,6 @@ export const WithError: StoryObj<typeof InputText> = {
     label: "Email Address",
     placeholder: "Enter your email",
     type: "email",
-    error: true,
     errorMessage: "Please enter a valid email address",
     multiline: false,
   } as InputTextProps,
@@ -218,7 +216,6 @@ export const Textarea: StoryObj<typeof InputText> = {
 // Controlled input component
 const ControlledInputComponent = () => {
   const [value, setValue] = useState("");
-  const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -227,10 +224,8 @@ const ControlledInputComponent = () => {
 
     // Simple validation
     if (newValue.length > 0 && newValue.length < 3) {
-      setError(true);
       setErrorMessage("Input must be at least 3 characters long");
     } else {
-      setError(false);
       setErrorMessage("");
     }
   };
@@ -241,7 +236,6 @@ const ControlledInputComponent = () => {
       placeholder="Type something..."
       value={value}
       onChange={handleChange}
-      error={error}
       errorMessage={errorMessage}
       helperText="This input is controlled and has validation"
       multiline={false}

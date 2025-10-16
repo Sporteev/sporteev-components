@@ -5,7 +5,6 @@ import { HelpCircle } from "lucide-react";
 export interface BaseInputProps {
   label?: string;
   placeholder?: string;
-  error?: boolean;
   errorMessage?: string;
   helperText?: string;
   required?: boolean;
@@ -46,7 +45,6 @@ export const InputText = React.forwardRef<
   const {
     label,
     placeholder,
-    error = false,
     errorMessage,
     helperText,
     required = false,
@@ -66,9 +64,12 @@ export const InputText = React.forwardRef<
     ...restProps
   } = props;
 
+  // Determine error state from errorMessage presence
+  const hasError = Boolean(errorMessage);
+
   // Determine which helper text to show
-  const displayHelperText = error && errorMessage ? errorMessage : helperText;
-  const showHelperIcon = displayHelperText && !error; // Only show question mark for non-error helper text
+  const displayHelperText = hasError ? errorMessage : helperText;
+  const showHelperIcon = displayHelperText && !hasError;
 
   // Size classes
   const sizeClasses = {
@@ -82,7 +83,7 @@ export const InputText = React.forwardRef<
     "border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-neutral-40 bg-white hover:border-neutral-40 focus:border-primary-50",
     sizeClasses[inputSize],
     {
-      "border-red-500 bg-red-50": error,
+      "border-red-500": hasError,
       "border-gray-300 bg-gray-50": disabled,
       "w-full": fullWidth,
       "cursor-not-allowed opacity-50": disabled,
@@ -104,8 +105,8 @@ export const InputText = React.forwardRef<
   const labelClasses = cn(
     "text-sm font-medium mb-1",
     {
-      "text-red-600": error,
-      "text-gray-700": !error,
+      "text-red-600": hasError,
+      "text-gray-700": !hasError,
     },
     labelClassName
   );
@@ -114,8 +115,8 @@ export const InputText = React.forwardRef<
   const helperTextClasses = cn(
     "text-xs",
     {
-      "text-red-600": error,
-      "text-gray-500": !error,
+      "text-red-600": hasError,
+      "text-gray-500": !hasError,
     },
     helperTextClassName
   );
@@ -167,9 +168,7 @@ export const InputText = React.forwardRef<
           )}
         </div>
 
-        {error && errorMessage && (
-          <p className={helperTextClasses}>{errorMessage}</p>
-        )}
+        {hasError && <p className={helperTextClasses}>{errorMessage}</p>}
       </div>
     );
   }
@@ -220,9 +219,7 @@ export const InputText = React.forwardRef<
         )}
       </div>
 
-      {error && errorMessage && (
-        <p className={helperTextClasses}>{errorMessage}</p>
-      )}
+      {hasError && <p className={helperTextClasses}>{errorMessage}</p>}
     </div>
   );
 });
