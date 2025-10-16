@@ -104,7 +104,6 @@ const Page = () => {
                 label="Input with Error"
                 value={emailValue}
                 onChange={(e) => setEmailValue(e.target.value)}
-                error={showError}
                 errorMessage={showError ? "Please enter a valid email" : ""}
               />
             </div>
@@ -447,7 +446,6 @@ const Page = () => {
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <InputText
                   label="Input with Error"
-                  error={true}
                   errorMessage="This field has an error"
                 />
                 <Select
