@@ -92,6 +92,133 @@ module.exports = {
           "Noto Color Emoji",
         ],
       },
+      fontSize: {
+        // Exact typography from sporteev-crm
+        h1: [
+          "36px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        h2: [
+          "32px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        h3: [
+          "28px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        h4: [
+          "24px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        h5: [
+          "20px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        h6: [
+          "18px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "bold-large-text": [
+          "16px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "regular-large-text": [
+          "16px",
+          { lineHeight: "120%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "multiline-large-text": [
+          "16px",
+          { lineHeight: "150%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "bold-medium-text": [
+          "14px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "regular-medium-text": [
+          "14px",
+          { lineHeight: "120%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "multiline-medium-text": [
+          "14px",
+          { lineHeight: "150%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "bold-small-text": [
+          "12px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "regular-small-text": [
+          "12px",
+          { lineHeight: "120%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "multiline-small-text": [
+          "12px",
+          { lineHeight: "150%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        // Desktop sizes for responsive typography
+        "h1-desktop": [
+          "64px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "h2-desktop": [
+          "56px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "h3-desktop": [
+          "48px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "h4-desktop": [
+          "36px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "h5-desktop": [
+          "24px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "h6-desktop": [
+          "20px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "bold-large-text-desktop": [
+          "18px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "regular-large-text-desktop": [
+          "18px",
+          { lineHeight: "120%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "multiline-large-text-desktop": [
+          "18px",
+          { lineHeight: "150%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "bold-medium-text-desktop": [
+          "16px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "regular-medium-text-desktop": [
+          "16px",
+          { lineHeight: "120%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "multiline-medium-text-desktop": [
+          "16px",
+          { lineHeight: "150%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "bold-small-text-desktop": [
+          "14px",
+          { lineHeight: "140%", letterSpacing: "-1%", fontWeight: "600" },
+        ],
+        "regular-small-text-desktop": [
+          "14px",
+          { lineHeight: "120%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+        "multiline-small-text-desktop": [
+          "14px",
+          { lineHeight: "150%", letterSpacing: "-1%", fontWeight: "400" },
+        ],
+      },
+      screens: {
+        lg: "960px", // Match sporteev-crm breakpoint
+      },
     },
   },
   plugins: [],

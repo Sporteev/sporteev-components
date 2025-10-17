@@ -3,354 +3,510 @@ import "./dev.css";
 
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { Button, InfoBox } from "@/components/atoms";
-import { Modal } from "@/components/molecules";
-import { Snackbar, useSnackbar } from "@/components/atoms/snackbar";
-import { LabelChip } from "@/components/atoms/label-chip";
-import { X, Check, Trash2, Save } from "lucide-react";
+import { Select, InputText } from "./components/molecules";
+import { Text } from "@/components/atoms/text";
+import { Mail, Lock, Phone, Globe, HelpCircle } from "lucide-react";
 
 const Page = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSmallModalOpen, setIsSmallModalOpen] = useState(false);
-  const [isLargeModalOpen, setIsLargeModalOpen] = useState(false);
-  const [isDangerModalOpen, setIsDangerModalOpen] = useState(false);
-  const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
+  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [errorValue, setErrorValue] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+  const [emailValue, setEmailValue] = useState("");
+  const [preselectedValue, setPreselectedValue] = useState("option2");
+  const [requiredValue, setRequiredValue] = useState("");
+  const [disabledOptionValue, setDisabledOptionValue] = useState("");
+  const [longOptionsValue, setLongOptionsValue] = useState("");
+
+  const sampleOptions = [
+    { label: "Option 1", value: "option1" },
+    { label: "Option 2", value: "option2" },
+    { label: "Option 3", value: "option3" },
+    { label: "Option 4", value: "option4" },
+    { label: "Option 5", value: "option5" },
+  ];
+
+  const colorOptions = [
+    { label: "Red", value: "red" },
+    { label: "Blue", value: "blue" },
+    { label: "Green", value: "green" },
+  ];
+
+  const longOptions = [
+    {
+      label: "This is a very long option text that might wrap or be truncated",
+      value: "long1",
+    },
+    { label: "Another long option with lots of text content", value: "long2" },
+    { label: "Short", value: "short" },
+    { label: "Medium length option", value: "medium" },
+  ];
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
-      {/* LabelChip Demo Row */}
-      <div className="mb-4 flex flex-wrap gap-2">
-        <LabelChip
-          size="small"
-          text="Primary"
-          color="primary"
-          icon={<Check />}
-        />
-        <LabelChip
-          size="medium"
-          text="Success"
-          color="success"
-          icon={<Check />}
-        />
-        <LabelChip
-          size="large"
-          text="Warning"
-          color="warning"
-          icon={<Check />}
-        />
-        <LabelChip text="Danger" color="danger" icon={<Check />} />
-        <LabelChip text="Gray" color="gray" icon={<Check />} />
-        <LabelChip text="Dark" color="dark" />
-        <LabelChip text="Large" color="primary" size="large" />
-        <LabelChip text="Small" color="primary" size="small" />
+      <div className="w-full max-w-4xl space-y-8">
+        <div className="text-center">
+          <Text variant="h1" color="primary">
+            Component Library Demo
+          </Text>
+          <Text variant="regular-medium-text" className="mt-2">
+            Compare InputText and Select components for consistency
+          </Text>
+        </div>
+
+        {/* InputText Component Demo */}
+        <section className="mb-8">
+          <Text variant="h3" className="mb-4">
+            InputText Component
+          </Text>
+
+          <div className="space-y-6">
+            {/* Basic InputText */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Basic InputText
+              </Text>
+              <InputText
+                label="Basic Input"
+                placeholder="Enter some text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </div>
+
+            {/* With Value */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Pre-filled Value
+              </Text>
+              <InputText label="Input with value" value="Pre-filled text" />
+            </div>
+
+            {/* Required */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Required Field
+              </Text>
+              <InputText
+                label="Required Input"
+                placeholder="This field is required"
+                required
+              />
+            </div>
+
+            {/* With Error */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Error State
+              </Text>
+              <InputText
+                label="Input with Error"
+                value={emailValue}
+                onChange={(e) => setEmailValue(e.target.value)}
+                errorMessage={showError ? "Please enter a valid email" : ""}
+              />
+            </div>
+
+            {/* With Helper Text */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Helper Text
+              </Text>
+              <InputText
+                label="Input with Helper"
+                placeholder="Enter your email"
+                helperText="We'll never share your email with anyone else"
+              />
+            </div>
+
+            {/* With Icons */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Icons
+              </Text>
+              <InputText
+                label="Email Input"
+                type="email"
+                placeholder="Enter your email"
+                startAdornment={<Mail className="h-4 w-4" />}
+                endAdornment={<HelpCircle className="h-4 w-4" />}
+                helperText="Click the question mark for help"
+              />
+            </div>
+
+            {/* Disabled */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Disabled InputText
+              </Text>
+              <InputText
+                label="Disabled Input"
+                value="Disabled text"
+                disabled
+              />
+            </div>
+
+            {/* Read Only */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Read Only InputText
+              </Text>
+              <InputText
+                label="Read Only Input"
+                value="This text cannot be edited"
+                readOnly
+              />
+            </div>
+
+            {/* Multiline */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Multiline InputText
+              </Text>
+              <InputText
+                label="Description"
+                placeholder="Enter a description"
+                multiline
+                rows={3}
+                helperText="This is a textarea for longer content"
+              />
+            </div>
+
+            {/* Different Types */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Different Input Types
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputText
+                  label="Email"
+                  type="email"
+                  placeholder="Enter email"
+                  startAdornment={<Mail className="h-4 w-4" />}
+                />
+                <InputText
+                  label="Password"
+                  type="password"
+                  placeholder="Enter password"
+                  startAdornment={<Lock className="h-4 w-4" />}
+                />
+                <InputText
+                  label="Phone"
+                  type="tel"
+                  placeholder="Enter phone number"
+                  startAdornment={<Phone className="h-4 w-4" />}
+                />
+                <InputText
+                  label="Website"
+                  type="url"
+                  placeholder="Enter website URL"
+                  startAdornment={<Globe className="h-4 w-4" />}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Select Component Demo */}
+        <section className="mb-8">
+          <Text variant="h3" className="mb-4">
+            Select Component
+          </Text>
+
+          <div className="space-y-6">
+            {/* Basic Select */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Basic Select
+              </Text>
+              <Select
+                label="Select an option"
+                options={sampleOptions}
+                value={selectedValue}
+                onChange={setSelectedValue}
+                placeholder="Choose an option"
+              />
+            </div>
+
+            {/* With Value */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Pre-selected Value
+              </Text>
+              <Select
+                label="Select with value"
+                options={sampleOptions}
+                value={preselectedValue}
+                onChange={setPreselectedValue}
+              />
+            </div>
+
+            {/* Required */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Required Field
+              </Text>
+              <Select
+                label="Required Selection"
+                options={sampleOptions}
+                value={requiredValue}
+                onChange={setRequiredValue}
+                required
+              />
+            </div>
+
+            {/* With Error */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Error State
+              </Text>
+              <Select
+                label="Select with Error"
+                options={sampleOptions}
+                value={errorValue}
+                onChange={setErrorValue}
+                errorMessage={showError ? "Please select an option" : ""}
+              />
+            </div>
+
+            {/* Disabled */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Disabled Select
+              </Text>
+              <Select
+                label="Disabled Select"
+                options={sampleOptions}
+                value="option1"
+                disabled
+              />
+            </div>
+
+            {/* With Disabled Option */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                With Disabled Option
+              </Text>
+              <Select
+                label="With Disabled Option"
+                options={[
+                  { label: "Option 1", value: "option1" },
+                  { label: "Option 2", value: "option2", disabled: true },
+                  { label: "Option 3", value: "option3" },
+                  { label: "Option 4", value: "option4" },
+                ]}
+                value={disabledOptionValue}
+                onChange={setDisabledOptionValue}
+              />
+            </div>
+
+            {/* Multiple Selects */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Multiple Selects
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <Select
+                  label="First Select"
+                  options={sampleOptions}
+                  value={selectedValue}
+                  onChange={setSelectedValue}
+                />
+                <Select
+                  label="Second Select"
+                  options={colorOptions}
+                  value={selectedColor}
+                  onChange={setSelectedColor}
+                />
+              </div>
+            </div>
+
+            {/* Long Options */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Long Options
+              </Text>
+              <Select
+                label="Select with Long Options"
+                options={longOptions}
+                value={longOptionsValue}
+                onChange={setLongOptionsValue}
+              />
+            </div>
+
+            {/* Empty Options Test Cases */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Empty Options Test Cases
+              </Text>
+              <div className="space-y-4">
+                {/* Empty Array */}
+                <div>
+                  <Text variant="h6" className="mb-2">
+                    Empty Array Options
+                  </Text>
+                  <Select
+                    label="Empty Array Test"
+                    options={[]}
+                    placeholder="Should show emptyLabel"
+                    emptyLabel="No options available (empty array)"
+                  />
+                </div>
+
+                {/* Undefined Options */}
+                <div>
+                  <Text variant="h6" className="mb-2">
+                    Undefined Options
+                  </Text>
+                  <Select
+                    label="Undefined Options Test"
+                    options={undefined}
+                    placeholder="Should show emptyLabel"
+                    emptyLabel="No options available (undefined)"
+                  />
+                </div>
+
+                {/* Null Options */}
+                <div>
+                  <Text variant="h6" className="mb-2">
+                    Null Options
+                  </Text>
+                  <Select
+                    label="Null Options Test"
+                    options={null}
+                    placeholder="Should show emptyLabel"
+                    emptyLabel="No options available (null)"
+                  />
+                </div>
+
+                {/* With Custom Empty Label */}
+                <div>
+                  <Text variant="h6" className="mb-2">
+                    Custom Empty Label
+                  </Text>
+                  <Select
+                    label="Custom Empty Label"
+                    options={[]}
+                    placeholder="Custom placeholder"
+                    emptyLabel="🚫 No data available - please try again later"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Comparison Section */}
+        <section className="mb-8">
+          <Text variant="h3" className="mb-4">
+            Side-by-Side Comparison
+          </Text>
+
+          <div className="space-y-6">
+            {/* Basic Comparison */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Basic Inputs
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputText label="Text Input" placeholder="Enter text" />
+                <Select
+                  label="Dropdown Select"
+                  options={sampleOptions}
+                  placeholder="Choose option"
+                />
+              </div>
+            </div>
+
+            {/* Required Comparison */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Required Fields
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputText
+                  label="Required Text Input"
+                  placeholder="This field is required"
+                  required
+                />
+                <Select
+                  label="Required Select"
+                  options={sampleOptions}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Error Comparison */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Error States
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputText
+                  label="Input with Error"
+                  errorMessage="This field has an error"
+                />
+                <Select
+                  label="Select with Error"
+                  options={sampleOptions}
+                  errorMessage="This field has an error"
+                />
+              </div>
+            </div>
+
+            {/* Disabled Comparison */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Disabled States
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputText
+                  label="Disabled Input"
+                  value="Disabled text"
+                  disabled
+                />
+                <Select
+                  label="Disabled Select"
+                  options={sampleOptions}
+                  value="option1"
+                  disabled
+                />
+              </div>
+            </div>
+
+            {/* Helper Text Comparison */}
+            <div>
+              <Text variant="h5" className="mb-2">
+                Helper Text
+              </Text>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <InputText
+                  label="Input with Helper"
+                  placeholder="Enter some text"
+                  helperText="This is helper text for the input"
+                />
+                <Select
+                  label="Select with Helper"
+                  options={sampleOptions}
+                  placeholder="Choose an option"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Error Toggle Button */}
+        <div className="text-center">
+          <button
+            onClick={() => setShowError(!showError)}
+            className="rounded-lg bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-600"
+          >
+            Toggle Error States
+          </button>
+        </div>
       </div>
-      {/* Snackbar Demo Button */}
-      <Button
-        onClick={() =>
-          showSnackbar({
-            title: "Hello from Snackbar!",
-            body: "This is a demo notification.",
-            variant: "primary",
-            duration: 3000,
-          })
-        }
-      >
-        Show Snackbar
-      </Button>
-      {/* Render Snackbar if present */}
-      {snackbar && <Snackbar {...snackbar} onClose={hideSnackbar} />}
-      <div className="space-y-8">
-        {/* Primary Buttons */}
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium text-neutral-80">
-            Primary Buttons
-          </h3>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="primary" size="small" danger>
-              Small Primary
-            </Button>
-            <Button variant="primary" size="medium" danger>
-              Medium Primary
-            </Button>
-            <Button variant="primary" size="large" danger>
-              Large Primary
-            </Button>
-            <Button variant="primary" disabled>
-              Disabled Primary
-            </Button>
-            <Button variant="primary" danger>
-              Danger Primary
-            </Button>
-          </div>
-        </div>
-
-        {/* Secondary Buttons */}
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium text-neutral-80">
-            Secondary Buttons
-          </h3>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="secondary" size="small">
-              Small Secondary
-            </Button>
-            <Button variant="secondary" size="medium">
-              Medium Secondary
-            </Button>
-            <Button variant="secondary" size="large">
-              Large Secondary
-            </Button>
-            <Button variant="secondary" disabled>
-              Disabled Secondary
-            </Button>
-            <Button variant="secondary" danger>
-              Danger Secondary
-            </Button>
-          </div>
-        </div>
-
-        {/* Outline Buttons */}
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium text-neutral-80">
-            Outline Buttons
-          </h3>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="outline" size="small">
-              Small Outline
-            </Button>
-            <Button variant="outline" size="medium">
-              Medium Outline
-            </Button>
-            <Button variant="outline" size="large">
-              Large Outline
-            </Button>
-            <Button variant="outline" disabled>
-              Disabled Outline
-            </Button>
-            <Button variant="outline" danger>
-              Danger Outline
-            </Button>
-          </div>
-        </div>
-
-        {/* Ghost Buttons */}
-        <div className="space-y-2">
-          <h3 className="text-lg font-medium text-neutral-80">Ghost Buttons</h3>
-          <div className="flex flex-wrap gap-4">
-            <Button variant="ghost" size="small">
-              Small Ghost
-            </Button>
-            <Button variant="ghost" size="medium">
-              Medium Ghost
-            </Button>
-            <Button variant="ghost" size="large">
-              Large Ghost
-            </Button>
-            <Button variant="ghost" disabled>
-              Disabled Ghost
-            </Button>
-            <Button variant="ghost" danger>
-              Danger Ghost
-            </Button>
-          </div>
-        </div>
-      </div>
-      {/* Simple Modal */}
-      <Button onClick={() => setIsModalOpen(true)}>Show Simple Modal</Button>
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        title="Simple Modal"
-        actions={[
-          {
-            children: "Close",
-            onClick: () => setIsModalOpen(false),
-            variant: "ghost",
-          },
-        ]}
-      >
-        <div className="space-y-4">
-          <p className="text-neutral-70">
-            This is a simple modal with a single action button. The content is
-            centered and uses the full width of the modal.
-          </p>
-          <div className="rounded-lg bg-neutral-10">
-            <p className="text-sm text-neutral-60">
-              You can add any content here, including:
-            </p>
-            <ul className="list-inside list-disc space-y-1 text-sm text-neutral-60">
-              <li>Text and paragraphs</li>
-              <li>Lists and bullet points</li>
-              <li>Cards and containers</li>
-              <li>Forms and inputs</li>
-              <li>Images and media</li>
-            </ul>
-          </div>
-        </div>
-      </Modal>
-
-      {/* Small Modal with Icon */}
-      <Button onClick={() => setIsSmallModalOpen(true)}>
-        Show Small Modal
-      </Button>
-      <Modal
-        isOpen={isSmallModalOpen}
-        onClose={() => setIsSmallModalOpen(false)}
-        size="small"
-        title="Small Modal"
-        actions={[
-          {
-            children: (
-              <>
-                <X className="h-4 w-4" />
-                <span>Cancel</span>
-              </>
-            ),
-            onClick: () => setIsSmallModalOpen(false),
-            variant: "ghost",
-          },
-          {
-            children: (
-              <>
-                <Check className="h-4 w-4" />
-                <span>Confirm</span>
-              </>
-            ),
-            onClick: () => setIsSmallModalOpen(false),
-            variant: "primary",
-          },
-        ]}
-      >
-        <div className="space-y-4">
-          <InfoBox variant="info" title="Information">
-            This is a small modal that demonstrates how to use icons in both the
-            content and buttons. The content is structured with proper spacing
-            and includes an info box.
-          </InfoBox>
-          <p className="text-neutral-70">
-            Small modals are great for quick confirmations or simple information
-            displays. They maintain a focused view while still providing enough
-            space for essential content.
-          </p>
-        </div>
-      </Modal>
-
-      {/* Large Modal with Multiple Actions */}
-      <Button onClick={() => setIsLargeModalOpen(true)}>
-        Show Large Modal
-      </Button>
-      <Modal
-        isOpen={isLargeModalOpen}
-        onClose={() => setIsLargeModalOpen(false)}
-        size="large"
-        title="Large Modal"
-        actions={[
-          {
-            children: (
-              <>
-                <X className="h-4 w-4" />
-                <span>Cancel</span>
-              </>
-            ),
-            onClick: () => setIsLargeModalOpen(false),
-            variant: "ghost",
-          },
-          {
-            children: (
-              <>
-                <Save className="h-4 w-4" />
-                <span>Save Draft</span>
-              </>
-            ),
-            onClick: () => setIsLargeModalOpen(false),
-            variant: "secondary",
-          },
-          {
-            children: (
-              <>
-                <Check className="h-4 w-4" />
-                <span>Confirm</span>
-              </>
-            ),
-            onClick: () => setIsLargeModalOpen(false),
-            variant: "primary",
-          },
-        ]}
-      >
-        <div className="space-y-6">
-          <div className="rounded-lg bg-neutral-10">
-            <h3 className="font-medium text-neutral-90">
-              Additional Information
-            </h3>
-            <p className="text-neutral-70">
-              You can include various types of content in a large modal:
-            </p>
-            <ul className="mt-2 list-inside list-disc space-y-1 text-neutral-70">
-              <li>Multiple sections with different layouts</li>
-              <li>Forms with multiple input fields</li>
-              <li>Data tables or lists</li>
-              <li>Images or media content</li>
-              <li>Interactive elements</li>
-            </ul>
-          </div>
-        </div>
-      </Modal>
-
-      {/* Danger Modal */}
-      <Button onClick={() => setIsDangerModalOpen(true)}>
-        Show Danger Modal
-      </Button>
-      <Modal
-        isOpen={isDangerModalOpen}
-        onClose={() => setIsDangerModalOpen(false)}
-        title="Delete Confirmation"
-        actions={[
-          {
-            children: (
-              <>
-                <X className="h-4 w-4" />
-                <span>Cancel</span>
-              </>
-            ),
-            onClick: () => setIsDangerModalOpen(false),
-            variant: "ghost",
-          },
-          {
-            children: (
-              <>
-                <Trash2 className="h-4 w-4" />
-                <span>Delete</span>
-              </>
-            ),
-            onClick: () => setIsDangerModalOpen(false),
-            variant: "primary",
-            danger: true,
-          },
-        ]}
-      >
-        <div className="space-y-4">
-          <InfoBox variant="danger" title="Warning">
-            This action cannot be undone. This will permanently delete the item
-            and remove it from our servers.
-          </InfoBox>
-
-          <div className="space-y-2">
-            <h3 className="font-medium text-neutral-90">
-              What will be deleted:
-            </h3>
-            <ul className="list-inside list-disc space-y-1 text-neutral-70">
-              <li>All associated data and files</li>
-              <li>User preferences and settings</li>
-              <li>Activity history and logs</li>
-              <li>Related content and references</li>
-            </ul>
-          </div>
-
-          <p className="text-sm text-neutral-60">
-            If you're not sure, you can cancel this action and review the item
-            first. You can always delete it later if needed.
-          </p>
-        </div>
-      </Modal>
     </div>
   );
 };
