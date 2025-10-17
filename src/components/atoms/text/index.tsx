@@ -60,29 +60,30 @@ export const Text: React.FC<TextProps> = ({
   };
 
   // Variant classes with responsive typography - pixel perfect match to sporteev-crm
+  // Using !important to override Material-UI typography styles
   const variantClasses = {
-    h1: "text-h1 lg:text-h1-desktop",
-    h2: "text-h2 lg:text-h2-desktop",
-    h3: "text-h3 lg:text-h3-desktop",
-    h4: "text-h4 lg:text-h4-desktop",
-    h5: "text-h5 lg:text-h5-desktop",
-    h6: "text-h6 lg:text-h6-desktop",
-    "bold-large-text": "text-bold-large-text lg:text-bold-large-text-desktop",
+    h1: "!text-h1 lg:!text-h1-desktop",
+    h2: "!text-h2 lg:!text-h2-desktop",
+    h3: "!text-h3 lg:!text-h3-desktop",
+    h4: "!text-h4 lg:!text-h4-desktop",
+    h5: "!text-h5 lg:!text-h5-desktop",
+    h6: "!text-h6 lg:!text-h6-desktop",
+    "bold-large-text": "!text-bold-large-text lg:!text-bold-large-text-desktop",
     "regular-large-text":
-      "text-regular-large-text lg:text-regular-large-text-desktop",
+      "!text-regular-large-text lg:!text-regular-large-text-desktop",
     "multiline-large-text":
-      "text-multiline-large-text lg:text-multiline-large-text-desktop",
+      "!text-multiline-large-text lg:!text-multiline-large-text-desktop",
     "bold-medium-text":
-      "text-bold-medium-text lg:text-bold-medium-text-desktop",
+      "!text-bold-medium-text lg:!text-bold-medium-text-desktop",
     "regular-medium-text":
-      "text-regular-medium-text lg:text-regular-medium-text-desktop",
+      "!text-regular-medium-text lg:!text-regular-medium-text-desktop",
     "multiline-medium-text":
-      "text-multiline-medium-text lg:text-multiline-medium-text-desktop",
-    "bold-small-text": "text-bold-small-text lg:text-bold-small-text-desktop",
+      "!text-multiline-medium-text lg:!text-multiline-medium-text-desktop",
+    "bold-small-text": "!text-bold-small-text lg:!text-bold-small-text-desktop",
     "regular-small-text":
-      "text-regular-small-text lg:text-regular-small-text-desktop",
+      "!text-regular-small-text lg:!text-regular-small-text-desktop",
     "multiline-small-text":
-      "text-multiline-small-text lg:text-multiline-small-text-desktop",
+      "!text-multiline-small-text lg:!text-multiline-small-text-desktop",
   };
 
   // Color classes
