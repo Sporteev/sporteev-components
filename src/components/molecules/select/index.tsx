@@ -2,12 +2,19 @@ import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { ChevronDown, Check, Search } from "lucide-react";
+import {
+  CHIP_COLORS,
+  ChipColor,
+  LabelChip,
+} from "@/components/atoms/label-chip";
+import { getHashNumber } from "@/lib/utils/hash";
 
 export interface SelectOption {
   label: string;
   value: string;
   disabled?: boolean;
   photoUrl?: string;
+  chip?: string;
 }
 
 const selectVariants = cva(
@@ -25,6 +32,12 @@ const selectVariants = cva(
     },
   }
 );
+
+// Function to map chip text to appropriate colors using hash-based approach
+export const getChipColor = (chipText: string): ChipColor => {
+  const colorIndex = getHashNumber(chipText, CHIP_COLORS.length - 2); // exclude "gray" and "dark"
+  return CHIP_COLORS[colorIndex];
+};
 
 export interface SelectProps extends VariantProps<typeof selectVariants> {
   label?: string;
@@ -265,6 +278,13 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                       <span className="min-w-0 flex-1 truncate text-base font-medium">
                         {option.label}
                       </span>
+                      {option.chip && (
+                        <LabelChip
+                          text={option.chip}
+                          size="small"
+                          color={getChipColor(option.chip)}
+                        />
+                      )}
                     </div>
                     {option.value === value && (
                       <Check className="ml-2 h-4 w-4 flex-shrink-0 text-primary-80" />

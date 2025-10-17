@@ -1,6 +1,19 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { type ReactNode } from "react";
 
+// Available chip colors
+export const CHIP_COLORS = [
+  "primary",
+  "tertiary",
+  "success",
+  "warning",
+  "danger",
+  "gray",
+  "dark",
+] as const;
+
+export type ChipColor = (typeof CHIP_COLORS)[number];
+
 const labelVariants = cva(
   "flex items-center gap-1 rounded-lg font-medium w-fit",
   {
