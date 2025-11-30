@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "btn cursor-pointer flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all",
+  "btn cursor-pointer flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none focus:ring-2 transition-all duration-150 ease-in-out active:scale-110",
   {
     defaultVariants: {
       variant: "primary",
@@ -100,10 +100,22 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       danger = false,
       disabled = false,
       fullWidth = false,
+      onClick,
       ...props
     },
     ref
   ) => {
+    const [isClicked, setIsClicked] = useState(false);
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (disabled) return;
+
+      setIsClicked(true);
+      setTimeout(() => setIsClicked(false), 150);
+
+      onClick?.(e);
+    };
+
     return (
       <button
         className={cn(
@@ -114,10 +126,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             disabled,
             className,
             fullWidth,
-          })
+          }),
+          isClicked && "scale-105"
         )}
         disabled={!!disabled}
         ref={ref}
+        onClick={handleClick}
         {...props}
       />
     );

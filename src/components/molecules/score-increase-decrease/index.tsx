@@ -1,0 +1,74 @@
+import { Text } from "@/components/atoms";
+import { Button } from "@/components/atoms/button";
+import { MinusIcon, PlusIcon } from "lucide-react";
+
+export type ScoreIncreaseDecreaseProps = {
+  score: number;
+  onIncrease: () => void;
+  onDecrease: () => void;
+  variant?: "small" | "medium" | "large";
+  disabled?: boolean;
+  editable?: boolean;
+};
+
+const variantStyles = {
+  small: {
+    button: "!h-6 !w-6",
+    score: "h-8 w-9",
+    text: "bold-small-text" as const,
+  },
+  medium: {
+    button: "!h-8 !w-8",
+    score: "h-11 w-12",
+    text: "bold-medium-text" as const,
+  },
+  large: {
+    button: "!h-10 !w-10",
+    score: "h-14 w-16",
+    text: "bold-large-text" as const,
+  },
+};
+
+export const ScoreIncreaseDecrease = ({
+  score,
+  onIncrease,
+  onDecrease,
+  variant = "medium",
+  disabled = false,
+  editable = true,
+}: ScoreIncreaseDecreaseProps) => {
+  const styles = variantStyles[variant];
+
+  return (
+    <div className="flex w-full items-center justify-center gap-2">
+      {editable && (
+        <Button
+          variant="outline"
+          size="small"
+          className={`${styles.button} rounded-md !border p-0`}
+          onClick={onDecrease}
+          disabled={disabled}
+        >
+          <MinusIcon className="h-4 w-4" />
+        </Button>
+      )}
+      <Text
+        variant={styles.text}
+        className={`flex ${styles.score} items-center justify-center rounded-md border border-neutral-40`}
+      >
+        {score}
+      </Text>
+      {editable && (
+        <Button
+          variant="primary"
+          size="small"
+          className={`${styles.button} rounded-md p-0`}
+          onClick={onIncrease}
+          disabled={disabled}
+        >
+          <PlusIcon className="h-4 w-4" />
+        </Button>
+      )}
+    </div>
+  );
+};
