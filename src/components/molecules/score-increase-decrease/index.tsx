@@ -9,6 +9,8 @@ export type ScoreIncreaseDecreaseProps = {
   variant?: "small" | "medium" | "large";
   disabled?: boolean;
   editable?: boolean;
+  min?: number;
+  max?: number;
 };
 
 const variantStyles = {
@@ -36,8 +38,13 @@ export const ScoreIncreaseDecrease = ({
   variant = "medium",
   disabled = false,
   editable = true,
+  min,
+  max,
 }: ScoreIncreaseDecreaseProps) => {
   const styles = variantStyles[variant];
+
+  const isDecreaseDisabled = disabled || (min !== undefined && score <= min);
+  const isIncreaseDisabled = disabled || (max !== undefined && score >= max);
 
   return (
     <div className="flex w-full items-center justify-center gap-2">
@@ -47,7 +54,7 @@ export const ScoreIncreaseDecrease = ({
           size="small"
           className={`${styles.button} rounded-md !border p-0`}
           onClick={onDecrease}
-          disabled={disabled}
+          disabled={isDecreaseDisabled}
         >
           <MinusIcon className="h-4 w-4" />
         </Button>
@@ -64,7 +71,7 @@ export const ScoreIncreaseDecrease = ({
           size="small"
           className={`${styles.button} rounded-md p-0`}
           onClick={onIncrease}
-          disabled={disabled}
+          disabled={isIncreaseDisabled}
         >
           <PlusIcon className="h-4 w-4" />
         </Button>
