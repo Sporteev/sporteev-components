@@ -15,18 +15,21 @@ export type ScoreIncreaseDecreaseProps = {
 
 const variantStyles = {
   small: {
-    button: "!h-6 !w-6",
-    score: "h-8 w-9",
+    button: "!h-5 !w-5 sm:!h-6 sm:!w-6",
+    score: "h-7 w-8 sm:h-8 sm:w-9",
+    icon: "h-3 w-3 sm:h-4 sm:w-4",
     text: "bold-small-text" as const,
   },
   medium: {
-    button: "!h-8 !w-8",
-    score: "h-11 w-12",
+    button: "!h-6 !w-6 sm:!h-8 sm:!w-8",
+    score: "h-9 w-10 sm:h-11 sm:w-12",
+    icon: "h-3.5 w-3.5 sm:h-4 sm:w-4",
     text: "bold-medium-text" as const,
   },
   large: {
-    button: "!h-10 !w-10",
-    score: "h-14 w-16",
+    button: "!h-8 !w-8 sm:!h-10 sm:!w-10",
+    score: "h-12 w-14 sm:h-14 sm:w-16",
+    icon: "h-4 w-4 sm:h-5 sm:w-5",
     text: "bold-large-text" as const,
   },
 };
@@ -47,7 +50,7 @@ export const ScoreIncreaseDecrease = ({
   const isIncreaseDisabled = disabled || (max !== undefined && score >= max);
 
   return (
-    <div className="flex w-full items-center justify-center gap-2">
+    <div className="flex w-full items-center justify-center gap-1 sm:gap-2">
       {editable && (
         <Button
           variant="outline"
@@ -56,7 +59,7 @@ export const ScoreIncreaseDecrease = ({
           onClick={onDecrease}
           disabled={isDecreaseDisabled}
         >
-          <MinusIcon className="h-4 w-4" />
+          <MinusIcon className={styles.icon} />
         </Button>
       )}
       <Text
@@ -73,7 +76,7 @@ export const ScoreIncreaseDecrease = ({
           onClick={onIncrease}
           disabled={isIncreaseDisabled}
         >
-          <PlusIcon className="h-4 w-4" />
+          <PlusIcon className={styles.icon} />
         </Button>
       )}
     </div>
