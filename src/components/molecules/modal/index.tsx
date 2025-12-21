@@ -9,11 +9,11 @@ const modalVariants = cva(
     variants: {
       size: {
         small:
-          "[&>div]:w-full [&>div]:max-w-sm [&>div]:md:min-w-[20rem] [&>div]:max-h-[50vh] [&>div]:overflow-y-auto", // min-w-80
+          "[&>div]:w-full [&>div]:max-w-sm [&>div]:md:min-w-[20rem] [&>div]:max-h-[50vh]", // min-w-80
         medium:
-          "[&>div]:w-full [&>div]:max-w-md [&>div]:md:min-w-[32rem] [&>div]:max-h-[70vh] [&>div]:overflow-y-auto", // min-w-112
+          "[&>div]:w-full [&>div]:max-w-md [&>div]:md:min-w-[32rem] [&>div]:max-h-[70vh]", // min-w-112
         large:
-          "[&>div]:w-full [&>div]:max-w-4xl [&>div]:md:min-w-[48rem] [&>div]:max-h-[90vh] [&>div]:overflow-y-auto", // min-w-192
+          "[&>div]:w-full [&>div]:max-w-4xl [&>div]:md:min-w-[48rem] [&>div]:max-h-[90vh]", // min-w-192
       },
     },
     defaultVariants: {
@@ -35,6 +35,7 @@ export interface ModalProps extends VariantProps<typeof modalVariants> {
   title?: string;
   actions?: ModalAction[];
   contentClassName?: string;
+  contentStyle?: React.CSSProperties;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -46,6 +47,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   actions = [],
   contentClassName,
+  contentStyle,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -78,13 +80,10 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className={cn(modalVariants({ size }), className)}>
-      <div
-        ref={modalRef}
-        className="relative mx-auto overflow-hidden rounded-2xl bg-white"
-      >
+      <div ref={modalRef} className="relative mx-auto rounded-2xl bg-white">
         <div
           className={cn("overflow-y-auto p-6", contentClassName)}
-          style={{ maxHeight: "inherit" }}
+          style={{ maxHeight: "inherit", ...contentStyle }}
         >
           {title && (
             <h2 className="mb-4 mt-0 w-full text-center text-xl font-semibold text-neutral-90">
@@ -95,7 +94,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {actions.length > 0 && (
-          <div className="sticky bottom-0 left-0 z-10 border-t border-neutral-20 bg-neutral-10 px-6 py-4">
+          <div className="sticky bottom-0 left-0 z-10 rounded-b-2xl border-t border-neutral-20 bg-neutral-10 px-6 py-4">
             <div
               className={cn(
                 "grid gap-3",
