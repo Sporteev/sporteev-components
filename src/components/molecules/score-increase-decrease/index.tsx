@@ -1,5 +1,6 @@
 import { Text } from "@/components/atoms";
 import { Button } from "@/components/atoms/button";
+import { cn } from "@/lib/utils";
 import { MinusIcon, PlusIcon } from "lucide-react";
 
 export type ScoreIncreaseDecreaseProps = {
@@ -8,6 +9,8 @@ export type ScoreIncreaseDecreaseProps = {
   onDecrease: () => void;
   variant?: "small" | "medium" | "large";
   disabled?: boolean;
+  danger?: boolean;
+  inFocus?: boolean;
   editable?: boolean;
   min?: number;
   max?: number;
@@ -40,6 +43,8 @@ export const ScoreIncreaseDecrease = ({
   onDecrease,
   variant = "medium",
   disabled = false,
+  danger = false,
+  inFocus = false,
   editable = true,
   min,
   max,
@@ -49,23 +54,43 @@ export const ScoreIncreaseDecrease = ({
   const isDecreaseDisabled = disabled || (min !== undefined && score <= min);
   const isIncreaseDisabled = disabled || (max !== undefined && score >= max);
 
+  // Score box styling based on disabled, inFocus, and danger states
+  const getScoreBoxClassName = () => {
+    const baseClasses = `flex ${styles.score} items-center justify-center rounded-md border`;
+
+    if (disabled) {
+      return `${baseClasses} border-neutral-40 bg-neutral-30 text-neutral-50`;
+    }
+
+    if (inFocus) {
+      return `${baseClasses} border-primary-30 bg-primary-20`;
+    }
+
+    if (danger) {
+      return `${baseClasses} border-danger-main bg-danger-accent`;
+    }
+
+    return `${baseClasses} border-neutral-40`;
+  };
+
   return (
     <div className="flex w-full items-center justify-center gap-1 sm:gap-2">
       {editable && (
         <Button
-          variant="outline"
+          variant={disabled ? "ghost" : "outline"}
           size="small"
-          className={`${styles.button} rounded-md !border p-0`}
+          className={cn(
+            `${styles.button} rounded-md p-0`,
+            disabled ? "bg-neutral-30 text-neutral-50" : "!border"
+          )}
           onClick={onDecrease}
           disabled={isDecreaseDisabled}
+          danger={danger}
         >
           <MinusIcon className={styles.icon} />
         </Button>
       )}
-      <Text
-        variant={styles.text}
-        className={`flex ${styles.score} items-center justify-center rounded-md border border-neutral-40`}
-      >
+      <Text variant={styles.text} className={getScoreBoxClassName()}>
         {score}
       </Text>
       {editable && (
@@ -75,6 +100,7 @@ export const ScoreIncreaseDecrease = ({
           className={`${styles.button} rounded-md p-0`}
           onClick={onIncrease}
           disabled={isIncreaseDisabled}
+          danger={danger}
         >
           <PlusIcon className={styles.icon} />
         </Button>
