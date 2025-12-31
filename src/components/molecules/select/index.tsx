@@ -76,7 +76,10 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const [isOpen, setIsOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const selectRef = useRef<HTMLDivElement>(null);
+    const selectButtonRef = useRef<HTMLDivElement>(null);
     const searchInputRef = useRef<HTMLInputElement>(null);
+    const [dropdownStyle, setDropdownStyle] =
+      useState<React.CSSProperties | null>(null);
 
     // Check if options are empty, null, or undefined
     const hasOptions = options && Array.isArray(options) && options.length > 0;
@@ -92,6 +95,91 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     const selectedOption = hasOptions
       ? options.find((option) => option.value === value)
       : undefined;
+
+    // Calculate dropdown position using fixed positioning with smart placement
+    useEffect(() => {
+      if (isOpen && selectButtonRef.current) {
+        const updatePosition = () => {
+          if (selectButtonRef.current) {
+            const rect = selectButtonRef.current.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            const viewportWidth = window.innerWidth;
+            const dropdownMaxHeight = 240; // max-h-60 = 15rem = 240px
+            const gap = 4; // mt-1 = 0.25rem = 4px
+
+            // Calculate available space below and above
+            const spaceBelow = viewportHeight - rect.bottom;
+            const spaceAbove = rect.top;
+
+            // Determine if dropdown should open above or below
+            const openAbove =
+              spaceBelow < dropdownMaxHeight && spaceAbove > spaceBelow;
+
+            // Calculate top position
+            let top: number;
+            if (openAbove) {
+              top = rect.top - dropdownMaxHeight - gap;
+            } else {
+              top = rect.bottom + gap;
+            }
+
+            // Ensure dropdown doesn't go off-screen vertically
+            const maxTop = Math.max(8, viewportHeight - dropdownMaxHeight - 8); // 8px padding from edges
+            const minTop = 8;
+            top = Math.max(minTop, Math.min(maxTop, top));
+
+            // Calculate left position and handle horizontal overflow
+            let left = rect.left;
+            const dropdownWidth = rect.width;
+
+            // If dropdown would overflow on the right, align it to the right edge
+            if (left + dropdownWidth > viewportWidth - 8) {
+              left = viewportWidth - dropdownWidth - 8;
+            }
+
+            // If dropdown would overflow on the left, align it to the left edge
+            if (left < 8) {
+              left = 8;
+            }
+
+            // Calculate max height based on available space
+            let maxHeight = dropdownMaxHeight;
+            if (openAbove) {
+              maxHeight = Math.min(dropdownMaxHeight, rect.top - gap - 8);
+            } else {
+              maxHeight = Math.min(dropdownMaxHeight, viewportHeight - top - 8);
+            }
+
+            setDropdownStyle({
+              position: "fixed",
+              top: `${top}px`,
+              left: `${left}px`,
+              width: `${dropdownWidth}px`,
+              maxHeight: `${maxHeight}px`,
+            });
+          }
+        };
+
+        // Calculate immediately
+        updatePosition();
+
+        // Also calculate after a frame to ensure DOM is ready
+        requestAnimationFrame(() => {
+          updatePosition();
+        });
+
+        const handleResize = () => updatePosition();
+        const handleScroll = () => updatePosition();
+        window.addEventListener("resize", handleResize);
+        window.addEventListener("scroll", handleScroll, true);
+        return () => {
+          window.removeEventListener("resize", handleResize);
+          window.removeEventListener("scroll", handleScroll, true);
+        };
+      } else {
+        setDropdownStyle(null);
+      }
+    }, [isOpen]);
 
     useEffect(() => {
       const handleClickOutside = (event: MouseEvent) => {
@@ -192,8 +280,13 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           </label>
         )}
 
-        <div ref={selectRef} className="relative w-full">
+        <div
+          ref={selectRef}
+          className="relative w-full"
+          style={{ zIndex: isOpen ? 9999 : "auto" }}
+        >
           <div
+            ref={selectButtonRef}
             className={cn(
               selectVariants({ variant: hasError ? "error" : variant }),
               "box-border flex w-full",
@@ -250,8 +343,11 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             />
           </div>
 
-          {isOpen && (
-            <div className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-lg border border-neutral-40 bg-white shadow-lg">
+          {isOpen && dropdownStyle && (
+            <div
+              className="z-[9999] mt-1 max-h-60 overflow-auto rounded-lg border border-neutral-40 bg-white shadow-lg"
+              style={dropdownStyle}
+            >
               {filteredOptions.length > 0 ? (
                 filteredOptions.map((option) => (
                   <div
