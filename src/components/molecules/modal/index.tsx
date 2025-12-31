@@ -80,10 +80,13 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <div className={cn(modalVariants({ size }), className)}>
-      <div ref={modalRef} className="relative mx-auto rounded-2xl bg-white">
+      <div
+        ref={modalRef}
+        className="relative mx-auto flex flex-col rounded-2xl bg-white"
+      >
         <div
-          className={cn("overflow-y-auto p-6", contentClassName)}
-          style={{ maxHeight: "inherit", ...contentStyle }}
+          className={cn("flex-1 overflow-y-auto p-6", contentClassName)}
+          style={contentStyle}
         >
           {title && (
             <h2 className="mb-4 mt-0 w-full text-center text-xl font-semibold text-neutral-90">
@@ -94,7 +97,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {actions.length > 0 && (
-          <div className="sticky bottom-0 left-0 z-10 rounded-b-2xl border-t border-neutral-20 bg-neutral-10 px-6 py-4">
+          <div className="flex-shrink-0 rounded-b-2xl border-t border-neutral-20 bg-neutral-10 px-6 py-4">
             <div
               className={cn(
                 "grid gap-3",
