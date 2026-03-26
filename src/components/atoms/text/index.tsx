@@ -24,7 +24,8 @@ export interface TextProps {
     | "neutral"
     | "danger"
     | "success"
-    | "warning";
+    | "warning"
+    | React.CSSProperties["color"];
   weight?: "normal" | "medium" | "semibold" | "bold";
   textAlign?: "left" | "center" | "right" | "justify";
   children: React.ReactNode;
@@ -117,17 +118,21 @@ export const Text: React.FC<TextProps> = ({
   };
 
   const Element = getElement();
+  const isColorToken = color in colorClasses;
+  const resolvedStyle = isColorToken ? style : { ...style, color };
 
   return (
     <Element
       className={cn(
         variantClasses[variant],
-        colorClasses[color],
+        isColorToken
+          ? colorClasses[color as keyof typeof colorClasses]
+          : undefined,
         weight && weightClasses[weight],
         textAlign && textAlignClasses[textAlign],
         className
       )}
-      style={style}
+      style={resolvedStyle}
     >
       {children}
     </Element>
