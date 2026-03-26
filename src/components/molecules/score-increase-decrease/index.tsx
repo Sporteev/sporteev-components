@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Text } from "@/components/atoms";
 import { Button } from "@/components/atoms/button";
 import { cn } from "@/lib/utils";
@@ -7,11 +8,13 @@ export type ScoreIncreaseDecreaseProps = {
   score: number;
   onIncrease: () => void;
   onDecrease: () => void;
+  onScoreChange?: (score: number) => void;
   variant?: "small" | "medium" | "large";
   disabled?: boolean;
   danger?: boolean;
   inFocus?: boolean;
   editable?: boolean;
+  scoreInputEditable?: boolean;
   min?: number;
   max?: number;
 };
@@ -46,13 +49,20 @@ export const ScoreIncreaseDecrease = ({
   danger = false,
   inFocus = false,
   editable = true,
+  scoreInputEditable = false,
+  onScoreChange,
   min,
   max,
 }: ScoreIncreaseDecreaseProps) => {
   const styles = variantStyles[variant];
+  const [inputScore, setInputScore] = useState(score.toString());
 
   const isDecreaseDisabled = disabled || (min !== undefined && score <= min);
   const isIncreaseDisabled = disabled || (max !== undefined && score >= max);
+
+  useEffect(() => {
+    setInputScore(score.toString());
+  }, [score]);
 
   // Score box styling based on disabled, inFocus, and danger states
   const getScoreBoxClassName = () => {
@@ -90,9 +100,30 @@ export const ScoreIncreaseDecrease = ({
           <MinusIcon className={styles.icon} />
         </Button>
       )}
-      <Text variant={styles.text} className={getScoreBoxClassName()}>
-        {score}
-      </Text>
+      {scoreInputEditable ? (
+        <input
+          type="number"
+          value={inputScore}
+          onChange={(event) => {
+            const nextValue = event.target.value;
+            setInputScore(nextValue);
+
+            const parsedValue = Number(nextValue);
+            if (!Number.isNaN(parsedValue)) {
+              onScoreChange?.(parsedValue);
+            }
+          }}
+          className={cn(
+            getScoreBoxClassName(),
+            "bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+          )}
+          disabled={disabled}
+        />
+      ) : (
+        <Text variant={styles.text} className={getScoreBoxClassName()}>
+          {score}
+        </Text>
+      )}
       {editable && (
         <Button
           variant="primary"

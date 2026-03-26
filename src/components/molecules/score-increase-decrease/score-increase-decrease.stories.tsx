@@ -29,6 +29,15 @@ const meta: Meta<typeof ScoreIncreaseDecrease> = {
       action: "decreased",
       description: "Callback function when decrease button is clicked",
     },
+    scoreInputEditable: {
+      control: { type: "boolean" },
+      description: "Render score as editable input",
+      defaultValue: false,
+    },
+    onScoreChange: {
+      action: "score changed",
+      description: "Callback when score input changes",
+    },
   },
 };
 
@@ -134,5 +143,32 @@ export const Controlled: Story = {
     };
 
     return <ControlledScore />;
+  },
+};
+
+export const EditableScoreInput: Story = {
+  render: () => {
+    const EditableScore = () => {
+      const [score, setScore] = useState(2);
+
+      return (
+        <div className="flex flex-col items-center gap-4">
+          <ScoreIncreaseDecrease
+            score={score}
+            variant="medium"
+            editable={false}
+            scoreInputEditable
+            onIncrease={() => {}}
+            onDecrease={() => {}}
+            onScoreChange={(nextScore) => setScore(nextScore)}
+          />
+          <div className="text-sm text-gray-600">
+            Typed score: <strong className="text-gray-900">{score}</strong>
+          </div>
+        </div>
+      );
+    };
+
+    return <EditableScore />;
   },
 };
