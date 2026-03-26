@@ -3,3 +3,4 @@ export * from "./modal";
 export * from "./input-text";
 export * from "./radio-group";
 export * from "./select";
+export * from "./score-increase-decrease";

@@ -26,8 +26,10 @@ export interface TextProps {
     | "success"
     | "warning";
   weight?: "normal" | "medium" | "semibold" | "bold";
+  textAlign?: "left" | "center" | "right" | "justify";
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div";
 }
 
@@ -35,8 +37,10 @@ export const Text: React.FC<TextProps> = ({
   variant = "regular-medium-text",
   color = "neutral",
   weight,
+  textAlign,
   children,
   className,
+  style,
   as,
 }) => {
   // Determine the HTML element based on variant or as prop
@@ -104,6 +108,14 @@ export const Text: React.FC<TextProps> = ({
     bold: "font-bold",
   };
 
+  // Text align classes
+  const textAlignClasses = {
+    left: "text-left",
+    center: "text-center",
+    right: "text-right",
+    justify: "text-justify",
+  };
+
   const Element = getElement();
 
   return (
@@ -112,8 +124,10 @@ export const Text: React.FC<TextProps> = ({
         variantClasses[variant],
         colorClasses[color],
         weight && weightClasses[weight],
+        textAlign && textAlignClasses[textAlign],
         className
       )}
+      style={style}
     >
       {children}
     </Element>
