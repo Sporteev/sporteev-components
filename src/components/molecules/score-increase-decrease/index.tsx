@@ -87,6 +87,7 @@ export const ScoreIncreaseDecrease = ({
     <div className="flex w-full items-center justify-center gap-1 sm:gap-2">
       {editable && (
         <Button
+          type="button"
           variant={disabled ? "ghost" : "outline"}
           size="small"
           className={cn(
@@ -126,6 +127,7 @@ export const ScoreIncreaseDecrease = ({
       )}
       {editable && (
         <Button
+          type="button"
           variant="primary"
           size="small"
           className={`${styles.button} rounded-md p-0`}
