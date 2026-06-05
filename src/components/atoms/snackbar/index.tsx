@@ -5,7 +5,7 @@ import { LogoFlat } from "@/components/icons";
 
 const snackbarVariants = cva(
   [
-    "fixed flex flex-col items-start gap-12 rounded-8 shadow-lg z-50",
+    "fixed flex flex-col items-start gap-12 rounded-8 shadow-main z-50",
     "transition-all duration-300 ease-in-out",
     "md:bottom-16 md:left-16 md:right-auto md:top-auto",
     "md:w-auto md:max-w-[40%]",

@@ -10,6 +10,7 @@ module.exports = {
       fontWeight: tokens.fontWeight,
       spacing: tokens.spacing,
       borderRadius: tokens.borderRadius,
+      boxShadow: tokens.boxShadow,
     },
   },
 };

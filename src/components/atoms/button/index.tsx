@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "btn cursor-pointer flex items-center justify-center gap-8 font-medium rounded-full focus:outline-none transition-all duration-150 ease-in-out active:scale-110",
+  "btn cursor-pointer flex items-center justify-center gap-8 font-medium rounded-full focus:outline-none transition-all duration-150 ease-in-out active:scale-110 active:shadow-secondary",
   {
     defaultVariants: {
       variant: "primary",
@@ -127,7 +127,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             className,
             fullWidth,
           }),
-          isClicked && "scale-105"
+          isClicked && "scale-105 shadow-secondary"
         )}
         disabled={!!disabled}
         ref={ref}

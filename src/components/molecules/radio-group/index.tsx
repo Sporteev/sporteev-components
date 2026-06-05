@@ -15,7 +15,7 @@ const optionWrapperVariants = cva("", {
     variant: {
       simple: "",
       block:
-        "border-2 border-grey-400 rounded-8 p-12 transition-all duration-200",
+        "border-2 border-grey-400 rounded-8 p-12 shadow-main transition-all duration-200",
     },
   },
   defaultVariants: {
@@ -86,7 +86,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
                   layout === "row" && variant === "block" && "flex-1",
                   variant === "block" &&
                     isSelected &&
-                    "border-primary-500 bg-primary-200"
+                    "border-primary-500 bg-primary-200 shadow-secondary"
                 )}
               >
                 <RadioButton

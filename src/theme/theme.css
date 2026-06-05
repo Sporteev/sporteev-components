@@ -196,4 +196,6 @@
   --radius-24: 24px;
   --radius-32: 32px;
   --radius-full: 9999px;
+  --shadow-main: 0 2px 8px 0 #30313529;
+  --shadow-secondary: 0 4px 12px 0 #30313533;
 }

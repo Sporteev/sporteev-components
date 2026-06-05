@@ -162,7 +162,7 @@ export const InputText = React.forwardRef<
           {showHelperIcon && (
             <div className="group absolute top-8 right-12 flex items-start text-gray-400">
               <HelpCircle className="h-16 w-16 cursor-help" />
-              <div className="rounded-8 absolute right-0 bottom-full mb-8 hidden w-[256px] bg-gray-800 p-8 text-white shadow-lg group-hover:block">
+              <div className="rounded-8 absolute right-0 bottom-full mb-8 hidden w-[256px] bg-gray-800 p-8 text-white shadow-secondary group-hover:block">
                 <p className={helperTextClasses}>{displayHelperText}</p>
                 <div className="absolute top-full right-8 h-0 w-0 border-t-4 border-r-4 border-l-4 border-transparent border-t-gray-800"></div>
               </div>
@@ -213,7 +213,7 @@ export const InputText = React.forwardRef<
         {showHelperIcon && (
           <div className="group absolute right-12 flex items-center text-gray-400">
             <HelpCircle className="h-16 w-16 cursor-help" />
-            <div className="rounded-8 absolute right-0 bottom-full mb-8 hidden w-[256px] bg-gray-800 p-8 text-white shadow-lg group-hover:block">
+            <div className="rounded-8 absolute right-0 bottom-full mb-8 hidden w-[256px] bg-gray-800 p-8 text-white shadow-secondary group-hover:block">
               <p className={helperTextClasses}>{displayHelperText}</p>
               <div className="absolute top-full right-8 h-0 w-0 border-t-4 border-r-4 border-l-4 border-transparent border-t-gray-800"></div>
             </div>

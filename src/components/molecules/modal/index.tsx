@@ -82,7 +82,7 @@ const Modal: React.FC<ModalProps> = ({
     <div className={cn(modalVariants({ size }), className)}>
       <div
         ref={modalRef}
-        className="rounded-16 relative mx-auto flex flex-col bg-white"
+        className="rounded-16 relative mx-auto flex flex-col bg-white shadow-secondary"
       >
         <div
           className={cn("flex-1 overflow-y-auto p-24", contentClassName)}

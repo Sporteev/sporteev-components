@@ -188,6 +188,12 @@ const borderRadius = {
   full: "9999px",
 };
 
+/** main: Card, Navigation Bar, Toast, Sticky Button. secondary: Dropdown, Button (click), Card (click), Modal, Bottom Sheet */
+const boxShadow = {
+  main: "0 2px 8px 0 #30313529",
+  secondary: "0 4px 12px 0 #30313533",
+};
+
 module.exports = {
   colors: {
     white: "#FFFFFF",
@@ -254,4 +260,5 @@ module.exports = {
   },
   spacing,
   borderRadius,
+  boxShadow,
 };

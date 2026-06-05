@@ -67,6 +67,12 @@ for (const [key, value] of Object.entries(tokens.borderRadius)) {
   lines.push(`  --radius-${key}: ${value};`);
 }
 
+if (tokens.boxShadow) {
+  for (const [key, value] of Object.entries(tokens.boxShadow)) {
+    lines.push(`  --shadow-${key}: ${value};`);
+  }
+}
+
 if (tokens.screens) {
   for (const [key, value] of Object.entries(tokens.screens)) {
     lines.push(`  --breakpoint-${key}: ${value};`);

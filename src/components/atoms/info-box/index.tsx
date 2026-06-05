@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { AlertCircle, Info, AlertTriangle } from "lucide-react";
 
-const infoBoxVariants = cva("flex items-start gap-8 rounded-8 p-16", {
+const infoBoxVariants = cva("flex items-start gap-8 rounded-8 p-16 shadow-main", {
   variants: {
     variant: {
       info: "bg-primary-100",
