@@ -45,11 +45,15 @@ This creates a `.tgz` file (e.g. `sporteev-sporteev-components-1.1.21.tgz`).
 2. In your consumer project (e.g. sporteev-web-v2), install the local package:
 
 ```bash
-pnpm add file:../sporteev-components
-# or: pnpm add file:/path/to/sporteev-sporteev-components-1.1.21.tgz
+pnpm add file:/path/to/sporteev-sporteev-components-1.1.21.tgz
 ```
 
-3. Import and use the components in your test project:
+3. Wire **theme-only** Tailwind in the consumer (see [README](./README.md#consumer-setup-theme-only--recommended)):
+
+- `src/index.css` — import `theme.css` + `@source` library `src/components` and `src/lib`
+- `src/main.tsx` — import `./index.css` only (do **not** import `styles.css`)
+
+4. Use components in the test project:
 
 ```tsx
 import { Button } from "@sporteev/sporteev-components";
@@ -63,7 +67,7 @@ function TestComponent() {
 }
 ```
 
-4. To update the package after making changes:
+5. To update the package after making changes:
    - Rebuild in the library: `pnpm build`
    - In the consumer project: `pnpm update @sporteev/sporteev-components`
 

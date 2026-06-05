@@ -23,6 +23,8 @@
   },
   "files": [
     "dist/",
+    "src/components/",
+    "src/lib/",
     "src/theme/",
     "README.md",
     "LICENSE"
