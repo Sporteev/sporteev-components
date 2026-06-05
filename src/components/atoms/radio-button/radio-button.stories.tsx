@@ -68,8 +68,8 @@ const RadioGroupComponent = () => {
   const [selectedValue, setSelectedValue] = useState("option1");
 
   return (
-    <div className="space-y-3">
-      <h3 className="mb-4 text-lg font-medium">Select your preference:</h3>
+    <div className="space-y-12">
+      <h3 className="mb-16 text-lg font-medium">Select your preference:</h3>
       <RadioButton
         label="Option 1"
         value="option1"
@@ -88,7 +88,7 @@ const RadioGroupComponent = () => {
         checked={selectedValue === "option3"}
         onChange={setSelectedValue}
       />
-      <p className="mt-4 text-sm text-gray-600">Selected: {selectedValue}</p>
+      <p className="mt-16 text-sm text-gray-600">Selected: {selectedValue}</p>
     </div>
   );
 };
@@ -102,7 +102,7 @@ const ControlledComponent = () => {
   const [value, setValue] = useState("");
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <RadioButton
         label="Controlled Option 1"
         value="controlled1"

@@ -117,7 +117,7 @@ export const WithHookDemo = {
       <Button
         variant="primary"
         size="small"
-        className="!h-6 !text-[10px]"
+        className="!h-24 !text-[10px]"
         onClick={() => alert("Action clicked!")}
       >
         Action

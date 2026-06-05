@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { AlertCircle, Info, AlertTriangle } from "lucide-react";
 
-const infoBoxVariants = cva("flex items-start gap-2 rounded-lg p-4", {
+const infoBoxVariants = cva("flex items-start gap-8 rounded-8 p-16", {
   variants: {
     variant: {
       info: "bg-primary-100",
@@ -16,7 +16,7 @@ const infoBoxVariants = cva("flex items-start gap-2 rounded-lg p-4", {
   },
 });
 
-const iconVariants = cva("h-6 w-6 shrink-0", {
+const iconVariants = cva("h-24 w-24 shrink-0", {
   variants: {
     variant: {
       info: "text-primary-600",
@@ -29,7 +29,7 @@ const iconVariants = cva("h-6 w-6 shrink-0", {
   },
 });
 
-const titleVariants = cva("font-bold mb-2 mt-0", {
+const titleVariants = cva("font-bold mb-8 mt-0", {
   variants: {
     variant: {
       info: "text-primary-700",
@@ -42,7 +42,7 @@ const titleVariants = cva("font-bold mb-2 mt-0", {
   },
 });
 
-const descriptionVariants = cva("h-full text-sm mt-[2px]", {
+const descriptionVariants = cva("h-full text-sm mt-2", {
   variants: {
     variant: {
       info: "text-primary-700",

@@ -18,7 +18,7 @@ export interface SelectOption {
 }
 
 const selectVariants = cva(
-  "min-w-0 inline-flex items-center justify-between rounded-lg border bg-white px-3 py-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500",
+  "min-w-0 inline-flex items-center justify-between rounded-8 border bg-white px-12 py-8 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500",
   {
     variants: {
       variant: {
@@ -274,9 +274,9 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     return (
       <div ref={ref} className="relative w-full">
         {label && (
-          <label className="text-grey-950 mb-2 block text-sm font-medium">
+          <label className="text-grey-950 mb-8 block text-sm font-medium">
             {label}
-            {required && <span className="ml-1 text-red-500">*</span>}
+            {required && <span className="ml-4 text-red-500">*</span>}
           </label>
         )}
 
@@ -303,8 +303,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             aria-labelledby={label}
           >
             {searchable && isOpen ? (
-              <div className="flex min-w-0 flex-1 items-center gap-3">
-                <Search className="text-grey-600 h-4 w-4 flex-shrink-0" />
+              <div className="flex min-w-0 flex-1 items-center gap-12">
+                <Search className="text-grey-600 h-16 w-16 flex-shrink-0" />
                 <input
                   ref={searchInputRef}
                   type="text"
@@ -317,12 +317,12 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                 />
               </div>
             ) : (
-              <div className="flex min-w-0 flex-1 items-center gap-3">
+              <div className="flex min-w-0 flex-1 items-center gap-12">
                 {selectedOption?.photoUrl && (
                   <img
                     src={selectedOption.photoUrl}
                     alt={selectedOption.label}
-                    className="h-6 w-6 flex-shrink-0 rounded-full object-cover"
+                    className="h-24 w-24 flex-shrink-0 rounded-full object-cover"
                   />
                 )}
                 <span
@@ -337,7 +337,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
             )}
             <ChevronDown
               className={cn(
-                "text-grey-600 ml-2 h-4 w-4 flex-shrink-0 transition-transform duration-200",
+                "text-grey-600 ml-8 h-16 w-16 flex-shrink-0 transition-transform duration-200",
                 isOpen && "rotate-180"
               )}
             />
@@ -345,7 +345,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
           {isOpen && dropdownStyle && (
             <div
-              className="border-grey-400 z-[9999] mt-1 max-h-60 overflow-auto rounded-lg border bg-white shadow-lg"
+              className="border-grey-400 rounded-8 z-[9999] mt-4 max-h-240 overflow-auto border bg-white shadow-lg"
               style={dropdownStyle}
             >
               {filteredOptions.length > 0 ? (
@@ -353,7 +353,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                   <div
                     key={option.value}
                     className={cn(
-                      "flex min-w-0 cursor-pointer items-center justify-between px-3 py-2",
+                      "flex min-w-0 cursor-pointer items-center justify-between px-12 py-8",
                       option.value === value &&
                         "bg-primary-200 text-primary-600",
                       option.disabled && "cursor-not-allowed opacity-50",
@@ -361,12 +361,12 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                     )}
                     onClick={() => handleSelect(option)}
                   >
-                    <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <div className="flex min-w-0 flex-1 items-center gap-12">
                       {option.photoUrl && (
                         <img
                           src={option.photoUrl}
                           alt={option.label}
-                          className="h-8 w-8 flex-shrink-0 rounded-full object-cover"
+                          className="h-32 w-32 flex-shrink-0 rounded-full object-cover"
                           onError={(e) => {
                             e.currentTarget.style.display = "none";
                           }}
@@ -384,12 +384,12 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                       )}
                     </div>
                     {option.value === value && (
-                      <Check className="text-primary-600 ml-2 h-4 w-4 flex-shrink-0" />
+                      <Check className="text-primary-600 ml-8 h-16 w-16 flex-shrink-0" />
                     )}
                   </div>
                 ))
               ) : (
-                <div className="text-grey-600 px-3 py-2">
+                <div className="text-grey-600 px-12 py-8">
                   {searchTerm ? "No matching options found" : emptyLabel}
                 </div>
               )}
@@ -398,7 +398,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
         </div>
 
         {errorMessage && (
-          <p className="text-danger-main mt-1 text-xs">{errorMessage}</p>
+          <p className="text-danger-main mt-4 text-xs">{errorMessage}</p>
         )}
       </div>
     );

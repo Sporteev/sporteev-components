@@ -120,7 +120,7 @@ export const ControlledExample: Story = {
       const [selectedValue, setSelectedValue] = useState("option1");
 
       return (
-        <div className="space-y-4">
+        <div className="space-y-16">
           <RadioGroup
             label="Controlled Radio Group"
             options={sampleOptions}
@@ -145,7 +145,7 @@ export const MultipleGroups: Story = {
       const [group2Value, setGroup2Value] = useState("option2");
 
       return (
-        <div className="space-y-6">
+        <div className="space-y-24">
           <RadioGroup
             label="First Group"
             options={sampleOptions}

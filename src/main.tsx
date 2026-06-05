@@ -44,27 +44,27 @@ const Page = () => {
   ];
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 p-4">
-      <div className="w-full max-w-4xl space-y-8">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-16 p-16">
+      <div className="w-full max-w-4xl space-y-32">
         <div className="text-center">
           <Text variant="h1" color="primary">
             Component Library Demo
           </Text>
-          <Text variant="body-2" className="mt-2">
+          <Text variant="body-2" className="mt-8">
             Compare InputText and Select components for consistency
           </Text>
         </div>
 
         {/* InputText Component Demo */}
-        <section className="mb-8">
-          <Text variant="h3" className="mb-4">
+        <section className="mb-32">
+          <Text variant="h3" className="mb-16">
             InputText Component
           </Text>
 
-          <div className="space-y-6">
+          <div className="space-y-24">
             {/* Basic InputText */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Basic InputText
               </Text>
               <InputText
@@ -77,7 +77,7 @@ const Page = () => {
 
             {/* With Value */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Pre-filled Value
               </Text>
               <InputText label="Input with value" value="Pre-filled text" />
@@ -85,7 +85,7 @@ const Page = () => {
 
             {/* Required */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Required Field
               </Text>
               <InputText
@@ -97,7 +97,7 @@ const Page = () => {
 
             {/* With Error */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Error State
               </Text>
               <InputText
@@ -110,7 +110,7 @@ const Page = () => {
 
             {/* With Helper Text */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Helper Text
               </Text>
               <InputText
@@ -122,22 +122,22 @@ const Page = () => {
 
             {/* With Icons */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Icons
               </Text>
               <InputText
                 label="Email Input"
                 type="email"
                 placeholder="Enter your email"
-                startAdornment={<Mail className="h-4 w-4" />}
-                endAdornment={<HelpCircle className="h-4 w-4" />}
+                startAdornment={<Mail className="h-16 w-16" />}
+                endAdornment={<HelpCircle className="h-16 w-16" />}
                 helperText="Click the question mark for help"
               />
             </div>
 
             {/* Disabled */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Disabled InputText
               </Text>
               <InputText
@@ -149,7 +149,7 @@ const Page = () => {
 
             {/* Read Only */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Read Only InputText
               </Text>
               <InputText
@@ -161,7 +161,7 @@ const Page = () => {
 
             {/* Multiline */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Multiline InputText
               </Text>
               <InputText
@@ -175,33 +175,33 @@ const Page = () => {
 
             {/* Different Types */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Different Input Types
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <InputText
                   label="Email"
                   type="email"
                   placeholder="Enter email"
-                  startAdornment={<Mail className="h-4 w-4" />}
+                  startAdornment={<Mail className="h-16 w-16" />}
                 />
                 <InputText
                   label="Password"
                   type="password"
                   placeholder="Enter password"
-                  startAdornment={<Lock className="h-4 w-4" />}
+                  startAdornment={<Lock className="h-16 w-16" />}
                 />
                 <InputText
                   label="Phone"
                   type="tel"
                   placeholder="Enter phone number"
-                  startAdornment={<Phone className="h-4 w-4" />}
+                  startAdornment={<Phone className="h-16 w-16" />}
                 />
                 <InputText
                   label="Website"
                   type="url"
                   placeholder="Enter website URL"
-                  startAdornment={<Globe className="h-4 w-4" />}
+                  startAdornment={<Globe className="h-16 w-16" />}
                 />
               </div>
             </div>
@@ -209,15 +209,15 @@ const Page = () => {
         </section>
 
         {/* Select Component Demo */}
-        <section className="mb-8">
-          <Text variant="h3" className="mb-4">
+        <section className="mb-32">
+          <Text variant="h3" className="mb-16">
             Select Component
           </Text>
 
-          <div className="space-y-6">
+          <div className="space-y-24">
             {/* Basic Select */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Basic Select
               </Text>
               <Select
@@ -231,7 +231,7 @@ const Page = () => {
 
             {/* With Value */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Pre-selected Value
               </Text>
               <Select
@@ -244,7 +244,7 @@ const Page = () => {
 
             {/* Required */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Required Field
               </Text>
               <Select
@@ -258,7 +258,7 @@ const Page = () => {
 
             {/* With Error */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Error State
               </Text>
               <Select
@@ -272,7 +272,7 @@ const Page = () => {
 
             {/* Disabled */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Disabled Select
               </Text>
               <Select
@@ -285,7 +285,7 @@ const Page = () => {
 
             {/* With Disabled Option */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 With Disabled Option
               </Text>
               <Select
@@ -303,10 +303,10 @@ const Page = () => {
 
             {/* Multiple Selects */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Multiple Selects
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <Select
                   label="First Select"
                   options={sampleOptions}
@@ -324,7 +324,7 @@ const Page = () => {
 
             {/* Long Options */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Long Options
               </Text>
               <Select
@@ -337,13 +337,13 @@ const Page = () => {
 
             {/* Empty Options Test Cases */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Empty Options Test Cases
               </Text>
-              <div className="space-y-4">
+              <div className="space-y-16">
                 {/* Empty Array */}
                 <div>
-                  <Text variant="h6" className="mb-2">
+                  <Text variant="h6" className="mb-8">
                     Empty Array Options
                   </Text>
                   <Select
@@ -356,7 +356,7 @@ const Page = () => {
 
                 {/* Undefined Options */}
                 <div>
-                  <Text variant="h6" className="mb-2">
+                  <Text variant="h6" className="mb-8">
                     Undefined Options
                   </Text>
                   <Select
@@ -369,7 +369,7 @@ const Page = () => {
 
                 {/* Null Options */}
                 <div>
-                  <Text variant="h6" className="mb-2">
+                  <Text variant="h6" className="mb-8">
                     Null Options
                   </Text>
                   <Select
@@ -382,7 +382,7 @@ const Page = () => {
 
                 {/* With Custom Empty Label */}
                 <div>
-                  <Text variant="h6" className="mb-2">
+                  <Text variant="h6" className="mb-8">
                     Custom Empty Label
                   </Text>
                   <Select
@@ -398,18 +398,18 @@ const Page = () => {
         </section>
 
         {/* Comparison Section */}
-        <section className="mb-8">
-          <Text variant="h3" className="mb-4">
+        <section className="mb-32">
+          <Text variant="h3" className="mb-16">
             Side-by-Side Comparison
           </Text>
 
-          <div className="space-y-6">
+          <div className="space-y-24">
             {/* Basic Comparison */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Basic Inputs
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <InputText label="Text Input" placeholder="Enter text" />
                 <Select
                   label="Dropdown Select"
@@ -421,10 +421,10 @@ const Page = () => {
 
             {/* Required Comparison */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Required Fields
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <InputText
                   label="Required Text Input"
                   placeholder="This field is required"
@@ -440,10 +440,10 @@ const Page = () => {
 
             {/* Error Comparison */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Error States
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <InputText
                   label="Input with Error"
                   errorMessage="This field has an error"
@@ -458,10 +458,10 @@ const Page = () => {
 
             {/* Disabled Comparison */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Disabled States
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <InputText
                   label="Disabled Input"
                   value="Disabled text"
@@ -478,10 +478,10 @@ const Page = () => {
 
             {/* Helper Text Comparison */}
             <div>
-              <Text variant="h5" className="mb-2">
+              <Text variant="h5" className="mb-8">
                 Helper Text
               </Text>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
                 <InputText
                   label="Input with Helper"
                   placeholder="Enter some text"
@@ -501,7 +501,7 @@ const Page = () => {
         <div className="text-center">
           <button
             onClick={() => setShowError(!showError)}
-            className="rounded-lg bg-blue-500 px-6 py-3 text-white transition-colors hover:bg-blue-600"
+            className="rounded-8 bg-blue-500 px-24 py-12 text-white transition-colors hover:bg-blue-600"
           >
             Toggle Error States
           </button>

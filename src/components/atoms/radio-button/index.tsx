@@ -29,8 +29,9 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     }
   };
 
-  const baseContainerClasses = "flex flex-col items-start gap-2 mt-1";
-  const baseInputClasses = "transition-colors duration-200 w-4 h-4 m-0 my-auto";
+  const baseContainerClasses = "flex flex-col items-start gap-8 mt-4";
+  const baseInputClasses =
+    "transition-colors duration-200 w-16 h-16 m-0 my-auto";
   const baseHelperTextClasses = "";
 
   const containerStateClasses = {
@@ -82,7 +83,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <div className="flex flex-col justify-center">
       <label className={containerClasses}>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-8">
           <input
             type="radio"
             value={value}

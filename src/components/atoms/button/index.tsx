@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "btn cursor-pointer flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none transition-all duration-150 ease-in-out active:scale-110",
+  "btn cursor-pointer flex items-center justify-center gap-8 font-medium rounded-full focus:outline-none transition-all duration-150 ease-in-out active:scale-110",
   {
     defaultVariants: {
       variant: "primary",
@@ -19,9 +19,9 @@ const buttonVariants = cva(
         ghost: "bg-primary-100 text-primary-600 hover:bg-primary-200",
       },
       size: {
-        large: "px-8 h-12 text-lg font-semibold",
-        medium: "px-6 h-10 text-md font-semibold",
-        small: "px-4 h-8 text-xs font-semibold",
+        large: "px-32 h-48 text-lg font-semibold",
+        medium: "px-24 h-40 text-md font-semibold",
+        small: "px-16 h-32 text-xs font-semibold",
       },
       danger: {
         true: "",

@@ -18,8 +18,6 @@ const meta: Meta<typeof Text> = {
         "h4",
         "h5",
         "h6",
-        "h7",
-        "h8",
         "body-1",
         "body-2",
         "body-3",
@@ -63,22 +61,20 @@ export const Default: Story = {
 
 export const Headings: Story = {
   render: () => (
-    <div className="space-y-4">
-      <Text variant="h1">Header 1 — 64px desktop</Text>
-      <Text variant="h2">Header 2 — 48px</Text>
-      <Text variant="h3">Header 3 — 40px</Text>
-      <Text variant="h4">Header 4 — 36px</Text>
-      <Text variant="h5">Header 5 — 32px</Text>
-      <Text variant="h6">Header 6 — 24px</Text>
-      <Text variant="h7">Header 7 — 20px</Text>
-      <Text variant="h8">Header 8 — 16px</Text>
+    <div className="space-y-16">
+      <Text variant="h1">Header 1 — 48px desktop</Text>
+      <Text variant="h2">Header 2 — 40px</Text>
+      <Text variant="h3">Header 3 — 32px</Text>
+      <Text variant="h4">Header 4 — 24px</Text>
+      <Text variant="h5">Header 5 — 20px</Text>
+      <Text variant="h6">Header 6 — 16px</Text>
     </div>
   ),
 };
 
 export const BodyAndCaptions: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Text variant="body-1">Body 1 — 16px</Text>
       <Text variant="body-2">Body 2 — 14px</Text>
       <Text variant="body-3">Body 3 — 12px</Text>
@@ -90,7 +86,7 @@ export const BodyAndCaptions: Story = {
 
 export const Colors: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Text variant="h3" color="primary">
         Primary
       </Text>
@@ -118,7 +114,7 @@ export const Colors: Story = {
 
 export const CustomWeights: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Text variant="body-1" weight="regular">
         Regular (400)
       </Text>
@@ -134,7 +130,7 @@ export const CustomWeights: Story = {
 
 export const ResponsiveTypography: Story = {
   render: () => (
-    <div className="max-w-xl space-y-4">
+    <div className="max-w-xl space-y-16">
       <Text variant={{ base: "h3", lg: "h1" }} color="primary">
         Mobile H1 → Desktop H1
       </Text>
@@ -148,7 +144,7 @@ export const ResponsiveTypography: Story = {
 
 export const SemanticElements: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Text variant="h1" as="h1">
         Renders as H1
       </Text>
@@ -164,7 +160,7 @@ export const SemanticElements: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="max-w-4xl space-y-8">
+    <div className="max-w-4xl space-y-32">
       <div>
         <Text variant="h1" color="primary">
           Typography 2.0
@@ -175,7 +171,7 @@ export const AllVariants: Story = {
         </Text>
       </div>
 
-      <div className="bg-grey-200 rounded-lg p-4">
+      <div className="bg-grey-200 rounded-8 p-16">
         <Text variant={{ base: "h5", lg: "h3" }} color="secondary">
           Example preset pattern
         </Text>

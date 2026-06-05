@@ -15,7 +15,7 @@ export const CHIP_COLORS = [
 export type ChipColor = (typeof CHIP_COLORS)[number];
 
 const labelVariants = cva(
-  "flex items-center gap-1 rounded-lg font-medium w-fit",
+  "flex items-center gap-4 rounded-8 font-medium w-fit",
   {
     variants: {
       color: {
@@ -28,9 +28,9 @@ const labelVariants = cva(
         dark: "bg-grey-700 text-grey-300",
       },
       size: {
-        small: "h-6 px-2 text-xs",
-        medium: "h-8 px-3 text-sm",
-        large: "h-10 px-3 text-md",
+        small: "h-24 px-8 text-xs",
+        medium: "h-32 px-12 text-sm",
+        large: "h-40 px-12 text-md",
       },
     },
   }

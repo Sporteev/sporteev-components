@@ -15,7 +15,7 @@ const optionWrapperVariants = cva("", {
     variant: {
       simple: "",
       block:
-        "border-2 border-grey-400 rounded-lg p-3 transition-all duration-200",
+        "border-2 border-grey-400 rounded-8 p-12 transition-all duration-200",
     },
   },
   defaultVariants: {
@@ -60,9 +60,9 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     };
 
     return (
-      <div ref={ref} className={cn("flex flex-col gap-3", className)}>
+      <div ref={ref} className={cn("flex flex-col gap-12", className)}>
         {label && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-4">
             <span className="font-medium select-none">{label}</span>
             {required && <span className="text-red-500">*</span>}
           </div>
@@ -71,8 +71,8 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
         <div
           className={cn(
             "flex",
-            layout === "column" ? "flex-col gap-2" : "flex-row flex-wrap",
-            layout === "row" && variant === "simple" ? "gap-4" : "gap-2",
+            layout === "column" ? "flex-col gap-8" : "flex-row flex-wrap",
+            layout === "row" && variant === "simple" ? "gap-16" : "gap-8",
             disabled && "pointer-events-none opacity-60"
           )}
         >

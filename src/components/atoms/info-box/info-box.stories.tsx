@@ -72,7 +72,7 @@ export const CustomIcon: Story = {
   args: {
     variant: "info",
     title: "Custom Icon",
-    icon: <Bell className="text-primary-600 h-5 w-5 shrink-0" />,
+    icon: <Bell className="text-primary-600 h-20 w-20 shrink-0" />,
     children: "This alert uses a custom icon instead of the default one.",
   },
 };

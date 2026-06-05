@@ -107,7 +107,7 @@ export const ControlledExample: Story = {
 
 export const MultipleSelects: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Select
         label="First Select"
         options={sampleOptions}

@@ -9,8 +9,6 @@ export type TextVariant =
   | "h4"
   | "h5"
   | "h6"
-  | "h7"
-  | "h8"
   | "body-1"
   | "body-2"
   | "body-3"
@@ -45,8 +43,6 @@ const variantClasses: Record<TextVariant, string> = {
   h4: "text-h4",
   h5: "text-h5",
   h6: "text-h6",
-  h7: "text-h7",
-  h8: "text-h8",
   "body-1": "text-body-1",
   "body-2": "text-body-2",
   "body-3": "text-body-3",
@@ -87,8 +83,6 @@ const variantToElement: Partial<
   h4: "h4",
   h5: "h5",
   h6: "h6",
-  h7: "p",
-  h8: "p",
   "body-1": "p",
   "body-2": "p",
   "body-3": "p",
