@@ -18,15 +18,11 @@ const meta: Meta<typeof Text> = {
         "h4",
         "h5",
         "h6",
-        "bold-large-text",
-        "regular-large-text",
-        "multiline-large-text",
-        "bold-medium-text",
-        "regular-medium-text",
-        "multiline-medium-text",
-        "bold-small-text",
-        "regular-small-text",
-        "multiline-small-text",
+        "body-1",
+        "body-2",
+        "body-3",
+        "caption-1",
+        "caption-2",
       ],
     },
     color: {
@@ -34,7 +30,9 @@ const meta: Meta<typeof Text> = {
       options: [
         "primary",
         "secondary",
+        "tertiary",
         "neutral",
+        "destructive",
         "danger",
         "success",
         "warning",
@@ -42,7 +40,7 @@ const meta: Meta<typeof Text> = {
     },
     weight: {
       control: { type: "select" },
-      options: ["normal", "medium", "semibold", "bold"],
+      options: ["regular", "semibold", "bold"],
     },
     as: {
       control: { type: "select" },
@@ -54,240 +52,132 @@ const meta: Meta<typeof Text> = {
 export default meta;
 type Story = StoryObj<typeof Text>;
 
-// Basic Text
 export const Default: Story = {
   args: {
-    children: "This is default text",
-    variant: "regular-medium-text",
+    children: "This is default body text",
+    variant: "body-2",
   },
 };
 
-// Headings
 export const Headings: Story = {
   render: () => (
-    <div className="space-y-4">
-      <Text variant="h1">Heading 1 - Main Page Title</Text>
-      <Text variant="h2">Heading 2 - Section Title</Text>
-      <Text variant="h3">Heading 3 - Subsection Title</Text>
-      <Text variant="h4">Heading 4 - Card Title</Text>
-      <Text variant="h5">Heading 5 - Small Title</Text>
-      <Text variant="h6">Heading 6 - Tiny Title</Text>
+    <div className="space-y-16">
+      <Text variant="h1">Header 1 — 48px desktop</Text>
+      <Text variant="h2">Header 2 — 40px</Text>
+      <Text variant="h3">Header 3 — 32px</Text>
+      <Text variant="h4">Header 4 — 24px</Text>
+      <Text variant="h5">Header 5 — 20px</Text>
+      <Text variant="h6">Header 6 — 16px</Text>
     </div>
   ),
 };
 
-// Large Text Variants
-export const LargeText: Story = {
+export const BodyAndCaptions: Story = {
   render: () => (
-    <div className="space-y-4">
-      <Text variant="bold-large-text">Bold Large Text - Important content</Text>
-      <Text variant="regular-large-text">
-        Regular Large Text - Body content
-      </Text>
-      <Text variant="multiline-large-text">
-        Multiline Large Text - This is a longer paragraph that demonstrates how
-        multiline text looks with increased line height for better readability.
-      </Text>
+    <div className="space-y-16">
+      <Text variant="body-1">Body 1 — 16px</Text>
+      <Text variant="body-2">Body 2 — 14px</Text>
+      <Text variant="body-3">Body 3 — 12px</Text>
+      <Text variant="caption-1">Caption 1 — 10px</Text>
+      <Text variant="caption-2">Caption 2 — 8px</Text>
     </div>
   ),
 };
 
-// Medium Text Variants
-export const MediumText: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Text variant="bold-medium-text">Bold Medium Text - Subheadings</Text>
-      <Text variant="regular-medium-text">
-        Regular Medium Text - Standard body text
-      </Text>
-      <Text variant="multiline-medium-text">
-        Multiline Medium Text - This paragraph shows how medium text looks with
-        increased line height for better readability in longer content.
-      </Text>
-    </div>
-  ),
-};
-
-// Small Text Variants
-export const SmallText: Story = {
-  render: () => (
-    <div className="space-y-4">
-      <Text variant="bold-small-text">
-        Bold Small Text - Labels and captions
-      </Text>
-      <Text variant="regular-small-text">
-        Regular Small Text - Secondary information
-      </Text>
-      <Text variant="multiline-small-text">
-        Multiline Small Text - This is a longer paragraph in small text that
-        demonstrates how multiline small text looks with increased line height.
-      </Text>
-    </div>
-  ),
-};
-
-// Colors
 export const Colors: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Text variant="h3" color="primary">
-        Primary Color Text
+        Primary
       </Text>
       <Text variant="h4" color="secondary">
-        Secondary Color Text
+        Secondary
       </Text>
-      <Text variant="regular-medium-text" color="neutral">
-        Neutral Color Text
+      <Text variant="body-2" color="tertiary">
+        Tertiary
       </Text>
-      <Text variant="regular-medium-text" color="danger">
-        Danger Color Text
+      <Text variant="body-2" color="neutral">
+        Neutral (grey scale)
       </Text>
-      <Text variant="regular-medium-text" color="success">
-        Success Color Text
+      <Text variant="body-2" color="destructive">
+        Destructive
       </Text>
-      <Text variant="regular-medium-text" color="warning">
-        Warning Color Text
+      <Text variant="body-2" color="success">
+        Success
+      </Text>
+      <Text variant="body-2" color="warning">
+        Warning
       </Text>
     </div>
   ),
 };
 
-// Custom Weights
 export const CustomWeights: Story = {
   render: () => (
-    <div className="space-y-4">
-      <Text variant="regular-large-text" weight="normal">
-        Normal Weight
+    <div className="space-y-16">
+      <Text variant="body-1" weight="regular">
+        Regular (400)
       </Text>
-      <Text variant="regular-large-text" weight="medium">
-        Medium Weight
+      <Text variant="body-1" weight="semibold">
+        Semibold (600)
       </Text>
-      <Text variant="regular-large-text" weight="semibold">
-        Semibold Weight
-      </Text>
-      <Text variant="regular-large-text" weight="bold">
-        Bold Weight
+      <Text variant="body-1" weight="bold">
+        Bold (700)
       </Text>
     </div>
   ),
 };
 
-// Semantic HTML Elements
+export const ResponsiveTypography: Story = {
+  render: () => (
+    <div className="max-w-xl space-y-16">
+      <Text variant={{ base: "h3", lg: "h1" }} color="primary">
+        Mobile H1 → Desktop H1
+      </Text>
+      <Text variant={{ base: "body-2", lg: "body-1" }} color="neutral">
+        Body scales up at the lg breakpoint using explicit responsive props — no
+        *-desktop tokens in the theme.
+      </Text>
+    </div>
+  ),
+};
+
 export const SemanticElements: Story = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <Text variant="h1" as="h1">
-        This renders as an H1 element
+        Renders as H1
       </Text>
-      <Text variant="regular-medium-text" as="p">
-        This renders as a P element
+      <Text variant="body-2" as="p">
+        Renders as P
       </Text>
-      <Text variant="regular-small-text" as="span">
-        This renders as a SPAN element
-      </Text>
-      <Text variant="regular-medium-text" as="div">
-        This renders as a DIV element
+      <Text variant="caption-1" as="span">
+        Renders as SPAN
       </Text>
     </div>
   ),
 };
 
-// Responsive Example
-export const ResponsiveExample: Story = {
-  render: () => (
-    <div className="space-y-6">
-      <div>
-        <Text variant="h1" color="primary">
-          Responsive Typography
-        </Text>
-        <Text variant="regular-large-text" color="neutral">
-          This heading and text will scale from mobile to desktop sizes
-          automatically.
-        </Text>
-      </div>
-
-      <div className="rounded-lg bg-neutral-20 p-4">
-        <Text variant="h3" color="secondary">
-          Mobile First Design
-        </Text>
-        <Text variant="multiline-medium-text" color="neutral">
-          The typography system is built with mobile-first responsive design.
-          Text sizes automatically adjust based on screen size for optimal
-          readability.
-        </Text>
-      </div>
-    </div>
-  ),
-};
-
-// All Variants Overview
 export const AllVariants: Story = {
   render: () => (
-    <div className="max-w-4xl space-y-8">
+    <div className="max-w-4xl space-y-32">
       <div>
         <Text variant="h1" color="primary">
-          Typography System Overview
+          Typography 2.0
         </Text>
-        <Text variant="regular-large-text" color="neutral">
-          Complete typography scale from the Sporteev design system
+        <Text variant="body-1" color="neutral">
+          Desktop token sizes from new-theme.mdx; use responsive variant props
+          for mobile.
         </Text>
       </div>
 
-      <div className="space-y-6">
-        <div>
-          <Text variant="h2" color="secondary">
-            Headings
-          </Text>
-          <div className="mt-2 space-y-2">
-            <Text variant="h1">H1 - 36px/64px</Text>
-            <Text variant="h2">H2 - 32px/56px</Text>
-            <Text variant="h3">H3 - 28px/48px</Text>
-            <Text variant="h4">H4 - 24px/36px</Text>
-            <Text variant="h5">H5 - 20px/24px</Text>
-            <Text variant="h6">H6 - 18px/20px</Text>
-          </div>
-        </div>
-
-        <div>
-          <Text variant="h2" color="secondary">
-            Large Text
-          </Text>
-          <div className="mt-2 space-y-2">
-            <Text variant="bold-large-text">Bold Large - 16px/18px</Text>
-            <Text variant="regular-large-text">Regular Large - 16px/18px</Text>
-            <Text variant="multiline-large-text">
-              Multiline Large - 16px/18px
-            </Text>
-          </div>
-        </div>
-
-        <div>
-          <Text variant="h2" color="secondary">
-            Medium Text
-          </Text>
-          <div className="mt-2 space-y-2">
-            <Text variant="bold-medium-text">Bold Medium - 14px/16px</Text>
-            <Text variant="regular-medium-text">
-              Regular Medium - 14px/16px
-            </Text>
-            <Text variant="multiline-medium-text">
-              Multiline Medium - 14px/16px
-            </Text>
-          </div>
-        </div>
-
-        <div>
-          <Text variant="h2" color="secondary">
-            Small Text
-          </Text>
-          <div className="mt-2 space-y-2">
-            <Text variant="bold-small-text">Bold Small - 12px/14px</Text>
-            <Text variant="regular-small-text">Regular Small - 12px/14px</Text>
-            <Text variant="multiline-small-text">
-              Multiline Small - 12px/14px
-            </Text>
-          </div>
-        </div>
+      <div className="bg-grey-200 rounded-8 p-16">
+        <Text variant={{ base: "h5", lg: "h3" }} color="secondary">
+          Example preset pattern
+        </Text>
+        <Text variant={{ base: "body-3", lg: "body-1" }} color="neutral">
+          base: h5/body-3 on small screens, lg: h3/body-1 at lg+.
+        </Text>
       </div>
     </div>
   ),

@@ -82,8 +82,8 @@ export const Large: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col items-center gap-8">
-      <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-32">
+      <div className="flex flex-col items-center gap-8">
         <span className="text-sm font-medium text-gray-600">Small</span>
         <ScoreIncreaseDecrease
           score={5}
@@ -92,7 +92,7 @@ export const AllVariants: Story = {
           onDecrease={() => {}}
         />
       </div>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-8">
         <span className="text-sm font-medium text-gray-600">Medium</span>
         <ScoreIncreaseDecrease
           score={5}
@@ -101,7 +101,7 @@ export const AllVariants: Story = {
           onDecrease={() => {}}
         />
       </div>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col items-center gap-8">
         <span className="text-sm font-medium text-gray-600">Large</span>
         <ScoreIncreaseDecrease
           score={5}
@@ -128,7 +128,7 @@ export const Controlled: Story = {
       };
 
       return (
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-16">
           <ScoreIncreaseDecrease
             score={score}
             variant="medium"
@@ -152,7 +152,7 @@ export const EditableScoreInput: Story = {
       const [score, setScore] = useState(2);
 
       return (
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-center gap-16">
           <ScoreIncreaseDecrease
             score={score}
             variant="medium"

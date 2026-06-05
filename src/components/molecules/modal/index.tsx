@@ -4,16 +4,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const modalVariants = cva(
-  "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4",
+  "fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-16",
   {
     variants: {
       size: {
         small:
-          "[&>div]:w-full [&>div]:max-w-sm [&>div]:md:min-w-[20rem] [&>div]:max-h-[50vh]", // min-w-80
+          "[&>div]:w-full [&>div]:max-w-sm [&>div]:md:min-w-320 [&>div]:max-h-[50vh]",
         medium:
-          "[&>div]:w-full [&>div]:max-w-md [&>div]:md:min-w-[32rem] [&>div]:max-h-[70vh]", // min-w-112
+          "[&>div]:w-full [&>div]:max-w-md [&>div]:md:min-w-[512px] [&>div]:max-h-[70vh]",
         large:
-          "[&>div]:w-full [&>div]:max-w-4xl [&>div]:md:min-w-[48rem] [&>div]:max-h-[90vh]", // min-w-192
+          "[&>div]:w-full [&>div]:max-w-4xl [&>div]:md:min-w-[768px] [&>div]:max-h-[90vh]",
       },
     },
     defaultVariants: {
@@ -82,14 +82,14 @@ const Modal: React.FC<ModalProps> = ({
     <div className={cn(modalVariants({ size }), className)}>
       <div
         ref={modalRef}
-        className="relative mx-auto flex flex-col rounded-2xl bg-white"
+        className="rounded-16 relative mx-auto flex flex-col bg-white shadow-secondary"
       >
         <div
-          className={cn("flex-1 overflow-y-auto p-6", contentClassName)}
+          className={cn("flex-1 overflow-y-auto p-24", contentClassName)}
           style={contentStyle}
         >
           {title && (
-            <h2 className="mb-4 mt-0 w-full text-center text-xl font-semibold text-neutral-90">
+            <h2 className="text-grey-900 mt-0 mb-16 w-full text-center text-xl font-semibold">
               {title}
             </h2>
           )}
@@ -97,10 +97,10 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {actions.length > 0 && (
-          <div className="flex-shrink-0 rounded-b-2xl border-t border-neutral-20 bg-neutral-10 px-6 py-4">
+          <div className="border-grey-200 bg-grey-100 rounded-b-16 flex-shrink-0 border-t px-24 py-16">
             <div
               className={cn(
-                "grid gap-3",
+                "grid gap-12",
                 actions.length === 1 ? "grid-cols-1" : "grid-cols-2",
                 actions.length > 2 && "grid-cols-3"
               )}

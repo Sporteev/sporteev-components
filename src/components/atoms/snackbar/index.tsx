@@ -5,24 +5,24 @@ import { LogoFlat } from "@/components/icons";
 
 const snackbarVariants = cva(
   [
-    "fixed flex flex-col items-start gap-3 rounded-lg shadow-lg z-50",
+    "fixed flex flex-col items-start gap-12 rounded-8 shadow-main z-50",
     "transition-all duration-300 ease-in-out",
-    "md:bottom-4 md:left-4 md:right-auto md:top-auto",
+    "md:bottom-16 md:left-16 md:right-auto md:top-auto",
     "md:w-auto md:max-w-[40%]",
-    "w-[calc(100%-2rem-1.5rem)] max-w-full",
-    "top-4 left-4 p-3",
+    "w-[calc(100%-56px)] max-w-full",
+    "top-16 left-16 p-12",
   ].join(" "),
   {
     variants: {
       variant: {
-        primary: "bg-primary-20 text-primary-80",
-        tertiary: "bg-tertiary-30 text-tertiary-70",
+        primary: "bg-primary-200 text-primary-600",
+        tertiary: "bg-tertiary-300 text-tertiary-700",
         success: "bg-success-accent text-success-main",
         warning: "bg-warning-accent text-warning-main",
         danger: "bg-danger-accent text-danger-main",
-        gray: "bg-neutral-40 text-neutral-80",
-        dark: "bg-neutral-70 text-neutral-30",
-        light: "bg-neutral-10 text-neutral-70",
+        gray: "bg-grey-400 text-grey-800",
+        dark: "bg-grey-700 text-grey-300",
+        light: "bg-grey-100 text-grey-700",
       },
     },
     defaultVariants: {
@@ -91,7 +91,7 @@ const Snackbar = ({
       {/* Close button */}
       <button
         onClick={handleClose}
-        className="absolute right-2 top-2 rounded-full bg-transparent p-1 text-inherit"
+        className="absolute top-8 right-8 rounded-full bg-transparent p-4 text-inherit"
         aria-label="Close snackbar"
         tabIndex={-1}
       >
@@ -108,9 +108,9 @@ const Snackbar = ({
         </svg>
       </button>
 
-      <div className="flex flex-grow items-center gap-2 md:w-[30vw]">
+      <div className="flex flex-grow items-center gap-8 md:w-[30vw]">
         {icon || <LogoFlat size={32} />}
-        <div className="flex w-full flex-col gap-2">
+        <div className="flex w-full flex-col gap-8">
           <h4 className="font-semibold">{title}</h4>
           {body && <p className="text-sm opacity-90">{body}</p>}
           {action && <div className="">{action}</div>}

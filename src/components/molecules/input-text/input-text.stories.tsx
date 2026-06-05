@@ -100,7 +100,7 @@ export const ReadOnly: StoryObj<typeof InputText> = {
 // Different sizes
 export const Sizes: StoryObj<typeof InputText> = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <InputText
         label="Small Input"
         placeholder="Small size"
@@ -126,7 +126,7 @@ export const Sizes: StoryObj<typeof InputText> = {
 // Different types
 export const Types: StoryObj<typeof InputText> = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <InputText
         label="Text Input"
         placeholder="Regular text"
@@ -176,7 +176,7 @@ export const Types: StoryObj<typeof InputText> = {
 // With adornments
 export const WithAdornments: StoryObj<typeof InputText> = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <InputText
         label="With Start Adornment"
         placeholder="Enter amount"
@@ -251,7 +251,7 @@ export const Controlled: StoryObj<typeof InputText> = {
 // Full width vs auto width
 export const WidthVariants: StoryObj<typeof InputText> = {
   render: () => (
-    <div className="space-y-4">
+    <div className="space-y-16">
       <InputText
         label="Full Width (default)"
         placeholder="This input takes full width"

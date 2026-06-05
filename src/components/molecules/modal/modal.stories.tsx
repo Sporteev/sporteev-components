@@ -83,20 +83,20 @@ const ModalWrapper = (props: ModalStoryProps) => {
           },
         ]}
       >
-        <div className="space-y-4">
-          <div className="space-y-6">
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="space-y-2">
-                <h3 className="font-medium text-neutral-90">Section 1</h3>
-                <p className="text-neutral-70">
+        <div className="space-y-16">
+          <div className="space-y-24">
+            <div className="grid gap-16 md:grid-cols-2">
+              <div className="space-y-8">
+                <h3 className="text-grey-900 font-medium">Section 1</h3>
+                <p className="text-grey-700">
                   Large modals are perfect for complex content that requires
                   more space. You can use grid layouts to organize information
                   effectively.
                 </p>
               </div>
-              <div className="space-y-2">
-                <h3 className="font-medium text-neutral-90">Section 2</h3>
-                <p className="text-neutral-70">
+              <div className="space-y-8">
+                <h3 className="text-grey-900 font-medium">Section 2</h3>
+                <p className="text-grey-700">
                   The content can be split into multiple columns or sections,
                   making it easier to scan and understand.
                 </p>

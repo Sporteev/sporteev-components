@@ -9,6 +9,7 @@ lerna-debug.log*
 *.tgz
 
 node_modules
+package-lock.json
 dist
 dist-ssr
 *.local
@@ -17,6 +18,9 @@ storybook-static
 
 # Editor directories and files
 .vscode/*
+.cursor/*
+.claude/*
+.kiro/
 !.vscode/extensions.json
 .idea
 .DS_Store

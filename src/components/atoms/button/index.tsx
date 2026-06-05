@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "btn cursor-pointer flex items-center justify-center gap-2 font-medium rounded-full focus:outline-none transition-all duration-150 ease-in-out active:scale-110",
+  "btn cursor-pointer flex items-center justify-center gap-8 font-medium rounded-full focus:outline-none transition-all duration-150 ease-in-out active:scale-110 active:shadow-secondary",
   {
     defaultVariants: {
       variant: "primary",
@@ -12,16 +12,16 @@ const buttonVariants = cva(
     },
     variants: {
       variant: {
-        primary: "bg-primary-80 text-neutral-10 hover:bg-primary-90",
-        secondary: "bg-primary-20 text-primary-80 hover:bg-primary-30",
+        primary: "bg-primary-600 text-grey-100 hover:bg-primary-700",
+        secondary: "bg-primary-200 text-primary-600 hover:bg-primary-300",
         outline:
-          "border-2 border-primary-80 text-primary-80 bg-white hover:bg-primary-80 hover:text-neutral-20",
-        ghost: "bg-primary-10 text-primary-80 hover:bg-primary-20",
+          "border-2 border-primary-600 text-primary-600 bg-white hover:bg-primary-600 hover:text-grey-200",
+        ghost: "bg-primary-100 text-primary-600 hover:bg-primary-200",
       },
       size: {
-        large: "px-8 h-12 text-lg font-semibold",
-        medium: "px-6 h-10 text-md font-semibold",
-        small: "px-4 h-8 text-xs font-semibold",
+        large: "px-32 h-48 text-lg font-semibold",
+        medium: "px-24 h-40 text-md font-semibold",
+        small: "px-16 h-32 text-xs font-semibold",
       },
       danger: {
         true: "",
@@ -41,7 +41,7 @@ const buttonVariants = cva(
       {
         variant: "primary",
         danger: true,
-        className: "bg-danger-main text-neutral-10 hover:bg-danger-main-hover",
+        className: "bg-danger-main text-grey-100 hover:bg-danger-main-hover",
       },
       {
         variant: "secondary",
@@ -53,42 +53,42 @@ const buttonVariants = cva(
         variant: "outline",
         danger: true,
         className:
-          "border-2 border-danger-main text-danger-main hover:bg-danger-main hover:text-neutral-20",
+          "border-2 border-danger-main text-danger-main hover:bg-danger-main hover:text-grey-200",
       },
       {
         variant: "ghost",
         danger: true,
         className:
-          "bg-neutral-10 text-danger-main hover:bg-danger-main-hover hover:text-neutral-20",
+          "bg-grey-100 text-danger-main hover:bg-danger-main-hover hover:text-grey-200",
       },
       // disabled overrides styles
       {
         variant: "primary",
         disabled: true,
-        className: "bg-neutral-40 text-neutral-50 pointer-events-none",
+        className: "bg-grey-400 text-grey-500 pointer-events-none",
       },
       {
         variant: "secondary",
         disabled: true,
-        className: "bg-neutral-30 text-neutral-60 pointer-events-none",
+        className: "bg-grey-300 text-grey-600 pointer-events-none",
       },
       {
         variant: "outline",
         disabled: true,
-        className:
-          "border-2 border-neutral-50 text-neutral-50 pointer-events-none",
+        className: "border-2 border-grey-500 text-grey-500 pointer-events-none",
       },
       {
         variant: "ghost",
         disabled: true,
-        className: "bg-neutral-20 text-neutral-70 pointer-events-none",
+        className: "bg-grey-200 text-grey-700 pointer-events-none",
       },
     ],
   }
 );
 
 interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled">,
+  extends
+    Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled">,
     VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -127,7 +127,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             className,
             fullWidth,
           }),
-          isClicked && "scale-105"
+          isClicked && "scale-105 shadow-secondary"
         )}
         disabled={!!disabled}
         ref={ref}

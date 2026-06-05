@@ -29,8 +29,9 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
     }
   };
 
-  const baseContainerClasses = "flex flex-col items-start gap-2 mt-1";
-  const baseInputClasses = "transition-colors duration-200 w-4 h-4 m-0 my-auto";
+  const baseContainerClasses = "flex flex-col items-start gap-8 mt-4";
+  const baseInputClasses =
+    "transition-colors duration-200 w-16 h-16 m-0 my-auto";
   const baseHelperTextClasses = "";
 
   const containerStateClasses = {
@@ -39,11 +40,11 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   };
 
   const inputStateClasses = {
-    normal: "accent-primary-70",
+    normal: "accent-primary-700",
   };
 
   const helperTextStateClasses = {
-    normal: "text-neutral-60",
+    normal: "text-grey-600",
   };
 
   const getContainerClasses = () => {
@@ -67,8 +68,8 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   const labelClasses = cn(
     "font-medium select-none",
     {
-      "text-neutral-100": !disabled,
-      "text-neutral-80": disabled,
+      "text-grey-950": !disabled,
+      "text-grey-800": disabled,
     },
     labelClassName
   );
@@ -82,7 +83,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   return (
     <div className="flex flex-col justify-center">
       <label className={containerClasses}>
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-8">
           <input
             type="radio"
             value={value}
@@ -92,13 +93,13 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
             className={inputClasses}
           />
           {label && (
-            <Text variant="bold-medium-text" className={labelClasses}>
+            <Text variant="body-2" weight="semibold" className={labelClasses}>
               {label}
             </Text>
           )}
         </div>
         {helperText && (
-          <Text variant="multiline-small-text" className={helperTextClasses}>
+          <Text variant="body-3" className={helperTextClasses}>
             {helperText}
           </Text>
         )}
