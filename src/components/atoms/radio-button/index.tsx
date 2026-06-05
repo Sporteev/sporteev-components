@@ -39,11 +39,11 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   };
 
   const inputStateClasses = {
-    normal: "accent-primary-70",
+    normal: "accent-primary-700",
   };
 
   const helperTextStateClasses = {
-    normal: "text-neutral-60",
+    normal: "text-grey-600",
   };
 
   const getContainerClasses = () => {
@@ -67,8 +67,8 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   const labelClasses = cn(
     "font-medium select-none",
     {
-      "text-neutral-100": !disabled,
-      "text-neutral-80": disabled,
+      "text-grey-950": !disabled,
+      "text-grey-800": disabled,
     },
     labelClassName
   );
@@ -92,13 +92,13 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
             className={inputClasses}
           />
           {label && (
-            <Text variant="bold-medium-text" className={labelClasses}>
+            <Text variant="body-2" weight="semibold" className={labelClasses}>
               {label}
             </Text>
           )}
         </div>
         {helperText && (
-          <Text variant="multiline-small-text" className={helperTextClasses}>
+          <Text variant="body-3" className={helperTextClasses}>
             {helperText}
           </Text>
         )}

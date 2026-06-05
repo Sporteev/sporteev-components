@@ -19,13 +19,13 @@ const labelVariants = cva(
   {
     variants: {
       color: {
-        primary: "bg-primary-20 text-primary-80",
-        tertiary: "bg-tertiary-30 text-tertiary-70",
+        primary: "bg-primary-200 text-primary-600",
+        tertiary: "bg-tertiary-300 text-tertiary-700",
         success: "bg-success-accent text-success-main",
         warning: "bg-warning-accent text-warning-main",
         danger: "bg-danger-accent text-danger-main",
-        gray: "bg-neutral-40 text-neutral-80",
-        dark: "bg-neutral-70 text-neutral-30",
+        gray: "bg-grey-400 text-grey-800",
+        dark: "bg-grey-700 text-grey-300",
       },
       size: {
         small: "h-6 px-2 text-xs",

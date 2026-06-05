@@ -24,19 +24,19 @@ const variantStyles = {
     button: "!h-5 !w-5 sm:!h-6 sm:!w-6",
     score: "h-7 w-8 sm:h-8 sm:w-9",
     icon: "h-3 w-3 sm:h-4 sm:w-4",
-    text: "bold-small-text" as const,
+    text: "body-3" as const,
   },
   medium: {
     button: "!h-6 !w-6 sm:!h-8 sm:!w-8",
     score: "h-9 w-10 sm:h-11 sm:w-12",
     icon: "h-3.5 w-3.5 sm:h-4 sm:w-4",
-    text: "bold-medium-text" as const,
+    text: "body-2" as const,
   },
   large: {
     button: "!h-8 !w-8 sm:!h-10 sm:!w-10",
     score: "h-12 w-14 sm:h-14 sm:w-16",
     icon: "h-4 w-4 sm:h-5 sm:w-5",
-    text: "bold-large-text" as const,
+    text: "body-1" as const,
   },
 };
 
@@ -69,18 +69,18 @@ export const ScoreIncreaseDecrease = ({
     const baseClasses = `flex ${styles.score} items-center justify-center rounded-md border`;
 
     if (disabled) {
-      return `${baseClasses} border-neutral-40 bg-neutral-30 text-neutral-50`;
+      return `${baseClasses} border-grey-400 bg-grey-300 text-grey-500`;
     }
 
     if (inFocus) {
-      return `${baseClasses} border-primary-30 bg-primary-20`;
+      return `${baseClasses} border-primary-300 bg-primary-200`;
     }
 
     if (danger) {
       return `${baseClasses} border-danger-main bg-danger-accent`;
     }
 
-    return `${baseClasses} border-neutral-40`;
+    return `${baseClasses} border-grey-400`;
   };
 
   return (
@@ -92,7 +92,7 @@ export const ScoreIncreaseDecrease = ({
           size="small"
           className={cn(
             `${styles.button} rounded-md p-0`,
-            disabled ? "bg-neutral-30 text-neutral-50" : "!border"
+            disabled ? "bg-grey-300 text-grey-500" : "!border"
           )}
           onClick={onDecrease}
           disabled={isDecreaseDisabled}
@@ -116,12 +116,16 @@ export const ScoreIncreaseDecrease = ({
           }}
           className={cn(
             getScoreBoxClassName(),
-            "bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            "[appearance:textfield] bg-transparent text-center outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           )}
           disabled={disabled}
         />
       ) : (
-        <Text variant={styles.text} className={getScoreBoxClassName()}>
+        <Text
+          variant={styles.text}
+          weight="semibold"
+          className={getScoreBoxClassName()}
+        >
           {score}
         </Text>
       )}

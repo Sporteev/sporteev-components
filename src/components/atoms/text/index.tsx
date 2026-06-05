@@ -1,41 +1,101 @@
 import React from "react";
 import { cn } from "../../../lib/utils";
+import { responsiveClasses, type Responsive } from "../../../lib/responsive";
+
+export type TextVariant =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "h7"
+  | "h8"
+  | "body-1"
+  | "body-2"
+  | "body-3"
+  | "caption-1"
+  | "caption-2";
+
+export type TextColor =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "neutral"
+  | "destructive"
+  | "danger"
+  | "success"
+  | "warning";
 
 export interface TextProps {
-  variant?:
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
-    | "bold-large-text"
-    | "regular-large-text"
-    | "multiline-large-text"
-    | "bold-medium-text"
-    | "regular-medium-text"
-    | "multiline-medium-text"
-    | "bold-small-text"
-    | "regular-small-text"
-    | "multiline-small-text";
-  color?:
-    | "primary"
-    | "secondary"
-    | "neutral"
-    | "danger"
-    | "success"
-    | "warning"
-    | React.CSSProperties["color"];
-  weight?: "normal" | "medium" | "semibold" | "bold";
-  textAlign?: "left" | "center" | "right" | "justify";
+  variant?: Responsive<TextVariant>;
+  color?: Responsive<TextColor> | React.CSSProperties["color"];
+  weight?: Responsive<"regular" | "semibold" | "bold">;
+  textAlign?: Responsive<"left" | "center" | "right" | "justify">;
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div";
 }
 
+const variantClasses: Record<TextVariant, string> = {
+  h1: "text-h1",
+  h2: "text-h2",
+  h3: "text-h3",
+  h4: "text-h4",
+  h5: "text-h5",
+  h6: "text-h6",
+  h7: "text-h7",
+  h8: "text-h8",
+  "body-1": "text-body-1",
+  "body-2": "text-body-2",
+  "body-3": "text-body-3",
+  "caption-1": "text-caption-1",
+  "caption-2": "text-caption-2",
+};
+
+const colorClasses: Record<TextColor, string> = {
+  primary: "text-primary-600",
+  secondary: "text-secondary-600",
+  tertiary: "text-tertiary-600",
+  neutral: "text-grey-950",
+  destructive: "text-destructive-600",
+  danger: "text-danger-main",
+  success: "text-success-main",
+  warning: "text-warning-main",
+};
+
+const weightClasses = {
+  regular: "font-regular",
+  semibold: "font-semibold",
+  bold: "font-bold",
+};
+
+const textAlignClasses = {
+  left: "text-left",
+  center: "text-center",
+  right: "text-right",
+  justify: "text-justify",
+};
+
+const variantToElement: Partial<
+  Record<TextVariant, keyof React.JSX.IntrinsicElements>
+> = {
+  h1: "h1",
+  h2: "h2",
+  h3: "h3",
+  h4: "h4",
+  h5: "h5",
+  h6: "h6",
+  h7: "p",
+  h8: "p",
+  "body-1": "p",
+  "body-2": "p",
+  "body-3": "p",
+};
+
 export const Text: React.FC<TextProps> = ({
-  variant = "regular-medium-text",
+  variant = "body-2",
   color = "neutral",
   weight,
   textAlign,
@@ -44,92 +104,30 @@ export const Text: React.FC<TextProps> = ({
   style,
   as,
 }) => {
-  // Determine the HTML element based on variant or as prop
-  const getElement = (): keyof JSX.IntrinsicElements => {
+  const resolvedVariant =
+    typeof variant === "string" ? variant : (variant.base ?? "body-2");
+
+  const getElement = (): keyof React.JSX.IntrinsicElements => {
     if (as) return as;
-
-    // Map variants to semantic HTML elements
-    const variantToElement: Record<string, keyof JSX.IntrinsicElements> = {
-      h1: "h1",
-      h2: "h2",
-      h3: "h3",
-      h4: "h4",
-      h5: "h5",
-      h6: "h6",
-      "multiline-large-text": "p",
-      "multiline-medium-text": "p",
-      "multiline-small-text": "p",
-    };
-
-    return variantToElement[variant] || "span";
+    return variantToElement[resolvedVariant] ?? "span";
   };
 
-  // Variant classes with responsive typography - pixel perfect match to sporteev-crm
-  // Using !important to override Material-UI typography styles
-  const variantClasses = {
-    h1: "!text-h1 lg:!text-h1-desktop",
-    h2: "!text-h2 lg:!text-h2-desktop",
-    h3: "!text-h3 lg:!text-h3-desktop",
-    h4: "!text-h4 lg:!text-h4-desktop",
-    h5: "!text-h5 lg:!text-h5-desktop",
-    h6: "!text-h6 lg:!text-h6-desktop",
-    "bold-large-text": "!text-bold-large-text lg:!text-bold-large-text-desktop",
-    "regular-large-text":
-      "!text-regular-large-text lg:!text-regular-large-text-desktop",
-    "multiline-large-text":
-      "!text-multiline-large-text lg:!text-multiline-large-text-desktop",
-    "bold-medium-text":
-      "!text-bold-medium-text lg:!text-bold-medium-text-desktop",
-    "regular-medium-text":
-      "!text-regular-medium-text lg:!text-regular-medium-text-desktop",
-    "multiline-medium-text":
-      "!text-multiline-medium-text lg:!text-multiline-medium-text-desktop",
-    "bold-small-text": "!text-bold-small-text lg:!text-bold-small-text-desktop",
-    "regular-small-text":
-      "!text-regular-small-text lg:!text-regular-small-text-desktop",
-    "multiline-small-text":
-      "!text-multiline-small-text lg:!text-multiline-small-text-desktop",
-  };
-
-  // Color classes
-  const colorClasses = {
-    primary: "text-primary-80",
-    secondary: "text-secondary-80",
-    neutral: "text-neutral-100",
-    danger: "text-danger-main",
-    success: "text-success-main",
-    warning: "text-warning-main",
-  };
-
-  // Weight classes (only apply if weight is explicitly set)
-  const weightClasses = {
-    normal: "font-normal",
-    medium: "font-medium",
-    semibold: "font-semibold",
-    bold: "font-bold",
-  };
-
-  // Text align classes
-  const textAlignClasses = {
-    left: "text-left",
-    center: "text-center",
-    right: "text-right",
-    justify: "text-justify",
-  };
+  const isColorToken = typeof color === "string" && color in colorClasses;
 
   const Element = getElement();
-  const isColorToken = color in colorClasses;
-  const resolvedStyle = isColorToken ? style : { ...style, color };
+  const resolvedStyle: React.CSSProperties | undefined = isColorToken
+    ? style
+    : { ...style, color: color as React.CSSProperties["color"] };
 
   return (
     <Element
       className={cn(
-        variantClasses[variant],
+        responsiveClasses(variant, variantClasses),
         isColorToken
-          ? colorClasses[color as keyof typeof colorClasses]
+          ? responsiveClasses(color as Responsive<TextColor>, colorClasses)
           : undefined,
-        weight && weightClasses[weight],
-        textAlign && textAlignClasses[textAlign],
+        weight && responsiveClasses(weight, weightClasses),
+        textAlign && responsiveClasses(textAlign, textAlignClasses),
         className
       )}
       style={resolvedStyle}

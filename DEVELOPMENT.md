@@ -2,6 +2,8 @@
 
 A React component library for Sporteev applications, built with TypeScript, Tailwind CSS, and Vite.
 
+**Toolchain:** Node 24+, pnpm 10 (see `packageManager` in `package.json`).
+
 ## Development
 
 1. Clone the repository
@@ -9,14 +11,23 @@ A React component library for Sporteev applications, built with TypeScript, Tail
 2. Install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 3. Start Storybook for development:
 
 ```bash
-npm run storybook
+pnpm storybook
 ```
+
+### Formatting
+
+```bash
+pnpm format        # write
+pnpm format:check  # CI check
+```
+
+Uses [Prettier](https://prettier.io) with `prettier-plugin-tailwindcss` for class sorting.
 
 ### Local Testing
 
@@ -25,16 +36,17 @@ To test components locally in another project:
 1. Build and pack the library:
 
 ```bash
-npm run build
-npm pack
+pnpm build
+pnpm pack
 ```
 
-This will create a `.tgz` file (e.g., `sporteev-components-1.0.0.tgz`)
+This creates a `.tgz` file (e.g. `sporteev-sporteev-components-1.1.21.tgz`).
 
-2. In your test project (consumer repo), install the local package:
+2. In your consumer project (e.g. sporteev-web-v2), install the local package:
 
 ```bash
-npm install /path/to/sporteev-components-1.0.0.tgz
+pnpm add file:../sporteev-components
+# or: pnpm add file:/path/to/sporteev-sporteev-components-1.1.21.tgz
 ```
 
 3. Import and use the components in your test project:
@@ -52,49 +64,43 @@ function TestComponent() {
 ```
 
 4. To update the package after making changes:
-   - Rebuild and repack the library
-   - In your consumer project, update the package:
-   ```bash
-   npm update @sporteev/sporteev-components
-   ```
+   - Rebuild in the library: `pnpm build`
+   - In the consumer project: `pnpm update @sporteev/sporteev-components`
 
 ### Publishing
 
-1. Ensure you're logged in to npm:
+1. Log in to the npm registry (pnpm uses the same registry):
 
 ```bash
-npm login
+pnpm login
 ```
 
-You'll be prompted for your npm username, password, and email.
-
 2. Publishing under the @sporteev organization:
+   - Make sure you're a member of the organization [sporteev](https://www.npmjs.com/settings/sporteev/members).
+   - Verify the package name in `package.json` starts with `@sporteev/`.
 
-   - Make sure you're a member of the organization. Check in your [NPM profile page](https://www.npmjs.com/settings/farahnazihah/profile)
-   - Verify the package name in `package.json` starts with `@sporteev/`
-
-3. Choose the appropriate release command based on the type of changes:
+3. Choose the appropriate release command:
 
 ```bash
-# For bug fixes (0.0.1 → 0.0.2)
-npm run release:patch
+# Bug fixes (1.1.21 → 1.1.22)
+pnpm run release:patch
 
-# For new features (0.0.1 → 0.1.0)
-npm run release:minor
+# New features (1.1.21 → 1.2.0)
+pnpm run release:minor
 
-# For breaking changes (0.0.1 → 1.0.0)
-npm run release:major
+# Breaking changes (1.1.21 → 2.0.0)
+pnpm run release:major
 ```
 
 These commands will automatically:
 
-- Update the version in package.json
+- Update the version in `package.json`
 - Create a git commit and tag
 - Build the library
-- Publish to npm
+- Publish to the npm registry
 
-Note: You don't need to manually update the version in package.json - the release scripts handle this automatically.
+Note: You don't need to manually update the version in `package.json` — the release scripts handle this.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.

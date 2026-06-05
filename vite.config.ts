@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 import dts from "vite-plugin-dts";
 import { resolve } from "path";
 
@@ -34,11 +35,9 @@ export default defineConfig({
     sourcemap: true,
     cssCodeSplit: false,
   },
-  css: {
-    postcss: "./postcss.config.js",
-  },
   plugins: [
     react(),
+    tailwindcss(),
     dts({
       include: ["src/**/*.tsx", "src/**/*.ts"],
       exclude: ["src/**/*.stories.tsx", "src/**/*.test.tsx"],

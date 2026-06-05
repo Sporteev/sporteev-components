@@ -50,7 +50,7 @@ const Page = () => {
           <Text variant="h1" color="primary">
             Component Library Demo
           </Text>
-          <Text variant="regular-medium-text" className="mt-2">
+          <Text variant="body-2" className="mt-2">
             Compare InputText and Select components for consistency
           </Text>
         </div>

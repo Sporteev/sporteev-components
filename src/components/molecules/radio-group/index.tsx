@@ -15,7 +15,7 @@ const optionWrapperVariants = cva("", {
     variant: {
       simple: "",
       block:
-        "border-2 border-neutral-40 rounded-lg p-3 transition-all duration-200",
+        "border-2 border-grey-400 rounded-lg p-3 transition-all duration-200",
     },
   },
   defaultVariants: {
@@ -23,8 +23,9 @@ const optionWrapperVariants = cva("", {
   },
 });
 
-export interface RadioGroupProps
-  extends VariantProps<typeof optionWrapperVariants> {
+export interface RadioGroupProps extends VariantProps<
+  typeof optionWrapperVariants
+> {
   label?: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -62,7 +63,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       <div ref={ref} className={cn("flex flex-col gap-3", className)}>
         {label && (
           <div className="flex items-center gap-1">
-            <span className="select-none font-medium">{label}</span>
+            <span className="font-medium select-none">{label}</span>
             {required && <span className="text-red-500">*</span>}
           </div>
         )}
@@ -85,7 +86,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
                   layout === "row" && variant === "block" && "flex-1",
                   variant === "block" &&
                     isSelected &&
-                    "border-primary-50 bg-primary-20"
+                    "border-primary-500 bg-primary-200"
                 )}
               >
                 <RadioButton

@@ -6,7 +6,7 @@ import { AlertCircle, Info, AlertTriangle } from "lucide-react";
 const infoBoxVariants = cva("flex items-start gap-2 rounded-lg p-4", {
   variants: {
     variant: {
-      info: "bg-primary-10",
+      info: "bg-primary-100",
       warning: "bg-warning-accent",
       danger: "bg-danger-accent",
     },
@@ -19,7 +19,7 @@ const infoBoxVariants = cva("flex items-start gap-2 rounded-lg p-4", {
 const iconVariants = cva("h-6 w-6 shrink-0", {
   variants: {
     variant: {
-      info: "text-primary-80",
+      info: "text-primary-600",
       warning: "text-warning-main",
       danger: "text-danger-main",
     },
@@ -32,7 +32,7 @@ const iconVariants = cva("h-6 w-6 shrink-0", {
 const titleVariants = cva("font-bold mb-2 mt-0", {
   variants: {
     variant: {
-      info: "text-primary-70",
+      info: "text-primary-700",
       warning: "text-warning-main",
       danger: "text-danger-main",
     },
@@ -45,7 +45,7 @@ const titleVariants = cva("font-bold mb-2 mt-0", {
 const descriptionVariants = cva("h-full text-sm mt-[2px]", {
   variants: {
     variant: {
-      info: "text-primary-70",
+      info: "text-primary-700",
       warning: "text-warning-main",
       danger: "text-danger-main",
     },

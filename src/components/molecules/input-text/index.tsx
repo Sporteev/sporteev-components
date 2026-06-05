@@ -21,7 +21,8 @@ export interface BaseInputProps {
 }
 
 export interface InputTextProps
-  extends BaseInputProps,
+  extends
+    BaseInputProps,
     Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> {
   multiline?: false;
   type?: "text" | "email" | "password" | "number" | "tel" | "url" | "search";
@@ -29,7 +30,8 @@ export interface InputTextProps
 }
 
 export interface TextAreaProps
-  extends BaseInputProps,
+  extends
+    BaseInputProps,
     Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "size"> {
   multiline: true;
   rows?: number;
@@ -80,7 +82,7 @@ export const InputText = React.forwardRef<
 
   // Base input classes
   const baseInputClasses = cn(
-    "border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-neutral-40 bg-white hover:border-neutral-40 focus:border-primary-50",
+    "border rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent border-grey-400 bg-white hover:border-grey-400 focus:border-primary-500",
     sizeClasses[inputSize],
     {
       "border-red-500": hasError,
@@ -158,11 +160,11 @@ export const InputText = React.forwardRef<
           )}
 
           {showHelperIcon && (
-            <div className="group absolute right-3 top-2 flex items-start text-gray-400">
+            <div className="group absolute top-2 right-3 flex items-start text-gray-400">
               <HelpCircle className="h-4 w-4 cursor-help" />
-              <div className="absolute bottom-full right-0 mb-2 hidden w-64 rounded-lg bg-gray-800 p-2 text-white shadow-lg group-hover:block">
+              <div className="absolute right-0 bottom-full mb-2 hidden w-64 rounded-lg bg-gray-800 p-2 text-white shadow-lg group-hover:block">
                 <p className={helperTextClasses}>{displayHelperText}</p>
-                <div className="absolute right-2 top-full h-0 w-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+                <div className="absolute top-full right-2 h-0 w-0 border-t-4 border-r-4 border-l-4 border-transparent border-t-gray-800"></div>
               </div>
             </div>
           )}
@@ -211,9 +213,9 @@ export const InputText = React.forwardRef<
         {showHelperIcon && (
           <div className="group absolute right-3 flex items-center text-gray-400">
             <HelpCircle className="h-4 w-4 cursor-help" />
-            <div className="absolute bottom-full right-0 mb-2 hidden w-64 rounded-lg bg-gray-800 p-2 text-white shadow-lg group-hover:block">
+            <div className="absolute right-0 bottom-full mb-2 hidden w-64 rounded-lg bg-gray-800 p-2 text-white shadow-lg group-hover:block">
               <p className={helperTextClasses}>{displayHelperText}</p>
-              <div className="absolute right-2 top-full h-0 w-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-800"></div>
+              <div className="absolute top-full right-2 h-0 w-0 border-t-4 border-r-4 border-l-4 border-transparent border-t-gray-800"></div>
             </div>
           </div>
         )}

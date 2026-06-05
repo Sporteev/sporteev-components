@@ -5,7 +5,7 @@ A collection of reusable React components for Sporteev applications, built with 
 ## Installation
 
 ```bash
-npm install @sporteev/sporteev-components
+pnpm add @sporteev/sporteev-components
 ```
 
 ## Usage

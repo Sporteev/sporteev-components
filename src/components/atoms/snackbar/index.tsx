@@ -15,14 +15,14 @@ const snackbarVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-primary-20 text-primary-80",
-        tertiary: "bg-tertiary-30 text-tertiary-70",
+        primary: "bg-primary-200 text-primary-600",
+        tertiary: "bg-tertiary-300 text-tertiary-700",
         success: "bg-success-accent text-success-main",
         warning: "bg-warning-accent text-warning-main",
         danger: "bg-danger-accent text-danger-main",
-        gray: "bg-neutral-40 text-neutral-80",
-        dark: "bg-neutral-70 text-neutral-30",
-        light: "bg-neutral-10 text-neutral-70",
+        gray: "bg-grey-400 text-grey-800",
+        dark: "bg-grey-700 text-grey-300",
+        light: "bg-grey-100 text-grey-700",
       },
     },
     defaultVariants: {
@@ -91,7 +91,7 @@ const Snackbar = ({
       {/* Close button */}
       <button
         onClick={handleClose}
-        className="absolute right-2 top-2 rounded-full bg-transparent p-1 text-inherit"
+        className="absolute top-2 right-2 rounded-full bg-transparent p-1 text-inherit"
         aria-label="Close snackbar"
         tabIndex={-1}
       >

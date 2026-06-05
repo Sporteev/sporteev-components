@@ -89,7 +89,7 @@ const Modal: React.FC<ModalProps> = ({
           style={contentStyle}
         >
           {title && (
-            <h2 className="mb-4 mt-0 w-full text-center text-xl font-semibold text-neutral-90">
+            <h2 className="text-grey-900 mt-0 mb-4 w-full text-center text-xl font-semibold">
               {title}
             </h2>
           )}
@@ -97,7 +97,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {actions.length > 0 && (
-          <div className="flex-shrink-0 rounded-b-2xl border-t border-neutral-20 bg-neutral-10 px-6 py-4">
+          <div className="border-grey-200 bg-grey-100 flex-shrink-0 rounded-b-2xl border-t px-6 py-4">
             <div
               className={cn(
                 "grid gap-3",
