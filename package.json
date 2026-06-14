@@ -47,6 +47,7 @@
     "release:major": "pnpm run build && pnpm version major -m \"Release v%s\" && pnpm publish --access public"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.16",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "tailwind-merge": "^2.2.1"

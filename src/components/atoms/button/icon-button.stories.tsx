@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { CircleHelp } from "lucide-react";
-import { Button } from ".";
+import { IconButton } from "./icon-button";
 import {
   BUTTON_COLORS,
   BUTTON_SIZES,
@@ -8,8 +8,8 @@ import {
 } from "./types";
 
 const meta = {
-  title: "Atoms/Button",
-  component: Button,
+  title: "Atoms/IconButton",
+  component: IconButton,
   parameters: {
     layout: "centered",
   },
@@ -18,60 +18,48 @@ const meta = {
     variant: {
       control: "select",
       options: BUTTON_VARIANTS,
-      description: "Visual style",
     },
     color: {
       control: "select",
       options: BUTTON_COLORS,
-      description: "Token palette (600 / 700 / 800)",
     },
     size: {
       control: "select",
       options: BUTTON_SIZES,
-      description: "Button size",
     },
     disabled: {
       control: "boolean",
     },
-    fullWidth: {
-      control: "boolean",
-    },
-    children: {
-      control: "text",
-    },
   },
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof IconButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+const HelpIcon = () => <CircleHelp className="size-full" />;
+
 export const Default: Story = {
   args: {
-    children: "Button Text",
     variant: "primary",
     color: "primary",
     size: "m",
-  },
-};
-
-export const WithIcons: Story = {
-  args: {
-    children: "Button Text",
-    variant: "primary",
-    color: "primary",
-    size: "m",
-    startIcon: <CircleHelp className="size-full" />,
-    endIcon: <CircleHelp className="size-full" />,
+    icon: <HelpIcon />,
+    "aria-label": "Help",
   },
 };
 
 export const AllSizes: Story = {
   render: () => (
-    <div className="flex flex-col items-start gap-12">
+    <div className="flex items-center gap-12">
       {BUTTON_SIZES.map((size) => (
-        <Button key={size} size={size} variant="primary" color="primary">
-          Size {size.toUpperCase()}
-        </Button>
+        <IconButton
+          key={size}
+          size={size}
+          variant="primary"
+          color="primary"
+          icon={<HelpIcon />}
+          aria-label={`Help size ${size}`}
+        />
       ))}
     </div>
   ),
@@ -79,11 +67,16 @@ export const AllSizes: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col items-start gap-12">
+    <div className="flex items-center gap-12">
       {BUTTON_VARIANTS.map((variant) => (
-        <Button key={variant} variant={variant} color="primary" size="m">
-          {variant}
-        </Button>
+        <IconButton
+          key={variant}
+          variant={variant}
+          color="primary"
+          size="m"
+          icon={<HelpIcon />}
+          aria-label={variant}
+        />
       ))}
     </div>
   ),
@@ -95,9 +88,14 @@ export const ColorPalettes: Story = {
       {BUTTON_COLORS.map((color) => (
         <div key={color} className="flex flex-wrap items-center gap-12">
           {BUTTON_VARIANTS.map((variant) => (
-            <Button key={`${color}-${variant}`} variant={variant} color={color} size="m">
-              {color} / {variant}
-            </Button>
+            <IconButton
+              key={`${color}-${variant}`}
+              variant={variant}
+              color={color}
+              size="m"
+              icon={<HelpIcon />}
+              aria-label={`${color} ${variant}`}
+            />
           ))}
         </div>
       ))}
@@ -107,11 +105,17 @@ export const ColorPalettes: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <div className="flex flex-wrap gap-12">
+    <div className="flex items-center gap-12">
       {BUTTON_VARIANTS.map((variant) => (
-        <Button key={variant} variant={variant} color="primary" size="m" disabled>
-          {variant}
-        </Button>
+        <IconButton
+          key={variant}
+          variant={variant}
+          color="primary"
+          size="m"
+          icon={<HelpIcon />}
+          aria-label={variant}
+          disabled
+        />
       ))}
     </div>
   ),

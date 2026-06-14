@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Modal, type ModalProps } from ".";
 import { Button, InfoBox } from "@/components/atoms";
 import { useState } from "react";
+import { MODAL_SIZES } from "./types";
 
 type ModalStoryProps = Omit<ModalProps, "onClose">;
 
@@ -31,9 +32,16 @@ const meta = {
     size: {
       required: false,
       control: "select",
-      options: ["small", "medium", "large"],
+      options: MODAL_SIZES,
       description: "The size variant of the modal",
-      defaultValue: "medium",
+      defaultValue: "m",
+    },
+    actionLayout: {
+      required: false,
+      control: "select",
+      options: ["row", "col"],
+      description: "Layout direction for footer action buttons",
+      defaultValue: "row",
     },
     title: {
       control: "text",
@@ -42,11 +50,11 @@ const meta = {
     },
     className: {
       required: false,
-      description: "Additional tailwind class names for custom styling",
+      description: "Additional tailwind class names for the overlay",
     },
     contentClassName: {
       required: false,
-      description: "Additional tailwind class names for custom styling",
+      description: "Additional tailwind class names for the body",
     },
   },
 } satisfies Meta<typeof Modal>;
@@ -54,7 +62,6 @@ const meta = {
 export default meta;
 type Story = StoryObj<ModalStoryProps>;
 
-// Wrapper component to handle modal state
 const ModalWrapper = (props: ModalStoryProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -119,8 +126,73 @@ const ModalWrapper = (props: ModalStoryProps) => {
 export const ModalDemo: Story = {
   render: (args) => <ModalWrapper {...args} />,
   args: {
-    size: "large",
+    size: "l",
     title: "Basic Modal",
     isOpen: false,
+    actionLayout: "row",
   },
+};
+
+const ActionLayoutWrapper = ({
+  actionLayout,
+  size = "m",
+}: {
+  actionLayout: ModalProps["actionLayout"];
+  size?: ModalProps["size"];
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div>
+      <Button onClick={() => setIsOpen(true)}>
+        Open ({actionLayout} / {size})
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        size={size}
+        actionLayout={actionLayout}
+        title={`Actions: ${actionLayout}`}
+        actions={[
+          {
+            children: "Cancel",
+            variant: "ghost",
+            onClick: () => setIsOpen(false),
+          },
+          {
+            children: "Save draft",
+            variant: "secondary",
+            onClick: () => setIsOpen(false),
+          },
+          {
+            children: "Confirm",
+            variant: "primary",
+            onClick: () => setIsOpen(false),
+          },
+        ]}
+      >
+        <p className="text-grey-700">
+          Footer buttons use flex with <code>actionLayout="{actionLayout}"</code>
+          .
+        </p>
+      </Modal>
+    </div>
+  );
+};
+
+export const ActionLayoutRow: Story = {
+  render: () => <ActionLayoutWrapper actionLayout="row" />,
+};
+
+export const ActionLayoutCol: Story = {
+  render: () => <ActionLayoutWrapper actionLayout="col" />,
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-16">
+      {MODAL_SIZES.map((size) => (
+        <ActionLayoutWrapper key={size} actionLayout="row" size={size} />
+      ))}
+    </div>
+  ),
 };

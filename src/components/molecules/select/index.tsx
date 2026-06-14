@@ -345,7 +345,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
           {isOpen && dropdownStyle && (
             <div
-              className="border-grey-400 rounded-8 z-[9999] mt-4 max-h-240 overflow-auto border bg-white shadow-secondary"
+              className="border-grey-400 rounded-8 shadow-secondary z-[9999] mt-4 max-h-240 overflow-auto border bg-white"
               style={dropdownStyle}
             >
               {filteredOptions.length > 0 ? (

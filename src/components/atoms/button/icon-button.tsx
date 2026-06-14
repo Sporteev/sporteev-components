@@ -1,24 +1,23 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import {
-  TEXT_BUTTON_ICON_SIZE_CLASSES,
-  TEXT_BUTTON_SIZE_CLASSES,
+  ICON_BUTTON_ICON_SIZE_CLASSES,
+  ICON_BUTTON_SIZE_CLASSES,
 } from "./sizes";
 import type { ButtonColor, ButtonSize, ButtonVariant } from "./types";
 import { BUTTON_BASE_CLASSES, getButtonVariantClasses } from "./variants";
 
-interface ButtonProps
+interface IconButtonProps
   extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
   disabled?: boolean;
-  fullWidth?: boolean;
-  startIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
+  icon: React.ReactNode;
+  "aria-label": string;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
       className,
@@ -26,24 +25,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       color = "primary",
       size = "m",
       disabled = false,
-      fullWidth = false,
-      startIcon,
-      endIcon,
-      children,
+      icon,
       type = "button",
       ...props
     },
     ref
   ) => {
-    const iconSizeClass = TEXT_BUTTON_ICON_SIZE_CLASSES[size];
-
     return (
       <button
         className={cn(
           BUTTON_BASE_CLASSES,
-          TEXT_BUTTON_SIZE_CLASSES[size],
+          ICON_BUTTON_SIZE_CLASSES[size],
+          "shrink-0 p-0",
           getButtonVariantClasses(variant, color, disabled),
-          fullWidth && "w-full",
           className
         )}
         disabled={!!disabled}
@@ -51,23 +45,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         {...props}
       >
-        {startIcon ? (
-          <span className={cn("inline-flex items-center justify-center", iconSizeClass)}>
-            {startIcon}
-          </span>
-        ) : null}
-        {children}
-        {endIcon ? (
-          <span className={cn("inline-flex items-center justify-center", iconSizeClass)}>
-            {endIcon}
-          </span>
-        ) : null}
+        <span
+          className={cn(
+            "inline-flex items-center justify-center",
+            ICON_BUTTON_ICON_SIZE_CLASSES[size]
+          )}
+        >
+          {icon}
+        </span>
       </button>
     );
   }
 );
 
-Button.displayName = "Button";
+IconButton.displayName = "IconButton";
 
-export { Button };
-export type { ButtonProps };
+export { IconButton };
+export type { IconButtonProps };

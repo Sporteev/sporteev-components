@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Text } from "./index";
+import { Text, TEXT_PRESETS } from "./index";
 
 const meta: Meta<typeof Text> = {
   title: "Atoms/Text",
@@ -12,6 +12,7 @@ const meta: Meta<typeof Text> = {
     variant: {
       control: { type: "select" },
       options: [
+        ...TEXT_PRESETS,
         "h1",
         "h2",
         "h3",
@@ -154,6 +155,34 @@ export const SemanticElements: Story = {
       <Text variant="caption-1" as="span">
         Renders as SPAN
       </Text>
+    </div>
+  ),
+};
+
+export const Presets: Story = {
+  render: () => (
+    <div className="max-w-xl space-y-16">
+      <Text variant="pageTitle" as="h1" color="primary">
+        pageTitle — H1 mobile/desktop
+      </Text>
+      <Text variant="sectionTitle" as="h2">
+        sectionTitle — H2
+      </Text>
+      <Text variant="subsectionTitle" as="h3">
+        subsectionTitle — H3
+      </Text>
+      <Text variant="cardTitle" as="h4">
+        cardTitle — H4
+      </Text>
+      <Text variant="label" as="h5">
+        label — H5
+      </Text>
+      <Text variant="overline" as="h6">
+        overline — H6
+      </Text>
+      <Text variant="body">body — Body 1</Text>
+      <Text variant="bodySmall">bodySmall — Body 2</Text>
+      <Text variant="caption">caption — Body 3</Text>
     </div>
   ),
 };

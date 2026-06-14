@@ -1,19 +1,17 @@
 import React from "react";
 import { cn } from "../../../lib/utils";
 import { responsiveClasses, type Responsive } from "../../../lib/responsive";
+import {
+  isTextPreset,
+  presetVariants,
+  resolveTextVariant,
+  TEXT_PRESETS,
+  type TextPreset,
+  type TextVariant,
+} from "./presets";
 
-export type TextVariant =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "body-1"
-  | "body-2"
-  | "body-3"
-  | "caption-1"
-  | "caption-2";
+export type { TextPreset, TextVariant };
+export { TEXT_PRESETS, isTextPreset, presetVariants, resolveTextVariant };
 
 export type TextColor =
   | "primary"
@@ -26,7 +24,7 @@ export type TextColor =
   | "warning";
 
 export interface TextProps {
-  variant?: Responsive<TextVariant>;
+  variant?: Responsive<TextVariant | TextPreset>;
   color?: Responsive<TextColor> | React.CSSProperties["color"];
   weight?: Responsive<"regular" | "semibold" | "bold">;
   textAlign?: Responsive<"left" | "center" | "right" | "justify">;
@@ -74,6 +72,20 @@ const textAlignClasses = {
   justify: "text-justify",
 };
 
+const presetToElement: Partial<
+  Record<TextPreset, keyof React.JSX.IntrinsicElements>
+> = {
+  pageTitle: "h1",
+  sectionTitle: "h2",
+  subsectionTitle: "h3",
+  cardTitle: "h4",
+  label: "h5",
+  overline: "h6",
+  body: "p",
+  bodySmall: "p",
+  caption: "span",
+};
+
 const variantToElement: Partial<
   Record<TextVariant, keyof React.JSX.IntrinsicElements>
 > = {
@@ -98,11 +110,18 @@ export const Text: React.FC<TextProps> = ({
   style,
   as,
 }) => {
+  const resolvedVariantInput = resolveTextVariant(variant) ?? "body-2";
+
   const resolvedVariant =
-    typeof variant === "string" ? variant : (variant.base ?? "body-2");
+    typeof resolvedVariantInput === "string"
+      ? resolvedVariantInput
+      : (resolvedVariantInput.base ?? "body-2");
 
   const getElement = (): keyof React.JSX.IntrinsicElements => {
     if (as) return as;
+    if (typeof variant === "string" && isTextPreset(variant)) {
+      return presetToElement[variant] ?? "span";
+    }
     return variantToElement[resolvedVariant] ?? "span";
   };
 
@@ -116,7 +135,7 @@ export const Text: React.FC<TextProps> = ({
   return (
     <Element
       className={cn(
-        responsiveClasses(variant, variantClasses),
+        responsiveClasses(resolvedVariantInput, variantClasses),
         isColorToken
           ? responsiveClasses(color as Responsive<TextColor>, colorClasses)
           : undefined,

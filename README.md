@@ -56,12 +56,19 @@ import { Button, Text } from "@sporteev/sporteev-components";
 
 function App() {
   return (
-    <Text variant="body-2" color="neutral">
-      Hello
-    </Text>
+    <>
+      <Text variant="pageTitle" as="h1">
+        Page title
+      </Text>
+      <Text variant="bodySmall" color="neutral">
+        Body copy
+      </Text>
+    </>
   );
 }
 ```
+
+Typography presets (`pageTitle`, `sectionTitle`, `body`, …) map Figma mobile→desktop scales. See `src/components/atoms/text/presets.ts`.
 
 Your app’s build only emits CSS for components and classes you actually use.
 
@@ -77,7 +84,7 @@ pnpm add file:../sporteev-components
 pnpm update @sporteev/sporteev-components
 ```
 
-See [DEVELOPMENT.md](./DEVELOPMENT.md) for Storybook, pack, and publish.
+See [contributing.md](./contributing.md) for Storybook, pack, publish, and contributor conventions.
 
 ## Legacy: `styles.css`
 
@@ -95,6 +102,8 @@ See [DEVELOPMENT.md](./DEVELOPMENT.md) for Storybook, pack, and publish.
 ## Architecture
 
 Design system rules and consumer patterns: [refactor-plan.mdx](./refactor-plan.mdx) (single source of truth for v2, CRM, and all consumers).
+
+Contributor conventions (component styling, local workflow): [contributing.md](./contributing.md).
 
 ## License
 

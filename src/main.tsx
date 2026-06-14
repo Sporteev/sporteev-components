@@ -3,509 +3,562 @@ import "./dev.css";
 
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import { Select, InputText } from "./components/molecules";
-import { Text } from "@/components/atoms/text";
-import { Mail, Lock, Phone, Globe, HelpCircle } from "lucide-react";
+import {
+  Button,
+  IconButton,
+  InfoBox,
+  LabelChip,
+  RadioButton,
+  Text,
+  Toast,
+  useToast,
+  CHIP_COLORS,
+  type ToastVariant,
+} from "@/components/atoms";
+import {
+  TOAST_VARIANTS,
+  TOAST_ACTION_BUTTON_COLOR,
+} from "@/components/atoms/snackbar";
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+} from "@/components/atoms/button/types";
+import {
+  InputText,
+  TextArea,
+  Select,
+  Modal,
+  RadioGroup,
+  ScoreIncreaseDecrease,
+} from "@/components/molecules";
+import { FIELD_SIZES } from "@/components/molecules/input-text";
+import {
+  ChevronIcon,
+  CloseIcon,
+  FootballIcon,
+  GoogleIcon,
+  InstagramIcon,
+  LogoFlat,
+  SearchIcon,
+  SportsIcon,
+  ThreadsIcon,
+  TikTokIcon,
+  WhatsAppIcon,
+  TelegramIcon,
+  XIcon,
+} from "@/components/icons";
+import { HelpCircle, Mail, Plus, Settings } from "lucide-react";
+
+const SECTIONS = [
+  { id: "text", label: "Text" },
+  { id: "buttons", label: "Buttons" },
+  { id: "chips", label: "Label Chips" },
+  { id: "info-box", label: "InfoBox" },
+  { id: "radio", label: "Radio" },
+  { id: "fields", label: "InputText / TextArea" },
+  { id: "select", label: "Select" },
+  { id: "score", label: "Score" },
+  { id: "modal", label: "Modal" },
+  { id: "toast", label: "Toast" },
+  { id: "icons", label: "Icons" },
+] as const;
+
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="border-grey-400 scroll-mt-24 border-b pb-32">
+      <Text variant="h3" className="mb-16">
+        {title}
+      </Text>
+      {children}
+    </section>
+  );
+}
+
+function Sub({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="mb-24">
+      <Text variant="h5" className="text-grey-800 mb-12">
+        {title}
+      </Text>
+      {children}
+    </div>
+  );
+}
+
+const sampleOptions = [
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+  { label: "Option 3", value: "option3" },
+];
+
+function toastAction(variant: ToastVariant) {
+  const color = TOAST_ACTION_BUTTON_COLOR[variant];
+  if (variant === "promises") {
+    return (
+      <Button
+        variant="primary"
+        size="m"
+        className="bg-grey-900 hover:bg-grey-800 w-full md:w-auto"
+      >
+        Lihat Detail
+      </Button>
+    );
+  }
+  return (
+    <Button
+      variant="primary"
+      color={color}
+      size="m"
+      className="w-full md:w-auto"
+    >
+      Lihat Detail
+    </Button>
+  );
+}
 
 const Page = () => {
-  const [selectedValue, setSelectedValue] = useState("");
-  const [selectedColor, setSelectedColor] = useState("");
-  const [errorValue, setErrorValue] = useState("");
-  const [showError, setShowError] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-  const [emailValue, setEmailValue] = useState("");
-  const [preselectedValue, setPreselectedValue] = useState("option2");
-  const [requiredValue, setRequiredValue] = useState("");
-  const [disabledOptionValue, setDisabledOptionValue] = useState("");
-  const [longOptionsValue, setLongOptionsValue] = useState("");
-
-  const sampleOptions = [
-    { label: "Option 1", value: "option1" },
-    { label: "Option 2", value: "option2" },
-    { label: "Option 3", value: "option3" },
-    { label: "Option 4", value: "option4" },
-    { label: "Option 5", value: "option5" },
-  ];
-
-  const colorOptions = [
-    { label: "Red", value: "red" },
-    { label: "Blue", value: "blue" },
-    { label: "Green", value: "green" },
-  ];
-
-  const longOptions = [
-    {
-      label: "This is a very long option text that might wrap or be truncated",
-      value: "long1",
-    },
-    { label: "Another long option with lots of text content", value: "long2" },
-    { label: "Short", value: "short" },
-    { label: "Medium length option", value: "medium" },
-  ];
+  const [selectValue, setSelectValue] = useState("");
+  const [radioValue, setRadioValue] = useState("a");
+  const [blockRadioValue, setBlockRadioValue] = useState("x");
+  const [score, setScore] = useState(2);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [showFieldError, setShowFieldError] = useState(false);
+  const { toast, showToast, hideToast } = useToast();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-16 p-16">
-      <div className="w-full max-w-4xl space-y-32">
-        <div className="text-center">
+    <div className="bg-grey-100 min-h-screen p-16 md:p-24">
+      <div className="mx-auto max-w-5xl space-y-32">
+        <header className="space-y-12 text-center">
           <Text variant="h1" color="primary">
-            Component Library Demo
+            Component Library Showcase
           </Text>
-          <Text variant="body-2" className="mt-8">
-            Compare InputText and Select components for consistency
+          <Text variant="body-2" className="text-grey-700">
+            All components in one page — scroll or jump via nav
           </Text>
-        </div>
+          <nav className="flex flex-wrap justify-center gap-8">
+            {SECTIONS.map(({ id, label }) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="rounded-8 border-grey-400 text-body-3 text-primary-600 hover:bg-primary-100 border bg-white px-12 py-6"
+              >
+                {label}
+              </a>
+            ))}
+          </nav>
+        </header>
 
-        {/* InputText Component Demo */}
-        <section className="mb-32">
-          <Text variant="h3" className="mb-16">
-            InputText Component
-          </Text>
+        <Section id="text" title="Text">
+          <div className="space-y-8">
+            <Text variant="h1">Heading 1</Text>
+            <Text variant="h2">Heading 2</Text>
+            <Text variant="h3">Heading 3</Text>
+            <Text variant="body-1">Body 1 — primary paragraph text</Text>
+            <Text variant="body-2">Body 2 — secondary paragraph text</Text>
+            <Text variant="body-3">Body 3 — compact text</Text>
+            <Text variant="caption-1">Caption 1</Text>
+            <Text variant="caption-2">Caption 2</Text>
+          </div>
+        </Section>
 
-          <div className="space-y-24">
-            {/* Basic InputText */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Basic InputText
-              </Text>
-              <InputText
-                label="Basic Input"
-                placeholder="Enter some text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+        <Section id="buttons" title="Button & IconButton">
+          <Sub title="Primary × colors">
+            <div className="flex flex-wrap gap-8">
+              {BUTTON_COLORS.map((color) => (
+                <Button key={color} variant="primary" color={color} size="m">
+                  {color}
+                </Button>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="Variants (primary color)">
+            <div className="flex flex-wrap gap-8">
+              {BUTTON_VARIANTS.map((variant) => (
+                <Button
+                  key={variant}
+                  variant={variant}
+                  color="primary"
+                  size="m"
+                >
+                  {variant}
+                </Button>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="Sizes">
+            <div className="flex flex-wrap items-end gap-8">
+              {BUTTON_SIZES.map((size) => (
+                <Button
+                  key={size}
+                  variant="primary"
+                  color="primary"
+                  size={size}
+                >
+                  {size.toUpperCase()}
+                </Button>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="States">
+            <div className="flex flex-wrap gap-8">
+              <Button variant="primary" color="primary">
+                Default
+              </Button>
+              <Button variant="primary" color="primary" disabled>
+                Disabled
+              </Button>
+              <Button
+                variant="primary"
+                color="primary"
+                fullWidth
+                className="max-w-320"
+              >
+                Full width
+              </Button>
+            </div>
+          </Sub>
+          <Sub title="IconButton">
+            <div className="flex flex-wrap items-center gap-8">
+              {BUTTON_SIZES.map((size) => (
+                <IconButton
+                  key={size}
+                  icon={<Settings />}
+                  aria-label={`Settings ${size}`}
+                  variant="primary"
+                  color="primary"
+                  size={size}
+                />
+              ))}
+              <IconButton
+                icon={<Plus />}
+                aria-label="Add"
+                variant="outline"
+                color="secondary"
+                size="m"
               />
             </div>
+          </Sub>
+        </Section>
 
-            {/* With Value */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Pre-filled Value
-              </Text>
-              <InputText label="Input with value" value="Pre-filled text" />
-            </div>
+        <Section id="chips" title="LabelChip">
+          <div className="flex flex-wrap gap-8">
+            {CHIP_COLORS.map((color) => (
+              <LabelChip key={color} text={color} color={color} size="medium" />
+            ))}
+          </div>
+        </Section>
 
-            {/* Required */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Required Field
-              </Text>
-              <InputText
-                label="Required Input"
-                placeholder="This field is required"
-                required
+        <Section id="info-box" title="InfoBox">
+          <div className="space-y-12">
+            <InfoBox variant="info" title="Info">
+              Informational message for the user.
+            </InfoBox>
+            <InfoBox variant="warning" title="Warning">
+              Something needs attention.
+            </InfoBox>
+            <InfoBox variant="danger" title="Error">
+              Something went wrong.
+            </InfoBox>
+          </div>
+        </Section>
+
+        <Section id="radio" title="RadioButton & RadioGroup">
+          <Sub title="RadioButton">
+            <div className="flex flex-col gap-12">
+              <RadioButton
+                label="Selected"
+                value="on"
+                checked
+                onChange={() => {}}
+              />
+              <RadioButton
+                label="Unselected"
+                value="off"
+                checked={false}
+                onChange={() => {}}
+              />
+              <RadioButton
+                label="Disabled"
+                value="disabled"
+                checked={false}
+                disabled
+                helperText="Not available"
               />
             </div>
+          </Sub>
+          <Sub title="RadioGroup — simple">
+            <RadioGroup
+              label="Choose one"
+              value={radioValue}
+              onChange={setRadioValue}
+              options={[
+                { label: "Option A", value: "a" },
+                { label: "Option B", value: "b" },
+                { label: "Option C", value: "c", disabled: true },
+              ]}
+            />
+          </Sub>
+          <Sub title="RadioGroup — block">
+            <RadioGroup
+              label="Block layout"
+              variant="block"
+              value={blockRadioValue}
+              onChange={setBlockRadioValue}
+              options={[
+                {
+                  label: "Block X",
+                  value: "x",
+                  helperText: "First block option",
+                },
+                {
+                  label: "Block Y",
+                  value: "y",
+                  helperText: "Second block option",
+                },
+              ]}
+            />
+          </Sub>
+        </Section>
 
-            {/* With Error */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Error State
-              </Text>
-              <InputText
-                label="Input with Error"
-                value={emailValue}
-                onChange={(e) => setEmailValue(e.target.value)}
-                errorMessage={showError ? "Please enter a valid email" : ""}
-              />
+        <Section id="fields" title="InputText & TextArea">
+          <Sub title="InputText sizes">
+            <div className="space-y-12">
+              {FIELD_SIZES.map((size) => (
+                <InputText
+                  key={size}
+                  size={size}
+                  label={`Size ${size.toUpperCase()}`}
+                  placeholder={`Input size ${size}`}
+                />
+              ))}
             </div>
-
-            {/* With Helper Text */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Helper Text
-              </Text>
+          </Sub>
+          <Sub title="InputText states">
+            <div className="grid gap-16 md:grid-cols-2">
+              <InputText label="Default" placeholder="Enter text" />
+              <InputText label="Required" placeholder="Required" required />
               <InputText
-                label="Input with Helper"
-                placeholder="Enter your email"
-                helperText="We'll never share your email with anyone else"
+                label="With helper"
+                placeholder="Email"
+                helperText="We will never share your email"
               />
-            </div>
-
-            {/* With Icons */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Icons
-              </Text>
               <InputText
-                label="Email Input"
+                label="With error"
+                placeholder="Email"
+                errorMessage={
+                  showFieldError ? "Please enter a valid email" : undefined
+                }
+              />
+              <InputText label="Disabled" value="Cannot edit" disabled />
+              <InputText
+                label="With adornments"
                 type="email"
-                placeholder="Enter your email"
-                startAdornment={<Mail className="h-16 w-16" />}
-                endAdornment={<HelpCircle className="h-16 w-16" />}
-                helperText="Click the question mark for help"
+                placeholder="Email"
+                startAdornment={<Mail className="size-16" />}
+                endAdornment={<HelpCircle className="size-16" />}
               />
             </div>
-
-            {/* Disabled */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Disabled InputText
-              </Text>
-              <InputText
-                label="Disabled Input"
-                value="Disabled text"
-                disabled
-              />
-            </div>
-
-            {/* Read Only */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Read Only InputText
-              </Text>
-              <InputText
-                label="Read Only Input"
-                value="This text cannot be edited"
-                readOnly
-              />
-            </div>
-
-            {/* Multiline */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Multiline InputText
-              </Text>
-              <InputText
+          </Sub>
+          <Sub title="TextArea">
+            <div className="grid gap-16 md:grid-cols-2">
+              <TextArea
                 label="Description"
-                placeholder="Enter a description"
-                multiline
+                placeholder="Enter description"
                 rows={3}
-                helperText="This is a textarea for longer content"
+                helperText="Multiline field"
+              />
+              <TextArea
+                label="With error"
+                placeholder="Too short"
+                rows={3}
+                errorMessage="Minimum 10 characters"
               />
             </div>
+          </Sub>
+        </Section>
 
-            {/* Different Types */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Different Input Types
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <InputText
-                  label="Email"
-                  type="email"
-                  placeholder="Enter email"
-                  startAdornment={<Mail className="h-16 w-16" />}
-                />
-                <InputText
-                  label="Password"
-                  type="password"
-                  placeholder="Enter password"
-                  startAdornment={<Lock className="h-16 w-16" />}
-                />
-                <InputText
-                  label="Phone"
-                  type="tel"
-                  placeholder="Enter phone number"
-                  startAdornment={<Phone className="h-16 w-16" />}
-                />
-                <InputText
-                  label="Website"
-                  type="url"
-                  placeholder="Enter website URL"
-                  startAdornment={<Globe className="h-16 w-16" />}
-                />
-              </div>
-            </div>
+        <Section id="select" title="Select">
+          <div className="grid gap-16 md:grid-cols-2">
+            <Select
+              label="Default"
+              options={sampleOptions}
+              value={selectValue}
+              onChange={setSelectValue}
+              placeholder="Choose an option"
+            />
+            <Select
+              label="Required"
+              options={sampleOptions}
+              required
+              placeholder="Required select"
+            />
+            <Select
+              label="With error"
+              options={sampleOptions}
+              errorMessage={showFieldError ? "Selection required" : undefined}
+            />
+            <Select
+              label="Disabled"
+              options={sampleOptions}
+              value="option1"
+              disabled
+            />
           </div>
-        </section>
+        </Section>
 
-        {/* Select Component Demo */}
-        <section className="mb-32">
-          <Text variant="h3" className="mb-16">
-            Select Component
-          </Text>
-
-          <div className="space-y-24">
-            {/* Basic Select */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Basic Select
-              </Text>
-              <Select
-                label="Select an option"
-                options={sampleOptions}
-                value={selectedValue}
-                onChange={setSelectedValue}
-                placeholder="Choose an option"
+        <Section id="score" title="ScoreIncreaseDecrease">
+          <div className="flex flex-wrap items-center gap-24">
+            {(["small", "medium", "large"] as const).map((variant) => (
+              <ScoreIncreaseDecrease
+                key={variant}
+                variant={variant}
+                score={score}
+                onIncrease={() => setScore((s) => s + 1)}
+                onDecrease={() => setScore((s) => Math.max(0, s - 1))}
               />
-            </div>
-
-            {/* With Value */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Pre-selected Value
-              </Text>
-              <Select
-                label="Select with value"
-                options={sampleOptions}
-                value={preselectedValue}
-                onChange={setPreselectedValue}
-              />
-            </div>
-
-            {/* Required */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Required Field
-              </Text>
-              <Select
-                label="Required Selection"
-                options={sampleOptions}
-                value={requiredValue}
-                onChange={setRequiredValue}
-                required
-              />
-            </div>
-
-            {/* With Error */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Error State
-              </Text>
-              <Select
-                label="Select with Error"
-                options={sampleOptions}
-                value={errorValue}
-                onChange={setErrorValue}
-                errorMessage={showError ? "Please select an option" : ""}
-              />
-            </div>
-
-            {/* Disabled */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Disabled Select
-              </Text>
-              <Select
-                label="Disabled Select"
-                options={sampleOptions}
-                value="option1"
-                disabled
-              />
-            </div>
-
-            {/* With Disabled Option */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                With Disabled Option
-              </Text>
-              <Select
-                label="With Disabled Option"
-                options={[
-                  { label: "Option 1", value: "option1" },
-                  { label: "Option 2", value: "option2", disabled: true },
-                  { label: "Option 3", value: "option3" },
-                  { label: "Option 4", value: "option4" },
-                ]}
-                value={disabledOptionValue}
-                onChange={setDisabledOptionValue}
-              />
-            </div>
-
-            {/* Multiple Selects */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Multiple Selects
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <Select
-                  label="First Select"
-                  options={sampleOptions}
-                  value={selectedValue}
-                  onChange={setSelectedValue}
-                />
-                <Select
-                  label="Second Select"
-                  options={colorOptions}
-                  value={selectedColor}
-                  onChange={setSelectedColor}
-                />
-              </div>
-            </div>
-
-            {/* Long Options */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Long Options
-              </Text>
-              <Select
-                label="Select with Long Options"
-                options={longOptions}
-                value={longOptionsValue}
-                onChange={setLongOptionsValue}
-              />
-            </div>
-
-            {/* Empty Options Test Cases */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Empty Options Test Cases
-              </Text>
-              <div className="space-y-16">
-                {/* Empty Array */}
-                <div>
-                  <Text variant="h6" className="mb-8">
-                    Empty Array Options
-                  </Text>
-                  <Select
-                    label="Empty Array Test"
-                    options={[]}
-                    placeholder="Should show emptyLabel"
-                    emptyLabel="No options available (empty array)"
-                  />
-                </div>
-
-                {/* Undefined Options */}
-                <div>
-                  <Text variant="h6" className="mb-8">
-                    Undefined Options
-                  </Text>
-                  <Select
-                    label="Undefined Options Test"
-                    options={undefined}
-                    placeholder="Should show emptyLabel"
-                    emptyLabel="No options available (undefined)"
-                  />
-                </div>
-
-                {/* Null Options */}
-                <div>
-                  <Text variant="h6" className="mb-8">
-                    Null Options
-                  </Text>
-                  <Select
-                    label="Null Options Test"
-                    options={null}
-                    placeholder="Should show emptyLabel"
-                    emptyLabel="No options available (null)"
-                  />
-                </div>
-
-                {/* With Custom Empty Label */}
-                <div>
-                  <Text variant="h6" className="mb-8">
-                    Custom Empty Label
-                  </Text>
-                  <Select
-                    label="Custom Empty Label"
-                    options={[]}
-                    placeholder="Custom placeholder"
-                    emptyLabel="🚫 No data available - please try again later"
-                  />
-                </div>
-              </div>
-            </div>
+            ))}
+            <ScoreIncreaseDecrease
+              variant="medium"
+              score={1}
+              danger
+              onIncrease={() => {}}
+              onDecrease={() => {}}
+            />
           </div>
-        </section>
+        </Section>
 
-        {/* Comparison Section */}
-        <section className="mb-32">
-          <Text variant="h3" className="mb-16">
-            Side-by-Side Comparison
-          </Text>
-
-          <div className="space-y-24">
-            {/* Basic Comparison */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Basic Inputs
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <InputText label="Text Input" placeholder="Enter text" />
-                <Select
-                  label="Dropdown Select"
-                  options={sampleOptions}
-                  placeholder="Choose option"
-                />
-              </div>
-            </div>
-
-            {/* Required Comparison */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Required Fields
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <InputText
-                  label="Required Text Input"
-                  placeholder="This field is required"
-                  required
-                />
-                <Select
-                  label="Required Select"
-                  options={sampleOptions}
-                  required
-                />
-              </div>
-            </div>
-
-            {/* Error Comparison */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Error States
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <InputText
-                  label="Input with Error"
-                  errorMessage="This field has an error"
-                />
-                <Select
-                  label="Select with Error"
-                  options={sampleOptions}
-                  errorMessage="This field has an error"
-                />
-              </div>
-            </div>
-
-            {/* Disabled Comparison */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Disabled States
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <InputText
-                  label="Disabled Input"
-                  value="Disabled text"
-                  disabled
-                />
-                <Select
-                  label="Disabled Select"
-                  options={sampleOptions}
-                  value="option1"
-                  disabled
-                />
-              </div>
-            </div>
-
-            {/* Helper Text Comparison */}
-            <div>
-              <Text variant="h5" className="mb-8">
-                Helper Text
-              </Text>
-              <div className="grid grid-cols-1 gap-16 md:grid-cols-2">
-                <InputText
-                  label="Input with Helper"
-                  placeholder="Enter some text"
-                  helperText="This is helper text for the input"
-                />
-                <Select
-                  label="Select with Helper"
-                  options={sampleOptions}
-                  placeholder="Choose an option"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Error Toggle Button */}
-        <div className="text-center">
-          <button
-            onClick={() => setShowError(!showError)}
-            className="rounded-8 bg-blue-500 px-24 py-12 text-white transition-colors hover:bg-blue-600"
+        <Section id="modal" title="Modal">
+          <Button
+            variant="primary"
+            color="primary"
+            onClick={() => setModalOpen(true)}
           >
-            Toggle Error States
-          </button>
-        </div>
+            Open Modal
+          </Button>
+          <Modal
+            isOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+            size="m"
+            actionLayout="row"
+            title="Example Modal"
+            actions={[
+              {
+                children: "Cancel",
+                variant: "ghost",
+                color: "primary",
+                onClick: () => setModalOpen(false),
+              },
+              {
+                children: "Confirm",
+                variant: "primary",
+                color: "primary",
+                onClick: () => setModalOpen(false),
+              },
+            ]}
+          >
+            <Text variant="body-2">
+              Modal content goes here. Click outside or Cancel to close.
+            </Text>
+          </Modal>
+        </Section>
+
+        <Section id="toast" title="Toast">
+          <div className="flex flex-wrap gap-8">
+            {TOAST_VARIANTS.map((variant) => (
+              <Button
+                key={variant}
+                variant="secondary"
+                color="primary"
+                size="s"
+                onClick={() =>
+                  showToast({
+                    variant,
+                    title: `${variant} toast`,
+                    body: "Sample notification message.",
+                    action: toastAction(variant),
+                    duration: 5000,
+                  })
+                }
+              >
+                {variant}
+              </Button>
+            ))}
+          </div>
+          {toast ? <Toast {...toast} onClose={hideToast} /> : null}
+        </Section>
+
+        <Section id="icons" title="Icons">
+          <Sub title="Logo">
+            <LogoFlat size={48} color="#006493" />
+          </Sub>
+          <Sub title="Custom add-ons">
+            <div className="flex flex-wrap items-center gap-16">
+              <SearchIcon size={24} />
+              <ChevronIcon direction="down" size={24} />
+              <ChevronIcon direction="up" size={24} />
+              <ChevronIcon direction="left" size={24} />
+              <ChevronIcon direction="right" size={24} />
+              <CloseIcon variant="outline" size={24} />
+              <CloseIcon variant="filled" size={24} />
+            </div>
+          </Sub>
+          <Sub title="Social">
+            <div className="flex flex-wrap items-center gap-16">
+              <GoogleIcon size={24} />
+              <InstagramIcon size={46} />
+              <XIcon />
+              <ThreadsIcon />
+              <TikTokIcon />
+              <WhatsAppIcon />
+              <TelegramIcon />
+            </div>
+          </Sub>
+          <Sub title="Sports">
+            <div className="flex flex-wrap items-center gap-16">
+              <FootballIcon size={24} />
+              <SportsIcon sportId={1} size={24} />
+              <SportsIcon sportId={2} size={24} />
+              <SportsIcon sportId={3} size={24} />
+              <SportsIcon sportId={4} size={24} />
+              <SportsIcon sportId={5} size={24} />
+              <SportsIcon sportId={6} size={24} />
+              <SportsIcon sportId={7} size={24} />
+              <SportsIcon sportId={8} size={24} />
+              <SportsIcon sportId={9} size={24} />
+              <SportsIcon sportId={10} size={24} />
+              <SportsIcon sportId={11} size={24} />
+              <SportsIcon sportId={12} size={24} />
+              <SportsIcon sportId={13} size={24} />
+              <SportsIcon sportId={14} size={24} />
+              <SportsIcon sportId={99} size={24} />
+            </div>
+          </Sub>
+        </Section>
+
+        <footer className="flex flex-wrap justify-center gap-12 pb-32">
+          <Button
+            variant="outline"
+            color="primary"
+            onClick={() => setShowFieldError((v) => !v)}
+          >
+            Toggle field errors
+          </Button>
+        </footer>
       </div>
     </div>
   );
