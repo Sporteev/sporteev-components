@@ -1,4 +1,4 @@
-export { SearchIcon, ChevronIcon, CloseIcon } from "./addons";
+export { SearchIcon, ChevronIcon, CloseIcon, MinusIcon, PlusIcon } from "./addons";
 export type { ChevronDirection, CloseVariant, ChevronIconProps, CloseIconProps } from "./addons";
 
 export {

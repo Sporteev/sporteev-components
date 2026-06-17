@@ -48,7 +48,12 @@ import {
   TelegramIcon,
   XIcon,
 } from "@/components/icons";
-import { HelpCircle, Mail, Plus, Settings } from "lucide-react";
+import {
+  Letter,
+  QuestionCircle,
+  Settings,
+} from "@solar-icons/react-perf/Linear";
+import { PlusIcon } from "@/components/icons/custom";
 
 const SECTIONS = [
   { id: "text", label: "Text" },
@@ -141,7 +146,7 @@ const Page = () => {
   const { toast, showToast, hideToast } = useToast();
 
   return (
-    <div className="bg-grey-100 min-h-screen p-16 md:p-24">
+    <div className="bg-grey-100 md:bg-warning-200 min-h-screen border p-16 md:p-24">
       <div className="mx-auto max-w-5xl space-y-32">
         <header className="space-y-12 text-center">
           <Text variant="h1" color="primary">
@@ -165,7 +170,10 @@ const Page = () => {
 
         <Section id="text" title="Text">
           <div className="space-y-8">
-            <Text variant="h1">Heading 1</Text>
+            <p className="text-h1">Heading 1 with token</p>
+            <Text variant="h1" as="h1">
+              Heading 1
+            </Text>
             <Text variant="h2">Heading 2</Text>
             <Text variant="h3">Heading 3</Text>
             <Text variant="body-1">Body 1 — primary paragraph text</Text>
@@ -245,7 +253,7 @@ const Page = () => {
                 />
               ))}
               <IconButton
-                icon={<Plus />}
+                icon={<PlusIcon className="size-full" />}
                 aria-label="Add"
                 variant="outline"
                 color="secondary"
@@ -369,8 +377,8 @@ const Page = () => {
                 label="With adornments"
                 type="email"
                 placeholder="Email"
-                startAdornment={<Mail className="size-16" />}
-                endAdornment={<HelpCircle className="size-16" />}
+                startAdornment={<Letter className="size-16" />}
+                endAdornment={<QuestionCircle className="size-16" />}
               />
             </div>
           </Sub>
@@ -491,7 +499,7 @@ const Page = () => {
                     title: `${variant} toast`,
                     body: "Sample notification message.",
                     action: toastAction(variant),
-                    duration: 5000,
+                    duration: 999999999,
                   })
                 }
               >

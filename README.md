@@ -7,10 +7,10 @@ Reusable React components and design tokens for Sporteev apps (and any consumer)
 ## Install
 
 ```bash
-pnpm add @sporteev/sporteev-components
+pnpm add @sporteev/sporteev-components @solar-icons/react-perf
 ```
 
-Peer dependency: React 18 or 19.
+Peer dependencies: React 18 or 19, `@solar-icons/react-perf` ^2.1.1 (Linear icons used by components and recommended for app UI).
 
 ## Consumer setup (theme-only — recommended)
 
@@ -53,14 +53,15 @@ import "./index.css";
 
 ```tsx
 import { Button, Text } from "@sporteev/sporteev-components";
+import { Settings } from "@solar-icons/react-perf/Linear";
 
 function App() {
   return (
     <>
-      <Text variant="pageTitle" as="h1">
+      <Text variant="h1" as="h1">
         Page title
       </Text>
-      <Text variant="bodySmall" color="neutral">
+      <Text variant="body-2" color="neutral">
         Body copy
       </Text>
     </>
@@ -68,7 +69,7 @@ function App() {
 }
 ```
 
-Typography presets (`pageTitle`, `sectionTitle`, `body`, …) map Figma mobile→desktop scales. See `src/components/atoms/text/presets.ts`.
+Typography tokens (`h1`–`h6`, `body-*`, `caption-*`) scale mobile → desktop at the `md` breakpoint via `theme.css`.
 
 Your app’s build only emits CSS for components and classes you actually use.
 

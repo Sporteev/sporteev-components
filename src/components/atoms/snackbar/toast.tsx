@@ -1,26 +1,30 @@
 import {
-  AlertCircle,
   CheckCircle,
-  Info,
-  XCircle,
-  type LucideIcon,
-} from "lucide-react";
+  CloseCircle,
+  DangerTriangle,
+  InfoCircle,
+} from "@solar-icons/react-perf/Linear";
 import { CloseIcon } from "@/components/icons/custom";
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type ComponentType,
+  type SVGProps,
+} from "react";
 import { cn } from "@/lib/utils";
 import type { ToastProps, ToastVariant } from "./types";
-import {
-  getToastContainerClasses,
-  getToastIconClasses,
-  getToastTitleClasses,
-} from "./variants";
+import { getToastContainerClasses, getToastTitleClasses } from "./variants";
 
-const DEFAULT_ICONS: Record<ToastVariant, LucideIcon> = {
+const DEFAULT_ICONS: Record<
+  ToastVariant,
+  ComponentType<SVGProps<SVGSVGElement>>
+> = {
   success: CheckCircle,
-  destructive: XCircle,
-  warning: AlertCircle,
-  info: Info,
-  promises: Info,
+  destructive: CloseCircle,
+  warning: DangerTriangle,
+  info: InfoCircle,
+  promises: InfoCircle,
 };
 
 export function Toast({
@@ -68,8 +72,8 @@ export function Toast({
     (showIcon ? (
       <DefaultIcon
         className={cn(
-          "shrink-0 size-16 md:size-20",
-          getToastIconClasses(variant)
+          "size-16 shrink-0 md:size-20",
+          getToastTitleClasses(variant)
         )}
         aria-hidden
       />
@@ -78,7 +82,7 @@ export function Toast({
   return (
     <div
       className={cn(
-        "fixed z-50 flex w-[calc(100%-32px)] max-w-[343px] flex-col gap-12 rounded-12 border border-grey-400 p-12 shadow-secondary transition-all duration-300 ease-in-out md:max-w-[440px] md:flex-row md:items-center md:p-16",
+        "rounded-12 border-grey-400 shadow-secondary fixed z-50 flex w-[calc(100%-32px)] flex-col gap-12 border p-12 transition-all duration-300 ease-in-out md:max-w-[343px] md:max-w-[440px] md:flex-row md:items-center md:p-16",
         "top-16 left-16 md:top-auto md:right-auto md:bottom-16",
         getToastContainerClasses(variant),
         isVisible && !isClosing ? "translate-x-0" : "-translate-x-full"
@@ -93,17 +97,13 @@ export function Toast({
         <div className="flex min-w-0 flex-1 flex-col gap-4">
           <p
             className={cn(
-              "text-body-3 font-semibold md:text-body-2",
+              "text-body-2 font-semibold",
               getToastTitleClasses(variant)
             )}
           >
             {title}
           </p>
-          {body ? (
-            <p className="text-caption-1 text-grey-700 md:text-body-3">
-              {body}
-            </p>
-          ) : null}
+          {body ? <p className="text-body-3 text-grey-700">{body}</p> : null}
         </div>
 
         {action ? (
@@ -114,7 +114,7 @@ export function Toast({
           <button
             type="button"
             onClick={handleClose}
-            className="shrink-0 rounded-full bg-transparent p-4 text-grey-800"
+            className="text-grey-800 shrink-0 rounded-full bg-transparent p-4"
             aria-label="Close toast"
           >
             <span className="block size-16 md:size-20">

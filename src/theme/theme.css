@@ -151,6 +151,50 @@
   --text-caption-2--line-height: 1.4;
   --text-caption-2--letter-spacing: -0.01em;
   --text-caption-2--font-weight: 400;
+  --text-h1-mobile: 32px;
+  --text-h1-mobile--line-height: 1.2;
+  --text-h1-mobile--letter-spacing: -0.01em;
+  --text-h1-mobile--font-weight: 600;
+  --text-h2-mobile: 28px;
+  --text-h2-mobile--line-height: 1.2;
+  --text-h2-mobile--letter-spacing: -0.01em;
+  --text-h2-mobile--font-weight: 600;
+  --text-h3-mobile: 24px;
+  --text-h3-mobile--line-height: 1.2;
+  --text-h3-mobile--letter-spacing: -0.01em;
+  --text-h3-mobile--font-weight: 600;
+  --text-h4-mobile: 20px;
+  --text-h4-mobile--line-height: 1.2;
+  --text-h4-mobile--letter-spacing: -0.01em;
+  --text-h4-mobile--font-weight: 600;
+  --text-h5-mobile: 16px;
+  --text-h5-mobile--line-height: 1.2;
+  --text-h5-mobile--letter-spacing: -0.01em;
+  --text-h5-mobile--font-weight: 600;
+  --text-h6-mobile: 14px;
+  --text-h6-mobile--line-height: 1.2;
+  --text-h6-mobile--letter-spacing: -0.01em;
+  --text-h6-mobile--font-weight: 600;
+  --text-body-1-mobile: 14px;
+  --text-body-1-mobile--line-height: 1.4;
+  --text-body-1-mobile--letter-spacing: -0.01em;
+  --text-body-1-mobile--font-weight: 400;
+  --text-body-2-mobile: 12px;
+  --text-body-2-mobile--line-height: 1.4;
+  --text-body-2-mobile--letter-spacing: -0.01em;
+  --text-body-2-mobile--font-weight: 400;
+  --text-body-3-mobile: 10px;
+  --text-body-3-mobile--line-height: 1.4;
+  --text-body-3-mobile--letter-spacing: -0.01em;
+  --text-body-3-mobile--font-weight: 400;
+  --text-caption-1-mobile: 8px;
+  --text-caption-1-mobile--line-height: 1.4;
+  --text-caption-1-mobile--letter-spacing: -0.01em;
+  --text-caption-1-mobile--font-weight: 400;
+  --text-caption-2-mobile: 6px;
+  --text-caption-2-mobile--line-height: 1.4;
+  --text-caption-2-mobile--letter-spacing: -0.01em;
+  --text-caption-2-mobile--font-weight: 400;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
@@ -200,4 +244,147 @@
   --radius-full: 9999px;
   --shadow-main: 0 2px 8px 0 #30313529;
   --shadow-secondary: 0 4px 12px 0 #30313533;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+}
+
+@source inline("md:text-h1 md:text-h2 md:text-h3 md:text-h4 md:text-h5 md:text-h6 md:text-body-1 md:text-body-2 md:text-body-3 md:text-caption-1 md:text-caption-2");
+
+@layer utilities {
+  .text-h1 {
+    font-size: var(--text-h1-mobile);
+    line-height: var(--tw-leading, var(--text-h1-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h1-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h1-mobile--font-weight));
+  }
+  .text-h2 {
+    font-size: var(--text-h2-mobile);
+    line-height: var(--tw-leading, var(--text-h2-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h2-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h2-mobile--font-weight));
+  }
+  .text-h3 {
+    font-size: var(--text-h3-mobile);
+    line-height: var(--tw-leading, var(--text-h3-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h3-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h3-mobile--font-weight));
+  }
+  .text-h4 {
+    font-size: var(--text-h4-mobile);
+    line-height: var(--tw-leading, var(--text-h4-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h4-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h4-mobile--font-weight));
+  }
+  .text-h5 {
+    font-size: var(--text-h5-mobile);
+    line-height: var(--tw-leading, var(--text-h5-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h5-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h5-mobile--font-weight));
+  }
+  .text-h6 {
+    font-size: var(--text-h6-mobile);
+    line-height: var(--tw-leading, var(--text-h6-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h6-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h6-mobile--font-weight));
+  }
+  .text-body-1 {
+    font-size: var(--text-body-1-mobile);
+    line-height: var(--tw-leading, var(--text-body-1-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-1-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-1-mobile--font-weight));
+  }
+  .text-body-2 {
+    font-size: var(--text-body-2-mobile);
+    line-height: var(--tw-leading, var(--text-body-2-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-2-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-2-mobile--font-weight));
+  }
+  .text-body-3 {
+    font-size: var(--text-body-3-mobile);
+    line-height: var(--tw-leading, var(--text-body-3-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-3-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-3-mobile--font-weight));
+  }
+  .text-caption-1 {
+    font-size: var(--text-caption-1-mobile);
+    line-height: var(--tw-leading, var(--text-caption-1-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-caption-1-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-caption-1-mobile--font-weight));
+  }
+  .text-caption-2 {
+    font-size: var(--text-caption-2-mobile);
+    line-height: var(--tw-leading, var(--text-caption-2-mobile--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-caption-2-mobile--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-caption-2-mobile--font-weight));
+  }
+
+  /* Desktop scale — uses --breakpoint-md from @theme above */
+  @variant md {
+    .text-h1 {
+    font-size: var(--text-h1);
+    line-height: var(--tw-leading, var(--text-h1--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h1--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h1--font-weight));
+    }
+    .text-h2 {
+    font-size: var(--text-h2);
+    line-height: var(--tw-leading, var(--text-h2--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h2--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h2--font-weight));
+    }
+    .text-h3 {
+    font-size: var(--text-h3);
+    line-height: var(--tw-leading, var(--text-h3--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h3--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h3--font-weight));
+    }
+    .text-h4 {
+    font-size: var(--text-h4);
+    line-height: var(--tw-leading, var(--text-h4--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h4--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h4--font-weight));
+    }
+    .text-h5 {
+    font-size: var(--text-h5);
+    line-height: var(--tw-leading, var(--text-h5--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h5--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h5--font-weight));
+    }
+    .text-h6 {
+    font-size: var(--text-h6);
+    line-height: var(--tw-leading, var(--text-h6--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-h6--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-h6--font-weight));
+    }
+    .text-body-1 {
+    font-size: var(--text-body-1);
+    line-height: var(--tw-leading, var(--text-body-1--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-1--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-1--font-weight));
+    }
+    .text-body-2 {
+    font-size: var(--text-body-2);
+    line-height: var(--tw-leading, var(--text-body-2--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-2--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-2--font-weight));
+    }
+    .text-body-3 {
+    font-size: var(--text-body-3);
+    line-height: var(--tw-leading, var(--text-body-3--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-body-3--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-body-3--font-weight));
+    }
+    .text-caption-1 {
+    font-size: var(--text-caption-1);
+    line-height: var(--tw-leading, var(--text-caption-1--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-caption-1--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-caption-1--font-weight));
+    }
+    .text-caption-2 {
+    font-size: var(--text-caption-2);
+    line-height: var(--tw-leading, var(--text-caption-2--line-height));
+    letter-spacing: var(--tw-tracking, var(--text-caption-2--letter-spacing));
+    font-weight: var(--tw-font-weight, var(--text-caption-2--font-weight));
+    }
+  }
 }

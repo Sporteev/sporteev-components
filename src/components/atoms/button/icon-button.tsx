@@ -47,7 +47,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       >
         <span
           className={cn(
-            "inline-flex items-center justify-center",
+            "inline-flex items-center justify-center [&_svg]:size-full",
             ICON_BUTTON_ICON_SIZE_CLASSES[size]
           )}
         >

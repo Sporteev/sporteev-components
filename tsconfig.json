@@ -3,7 +3,7 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "target": "ESNext",
     "esModuleInterop": true,

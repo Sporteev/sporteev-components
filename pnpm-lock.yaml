@@ -24,6 +24,9 @@ importers:
       '@eslint/js':
         specifier: ^9.9.1
         version: 9.39.4
+      '@solar-icons/react-perf':
+        specifier: ^2.1.1
+        version: 2.1.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@storybook/addon-essentials':
         specifier: ^8.6.0
         version: 8.6.14(@types/react@19.2.16)(storybook@8.6.18(prettier@3.8.3))
@@ -75,9 +78,6 @@ importers:
       globals:
         specifier: ^15.9.0
         version: 15.15.0
-      lucide-react:
-        specifier: ^0.344.0
-        version: 0.344.0(react@19.2.7)
       prettier:
         specifier: ^3.2.5
         version: 3.8.3
@@ -786,6 +786,13 @@ packages:
 
   '@rushstack/ts-command-line@5.3.9':
     resolution: {integrity: sha512-GIHqU+sRGQ3LGWAZu1O+9Yh++qwtyNIIGuNbcWHJjBTm2qRez0cwINUHZ+pQLR8UuzZDcMajrDaNbUYoaL/XtQ==}
+
+  '@solar-icons/react-perf@2.1.1':
+    resolution: {integrity: sha512-8+Z/NAUAbovHS/G7gneMbCFdGyFDgV8mGuFOqxYwICEKZZUAdW5RhUsCLJZk/cNTQuhHyVnxMsVpjlkwS8aJTQ==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: '>= 16.8'
+      react-dom: '>= 16.8'
 
   '@storybook/addon-actions@8.6.14':
     resolution: {integrity: sha512-mDQxylxGGCQSK7tJPkD144J8jWh9IU9ziJMHfB84PKpI/V5ZgqMDnpr2bssTrUaGDqU5e1/z8KcRF+Melhs9pQ==}
@@ -1975,11 +1982,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  lucide-react@0.344.0:
-    resolution: {integrity: sha512-6YyBnn91GB45VuVT96bYCOKElbJzUHqp65vX8cDcu55MQL9T969v4dhGClpljamuI/+KMO9P6w9Acq1CVQGvIQ==}
-    peerDependencies:
-      react: ^16.5.1 || ^17.0.0 || ^18.0.0
 
   lz-string@1.5.0:
     resolution: {integrity: sha512-h5bgJWpxJNswbU7qCrV0tIKQCaS3blPDrqKWx+QxzuzL1zGUzij9XCWLrSLsJPu5t+eWA/ycetzYAO5IOMcWAQ==}
@@ -3181,6 +3183,11 @@ snapshots:
       string-argv: 0.3.2
     transitivePeerDependencies:
       - '@types/node'
+
+  '@solar-icons/react-perf@2.1.1(react-dom@19.2.7(react@19.2.7))(react@19.2.7)':
+    dependencies:
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
 
   '@storybook/addon-actions@8.6.14(storybook@8.6.18(prettier@3.8.3))':
     dependencies:
@@ -4427,10 +4434,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  lucide-react@0.344.0(react@19.2.7):
-    dependencies:
-      react: 19.2.7
 
   lz-string@1.5.0: {}
 

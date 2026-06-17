@@ -242,7 +242,6 @@ module.exports = {
     ],
   },
   fontSize: {
-    // Desktop scale — pair with mobile via Text Responsive<T> (see refactor-plan.mdx)
     h1: headerType("48px"),
     h2: headerType("40px"),
     h3: headerType("32px"),
@@ -254,6 +253,23 @@ module.exports = {
     "body-3": bodyType("12px"),
     "caption-1": captionType("10px"),
     "caption-2": captionType("8px"),
+  },
+  fontSizeMobile: {
+    h1: headerType("32px"),
+    h2: headerType("28px"),
+    h3: headerType("24px"),
+    h4: headerType("20px"),
+    h5: headerType("16px"),
+    h6: headerType("14px"),
+    "body-1": bodyType("14px"),
+    "body-2": bodyType("12px"),
+    "body-3": bodyType("10px"),
+    "caption-1": captionType("8px"),
+    "caption-2": captionType("6px"),
+  },
+  screens: {
+    md: "768px",
+    lg: "1024px",
   },
   fontWeight: {
     regular: "400",

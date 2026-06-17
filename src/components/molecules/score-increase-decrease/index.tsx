@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Text } from "@/components/atoms";
 import { Button } from "@/components/atoms/button";
 import { cn } from "@/lib/utils";
-import { MinusIcon, PlusIcon } from "lucide-react";
+import { MinusIcon, PlusIcon } from "@/components/icons/custom";
 
 export type ScoreIncreaseDecreaseProps = {
   score: number;

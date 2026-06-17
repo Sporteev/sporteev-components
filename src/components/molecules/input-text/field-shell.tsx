@@ -1,5 +1,5 @@
 import React from "react";
-import { AlertCircle, Info } from "lucide-react";
+import { DangerCircle, InfoCircle } from "@solar-icons/react-perf/Linear";
 import { cn } from "@/lib/utils";
 import {
   FIELD_STACK_GAP,
@@ -77,12 +77,12 @@ export function FieldShell({
           role={hasError ? "alert" : undefined}
         >
           {hasError ? (
-            <AlertCircle
+            <DangerCircle
               className={cn("shrink-0", HELPER_ICON_SIZE_CLASSES[size])}
               aria-hidden
             />
           ) : (
-            <Info
+            <InfoCircle
               className={cn("shrink-0", HELPER_ICON_SIZE_CLASSES[size])}
               aria-hidden
             />

@@ -65,6 +65,44 @@ export interface CloseIconProps extends IconProps {
   variant?: CloseVariant;
 }
 
+export function MinusIcon({ size = 24, className, ...props }: IconProps) {
+  return (
+    <svg
+      {...iconDefaults({
+        size,
+        className: cn("text-current", className),
+        ...props,
+      })}
+    >
+      <path
+        d="M5 12H19"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function PlusIcon({ size = 24, className, ...props }: IconProps) {
+  return (
+    <svg
+      {...iconDefaults({
+        size,
+        className: cn("text-current", className),
+        ...props,
+      })}
+    >
+      <path
+        d="M12 5V19M5 12H19"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function CloseIcon({
   size = 24,
   variant = "outline",

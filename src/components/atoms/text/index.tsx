@@ -1,17 +1,33 @@
 import React from "react";
 import { cn } from "../../../lib/utils";
 import { responsiveClasses, type Responsive } from "../../../lib/responsive";
-import {
-  isTextPreset,
-  presetVariants,
-  resolveTextVariant,
-  TEXT_PRESETS,
-  type TextPreset,
-  type TextVariant,
-} from "./presets";
 
-export type { TextPreset, TextVariant };
-export { TEXT_PRESETS, isTextPreset, presetVariants, resolveTextVariant };
+export type TextVariant =
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "h5"
+  | "h6"
+  | "body-1"
+  | "body-2"
+  | "body-3"
+  | "caption-1"
+  | "caption-2";
+
+export const TEXT_VARIANTS: TextVariant[] = [
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "body-1",
+  "body-2",
+  "body-3",
+  "caption-1",
+  "caption-2",
+];
 
 export type TextColor =
   | "primary"
@@ -24,7 +40,7 @@ export type TextColor =
   | "warning";
 
 export interface TextProps {
-  variant?: Responsive<TextVariant | TextPreset>;
+  variant?: Responsive<TextVariant>;
   color?: Responsive<TextColor> | React.CSSProperties["color"];
   weight?: Responsive<"regular" | "semibold" | "bold">;
   textAlign?: Responsive<"left" | "center" | "right" | "justify">;
@@ -72,20 +88,6 @@ const textAlignClasses = {
   justify: "text-justify",
 };
 
-const presetToElement: Partial<
-  Record<TextPreset, keyof React.JSX.IntrinsicElements>
-> = {
-  pageTitle: "h1",
-  sectionTitle: "h2",
-  subsectionTitle: "h3",
-  cardTitle: "h4",
-  label: "h5",
-  overline: "h6",
-  body: "p",
-  bodySmall: "p",
-  caption: "span",
-};
-
 const variantToElement: Partial<
   Record<TextVariant, keyof React.JSX.IntrinsicElements>
 > = {
@@ -100,6 +102,14 @@ const variantToElement: Partial<
   "body-3": "p",
 };
 
+function resolveVariantToken(
+  variant: Responsive<TextVariant> | undefined
+): TextVariant {
+  if (variant === undefined) return "body-2";
+  if (typeof variant === "string") return variant;
+  return variant.base ?? "body-2";
+}
+
 export const Text: React.FC<TextProps> = ({
   variant = "body-2",
   color = "neutral",
@@ -110,24 +120,10 @@ export const Text: React.FC<TextProps> = ({
   style,
   as,
 }) => {
-  const resolvedVariantInput = resolveTextVariant(variant) ?? "body-2";
+  const resolvedVariant = resolveVariantToken(variant);
 
-  const resolvedVariant =
-    typeof resolvedVariantInput === "string"
-      ? resolvedVariantInput
-      : (resolvedVariantInput.base ?? "body-2");
-
-  const getElement = (): keyof React.JSX.IntrinsicElements => {
-    if (as) return as;
-    if (typeof variant === "string" && isTextPreset(variant)) {
-      return presetToElement[variant] ?? "span";
-    }
-    return variantToElement[resolvedVariant] ?? "span";
-  };
-
+  const Element = as ?? variantToElement[resolvedVariant] ?? "span";
   const isColorToken = typeof color === "string" && color in colorClasses;
-
-  const Element = getElement();
   const resolvedStyle: React.CSSProperties | undefined = isColorToken
     ? style
     : { ...style, color: color as React.CSSProperties["color"] };
@@ -135,7 +131,7 @@ export const Text: React.FC<TextProps> = ({
   return (
     <Element
       className={cn(
-        responsiveClasses(resolvedVariantInput, variantClasses),
+        responsiveClasses(variant, variantClasses),
         isColorToken
           ? responsiveClasses(color as Responsive<TextColor>, colorClasses)
           : undefined,

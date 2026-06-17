@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CircleHelp } from "lucide-react";
+import { QuestionCircle } from "@solar-icons/react-perf/Linear";
 import { IconButton } from "./icon-button";
 import {
   BUTTON_COLORS,
@@ -36,7 +36,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const HelpIcon = () => <CircleHelp className="size-full" />;
+const HelpIcon = () => <QuestionCircle className="size-full" />;
 
 export const Default: Story = {
   args: {

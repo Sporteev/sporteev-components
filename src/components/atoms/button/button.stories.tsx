@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { CircleHelp } from "lucide-react";
+import { QuestionCircle } from "@solar-icons/react-perf/Linear";
 import { Button } from ".";
 import {
   BUTTON_COLORS,
@@ -60,8 +60,8 @@ export const WithIcons: Story = {
     variant: "primary",
     color: "primary",
     size: "m",
-    startIcon: <CircleHelp className="size-full" />,
-    endIcon: <CircleHelp className="size-full" />,
+    startIcon: <QuestionCircle className="size-full" />,
+    endIcon: <QuestionCircle className="size-full" />,
   },
 };
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { LabelChip } from ".";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle } from "@solar-icons/react-perf/Linear";
 
 const meta: Meta<typeof LabelChip> = {
   title: "Atoms/LabelChip",
@@ -50,6 +50,6 @@ export const Primary: Story = {
     text: "Primary Label",
     color: "primary",
     size: "medium",
-    icon: <CheckCircle size={"1rem"} />,
+    icon: <CheckCircle size={16} />,
   },
 };

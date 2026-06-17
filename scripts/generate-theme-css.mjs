@@ -22,27 +22,73 @@ function flattenColors(colors, prefix = "") {
   return lines;
 }
 
-function emitFontSizes(fontSize) {
+function emitFontSizes(fontSize, { mobileSuffix = "" } = {}) {
   const lines = [];
   for (const [key, value] of Object.entries(fontSize)) {
     const token = key;
+    const suffix = mobileSuffix ? `-${mobileSuffix}` : "";
     if (Array.isArray(value)) {
       const [size, meta = {}] = value;
-      lines.push(`  --text-${token}: ${size};`);
+      lines.push(`  --text-${token}${suffix}: ${size};`);
       if (meta.lineHeight) {
-        lines.push(`  --text-${token}--line-height: ${meta.lineHeight};`);
+        lines.push(
+          `  --text-${token}${suffix}--line-height: ${meta.lineHeight};`
+        );
       }
       if (meta.letterSpacing) {
-        lines.push(`  --text-${token}--letter-spacing: ${meta.letterSpacing};`);
+        lines.push(
+          `  --text-${token}${suffix}--letter-spacing: ${meta.letterSpacing};`
+        );
       }
       if (meta.fontWeight) {
-        lines.push(`  --text-${token}--font-weight: ${meta.fontWeight};`);
+        lines.push(
+          `  --text-${token}${suffix}--font-weight: ${meta.fontWeight};`
+        );
       }
     } else {
-      lines.push(`  --text-${token}: ${value};`);
+      lines.push(`  --text-${token}${suffix}: ${value};`);
     }
   }
   return lines;
+}
+
+function typographyProps(token, { mobile = false } = {}) {
+  const suffix = mobile ? "-mobile" : "";
+  return [
+    `    font-size: var(--text-${token}${suffix});`,
+    `    line-height: var(--tw-leading, var(--text-${token}${suffix}--line-height));`,
+    `    letter-spacing: var(--tw-tracking, var(--text-${token}${suffix}--letter-spacing));`,
+    `    font-weight: var(--tw-font-weight, var(--text-${token}${suffix}--font-weight));`,
+  ];
+}
+
+function emitResponsiveTypographyUtilities(fontSize) {
+  const lines = ["@layer utilities {"];
+
+  for (const token of Object.keys(fontSize)) {
+    lines.push(`  .text-${token} {`);
+    lines.push(...typographyProps(token, { mobile: true }));
+    lines.push("  }");
+  }
+
+  lines.push("");
+  lines.push("  /* Desktop scale — uses --breakpoint-md from @theme above */");
+  lines.push("  @variant md {");
+  for (const token of Object.keys(fontSize)) {
+    lines.push(`    .text-${token} {`);
+    lines.push(...typographyProps(token));
+    lines.push("    }");
+  }
+  lines.push("  }");
+  lines.push("}");
+  return lines;
+}
+
+function emitTypographySafelist(fontSize) {
+  const variants = Object.keys(fontSize)
+    .map((token) => `md:text-${token}`)
+    .join(" ");
+  return [`@source inline("${variants}");`];
 }
 
 const lines = ["@theme {"];
@@ -54,6 +100,12 @@ for (const [family, stack] of Object.entries(tokens.fontFamily)) {
 
 lines.push(...flattenColors(tokens.colors));
 lines.push(...emitFontSizes(tokens.fontSize));
+
+if (tokens.fontSizeMobile) {
+  lines.push(
+    ...emitFontSizes(tokens.fontSizeMobile, { mobileSuffix: "mobile" })
+  );
+}
 
 for (const [key, value] of Object.entries(tokens.fontWeight)) {
   lines.push(`  --font-weight-${key}: ${value};`);
@@ -80,6 +132,10 @@ if (tokens.screens) {
 }
 
 lines.push("}", "");
+lines.push(...emitTypographySafelist(tokens.fontSize));
+lines.push("");
+lines.push(...emitResponsiveTypographyUtilities(tokens.fontSize));
+lines.push("");
 
 writeFileSync(outPath, lines.join("\n"));
 console.log(`Wrote ${outPath}`);

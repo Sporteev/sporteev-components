@@ -52,13 +52,23 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         {startIcon ? (
-          <span className={cn("inline-flex items-center justify-center", iconSizeClass)}>
+          <span
+            className={cn(
+              "inline-flex shrink-0 items-center justify-center [&_svg]:size-full",
+              iconSizeClass
+            )}
+          >
             {startIcon}
           </span>
         ) : null}
         {children}
         {endIcon ? (
-          <span className={cn("inline-flex items-center justify-center", iconSizeClass)}>
+          <span
+            className={cn(
+              "inline-flex shrink-0 items-center justify-center [&_svg]:size-full",
+              iconSizeClass
+            )}
+          >
             {endIcon}
           </span>
         ) : null}

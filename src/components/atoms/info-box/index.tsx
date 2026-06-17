@@ -1,7 +1,11 @@
 import React, { ReactNode } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { AlertCircle, Info, AlertTriangle } from "lucide-react";
+import {
+  DangerCircle,
+  DangerTriangle,
+  InfoCircle,
+} from "@solar-icons/react-perf/Linear";
 
 const infoBoxVariants = cva(
   "flex items-start gap-8 rounded-8 p-16 shadow-main",
@@ -73,9 +77,9 @@ const InfoBox = ({
   icon,
 }: InfoBoxProps) => {
   const defaultIcon = {
-    info: <Info className={cn(iconVariants({ variant }))} />,
-    warning: <AlertTriangle className={cn(iconVariants({ variant }))} />,
-    danger: <AlertCircle className={cn(iconVariants({ variant }))} />,
+    info: <InfoCircle className={cn(iconVariants({ variant }))} />,
+    warning: <DangerTriangle className={cn(iconVariants({ variant }))} />,
+    danger: <DangerCircle className={cn(iconVariants({ variant }))} />,
   };
 
   return (
