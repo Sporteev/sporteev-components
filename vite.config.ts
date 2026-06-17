@@ -19,7 +19,10 @@ export default defineConfig({
     },
     outDir: "dist",
     rollupOptions: {
-      external: ["react", "react-dom"],
+      external: (id) =>
+        id === "react" ||
+        id === "react-dom" ||
+        id.startsWith("@solar-icons/react-perf"),
       output: {
         globals: {
           react: "React",

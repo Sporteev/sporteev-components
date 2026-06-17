@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Bell } from "lucide-react";
+import { Bell } from "@solar-icons/react-perf/Linear";
 import { InfoBox } from ".";
 
 const meta = {

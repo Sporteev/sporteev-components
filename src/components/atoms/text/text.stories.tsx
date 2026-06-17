@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Text } from "./index";
+import { Text, TEXT_VARIANTS } from "./index";
 
 const meta: Meta<typeof Text> = {
   title: "Atoms/Text",
@@ -11,19 +11,7 @@ const meta: Meta<typeof Text> = {
   argTypes: {
     variant: {
       control: { type: "select" },
-      options: [
-        "h1",
-        "h2",
-        "h3",
-        "h4",
-        "h5",
-        "h6",
-        "body-1",
-        "body-2",
-        "body-3",
-        "caption-1",
-        "caption-2",
-      ],
+      options: TEXT_VARIANTS,
     },
     color: {
       control: { type: "select" },
@@ -62,9 +50,9 @@ export const Default: Story = {
 export const Headings: Story = {
   render: () => (
     <div className="space-y-16">
-      <Text variant="h1">Header 1 — 48px desktop</Text>
-      <Text variant="h2">Header 2 — 40px</Text>
-      <Text variant="h3">Header 3 — 32px</Text>
+      <Text variant="h1">Header 1 — 32px mobile / 48px desktop</Text>
+      <Text variant="h2">Header 2 — 28px / 40px</Text>
+      <Text variant="h3">Header 3 — 24px / 32px</Text>
       <Text variant="h4">Header 4 — 24px</Text>
       <Text variant="h5">Header 5 — 20px</Text>
       <Text variant="h6">Header 6 — 16px</Text>
@@ -128,20 +116,6 @@ export const CustomWeights: Story = {
   ),
 };
 
-export const ResponsiveTypography: Story = {
-  render: () => (
-    <div className="max-w-xl space-y-16">
-      <Text variant={{ base: "h3", lg: "h1" }} color="primary">
-        Mobile H1 → Desktop H1
-      </Text>
-      <Text variant={{ base: "body-2", lg: "body-1" }} color="neutral">
-        Body scales up at the lg breakpoint using explicit responsive props — no
-        *-desktop tokens in the theme.
-      </Text>
-    </div>
-  ),
-};
-
 export const SemanticElements: Story = {
   render: () => (
     <div className="space-y-16">
@@ -166,17 +140,16 @@ export const AllVariants: Story = {
           Typography 2.0
         </Text>
         <Text variant="body-1" color="neutral">
-          Desktop token sizes from new-theme.mdx; use responsive variant props
-          for mobile.
+          Each `text-*` token scales automatically at the md breakpoint (768px).
         </Text>
       </div>
 
       <div className="bg-grey-200 rounded-8 p-16">
-        <Text variant={{ base: "h5", lg: "h3" }} color="secondary">
-          Example preset pattern
+        <Text variant={{ base: "h5", md: "h3" }} color="secondary">
+          Custom responsive override
         </Text>
-        <Text variant={{ base: "body-3", lg: "body-1" }} color="neutral">
-          base: h5/body-3 on small screens, lg: h3/body-1 at lg+.
+        <Text variant={{ base: "body-3", md: "body-1" }} color="neutral">
+          base: h5/body-3 on small screens, md: h3/body-1 at md+.
         </Text>
       </div>
     </div>

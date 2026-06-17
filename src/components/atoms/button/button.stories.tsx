@@ -1,5 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { QuestionCircle } from "@solar-icons/react-perf/Linear";
 import { Button } from ".";
+import {
+  BUTTON_COLORS,
+  BUTTON_SIZES,
+  BUTTON_VARIANTS,
+} from "./types";
 
 const meta = {
   title: "Atoms/Button",
@@ -11,34 +17,27 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "outline", "ghost"],
-      description: "The visual style of the button",
-      defaultValue: "primary",
+      options: BUTTON_VARIANTS,
+      description: "Visual style",
     },
-    danger: {
-      control: "boolean",
-      description: "Visual style for danger state",
-      defaultValue: false,
+    color: {
+      control: "select",
+      options: BUTTON_COLORS,
+      description: "Token palette (600 / 700 / 800)",
     },
     size: {
       control: "select",
-      options: ["large", "medium", "small"],
-      description: "The size of the button",
-      defaultValue: "medium",
+      options: BUTTON_SIZES,
+      description: "Button size",
     },
     disabled: {
       control: "boolean",
-      description: "Whether the button is disabled",
-      defaultValue: false,
+    },
+    fullWidth: {
+      control: "boolean",
     },
     children: {
       control: "text",
-      description: "The content inside the button",
-      defaultValue: "Click here",
-    },
-    className: {
-      control: "text",
-      description: "Additional tailwind style to apply",
     },
   },
 } satisfies Meta<typeof Button>;
@@ -48,8 +47,72 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: "Click here",
+    children: "Button Text",
     variant: "primary",
-    size: "medium",
+    color: "primary",
+    size: "m",
   },
+};
+
+export const WithIcons: Story = {
+  args: {
+    children: "Button Text",
+    variant: "primary",
+    color: "primary",
+    size: "m",
+    startIcon: <QuestionCircle className="size-full" />,
+    endIcon: <QuestionCircle className="size-full" />,
+  },
+};
+
+export const AllSizes: Story = {
+  render: () => (
+    <div className="flex flex-col items-start gap-12">
+      {BUTTON_SIZES.map((size) => (
+        <Button key={size} size={size} variant="primary" color="primary">
+          Size {size.toUpperCase()}
+        </Button>
+      ))}
+    </div>
+  ),
+};
+
+export const AllVariants: Story = {
+  render: () => (
+    <div className="flex flex-col items-start gap-12">
+      {BUTTON_VARIANTS.map((variant) => (
+        <Button key={variant} variant={variant} color="primary" size="m">
+          {variant}
+        </Button>
+      ))}
+    </div>
+  ),
+};
+
+export const ColorPalettes: Story = {
+  render: () => (
+    <div className="flex flex-col gap-24">
+      {BUTTON_COLORS.map((color) => (
+        <div key={color} className="flex flex-wrap items-center gap-12">
+          {BUTTON_VARIANTS.map((variant) => (
+            <Button key={`${color}-${variant}`} variant={variant} color={color} size="m">
+              {color} / {variant}
+            </Button>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+};
+
+export const Disabled: Story = {
+  render: () => (
+    <div className="flex flex-wrap gap-12">
+      {BUTTON_VARIANTS.map((variant) => (
+        <Button key={variant} variant={variant} color="primary" size="m" disabled>
+          {variant}
+        </Button>
+      ))}
+    </div>
+  ),
 };

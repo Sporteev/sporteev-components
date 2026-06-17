@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Text } from "@/components/atoms";
 import { Button } from "@/components/atoms/button";
 import { cn } from "@/lib/utils";
-import { MinusIcon, PlusIcon } from "lucide-react";
+import { MinusIcon, PlusIcon } from "@/components/icons/custom";
 
 export type ScoreIncreaseDecreaseProps = {
   score: number;
@@ -89,14 +89,14 @@ export const ScoreIncreaseDecrease = ({
         <Button
           type="button"
           variant={disabled ? "ghost" : "outline"}
-          size="small"
+          size="s"
+          color={danger ? "destructive" : "primary"}
           className={cn(
             `${styles.button} rounded-6 p-0`,
             disabled ? "bg-grey-300 text-grey-500" : "!border"
           )}
           onClick={onDecrease}
           disabled={isDecreaseDisabled}
-          danger={danger}
         >
           <MinusIcon className={styles.icon} />
         </Button>
@@ -133,11 +133,11 @@ export const ScoreIncreaseDecrease = ({
         <Button
           type="button"
           variant="primary"
-          size="small"
+          size="s"
+          color={danger ? "destructive" : "primary"}
           className={`${styles.button} rounded-6 p-0`}
           onClick={onIncrease}
           disabled={isIncreaseDisabled}
-          danger={danger}
         >
           <PlusIcon className={styles.icon} />
         </Button>

@@ -15,6 +15,20 @@ export type TextVariant =
   | "caption-1"
   | "caption-2";
 
+export const TEXT_VARIANTS: TextVariant[] = [
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "body-1",
+  "body-2",
+  "body-3",
+  "caption-1",
+  "caption-2",
+];
+
 export type TextColor =
   | "primary"
   | "secondary"
@@ -88,6 +102,14 @@ const variantToElement: Partial<
   "body-3": "p",
 };
 
+function resolveVariantToken(
+  variant: Responsive<TextVariant> | undefined
+): TextVariant {
+  if (variant === undefined) return "body-2";
+  if (typeof variant === "string") return variant;
+  return variant.base ?? "body-2";
+}
+
 export const Text: React.FC<TextProps> = ({
   variant = "body-2",
   color = "neutral",
@@ -98,17 +120,10 @@ export const Text: React.FC<TextProps> = ({
   style,
   as,
 }) => {
-  const resolvedVariant =
-    typeof variant === "string" ? variant : (variant.base ?? "body-2");
+  const resolvedVariant = resolveVariantToken(variant);
 
-  const getElement = (): keyof React.JSX.IntrinsicElements => {
-    if (as) return as;
-    return variantToElement[resolvedVariant] ?? "span";
-  };
-
+  const Element = as ?? variantToElement[resolvedVariant] ?? "span";
   const isColorToken = typeof color === "string" && color in colorClasses;
-
-  const Element = getElement();
   const resolvedStyle: React.CSSProperties | undefined = isColorToken
     ? style
     : { ...style, color: color as React.CSSProperties["color"] };

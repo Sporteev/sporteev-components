@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ChevronDown, Check, Search } from "lucide-react";
+import { CheckRead } from "@solar-icons/react-perf/Linear";
+import { ChevronIcon, SearchIcon } from "@/components/icons/custom";
 import {
   CHIP_COLORS,
   ChipColor,
@@ -304,7 +305,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           >
             {searchable && isOpen ? (
               <div className="flex min-w-0 flex-1 items-center gap-12">
-                <Search className="text-grey-600 h-16 w-16 flex-shrink-0" />
+                <SearchIcon className="text-grey-600 h-16 w-16 flex-shrink-0" />
                 <input
                   ref={searchInputRef}
                   type="text"
@@ -335,7 +336,8 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                 </span>
               </div>
             )}
-            <ChevronDown
+            <ChevronIcon
+              direction="down"
               className={cn(
                 "text-grey-600 ml-8 h-16 w-16 flex-shrink-0 transition-transform duration-200",
                 isOpen && "rotate-180"
@@ -345,7 +347,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
           {isOpen && dropdownStyle && (
             <div
-              className="border-grey-400 rounded-8 z-[9999] mt-4 max-h-240 overflow-auto border bg-white shadow-secondary"
+              className="border-grey-400 rounded-8 shadow-secondary z-[9999] mt-4 max-h-240 overflow-auto border bg-white"
               style={dropdownStyle}
             >
               {filteredOptions.length > 0 ? (
@@ -384,7 +386,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                       )}
                     </div>
                     {option.value === value && (
-                      <Check className="text-primary-600 ml-8 h-16 w-16 flex-shrink-0" />
+                      <CheckRead className="text-primary-600 ml-8 h-16 w-16 flex-shrink-0" />
                     )}
                   </div>
                 ))

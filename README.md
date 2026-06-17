@@ -7,10 +7,10 @@ Reusable React components and design tokens for Sporteev apps (and any consumer)
 ## Install
 
 ```bash
-pnpm add @sporteev/sporteev-components
+pnpm add @sporteev/sporteev-components @solar-icons/react-perf
 ```
 
-Peer dependency: React 18 or 19.
+Peer dependencies: React 18 or 19, `@solar-icons/react-perf` ^2.1.1 (Linear icons used by components and recommended for app UI).
 
 ## Consumer setup (theme-only — recommended)
 
@@ -53,15 +53,23 @@ import "./index.css";
 
 ```tsx
 import { Button, Text } from "@sporteev/sporteev-components";
+import { Settings } from "@solar-icons/react-perf/Linear";
 
 function App() {
   return (
-    <Text variant="body-2" color="neutral">
-      Hello
-    </Text>
+    <>
+      <Text variant="h1" as="h1">
+        Page title
+      </Text>
+      <Text variant="body-2" color="neutral">
+        Body copy
+      </Text>
+    </>
   );
 }
 ```
+
+Typography tokens (`h1`–`h6`, `body-*`, `caption-*`) scale mobile → desktop at the `md` breakpoint via `theme.css`.
 
 Your app’s build only emits CSS for components and classes you actually use.
 
@@ -77,7 +85,7 @@ pnpm add file:../sporteev-components
 pnpm update @sporteev/sporteev-components
 ```
 
-See [DEVELOPMENT.md](./DEVELOPMENT.md) for Storybook, pack, and publish.
+See [contributing.md](./contributing.md) for Storybook, pack, publish, and contributor conventions.
 
 ## Legacy: `styles.css`
 
@@ -95,6 +103,8 @@ See [DEVELOPMENT.md](./DEVELOPMENT.md) for Storybook, pack, and publish.
 ## Architecture
 
 Design system rules and consumer patterns: [refactor-plan.mdx](./refactor-plan.mdx) (single source of truth for v2, CRM, and all consumers).
+
+Contributor conventions (component styling, local workflow): [contributing.md](./contributing.md).
 
 ## License
 
