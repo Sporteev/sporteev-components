@@ -1,0 +1,141 @@
+---
+description: Design tokens, theme.css generation, JIT class rules, interactive states
+globs: src/theme/**,scripts/generate-theme*
+alwaysApply: false
+---
+
+# Theme & tokens
+
+## Source of truth
+
+| Piece             | Path                             | Role                                         |
+| ----------------- | -------------------------------- | -------------------------------------------- |
+| Token definitions | `src/theme/tokens.cjs`           | Colors, typography, spacing, radius, shadows |
+| Generated CSS     | `src/theme/theme.css`            | `@theme` block for Tailwind v4               |
+| Generate script   | `scripts/generate-theme-css.mjs` | `tokens.cjs` → `theme.css`                   |
+
+**Workflow after token changes:**
+
+1. Edit `src/theme/tokens.cjs`
+2. Run `pnpm generate:theme` (also runs on `prebuild`)
+3. If typography changed → sync `TYPOGRAPHY_TEXT_SIZES` in `src/lib/utils.ts`
+4. Document semver impact in CHANGELOG if class names change
+
+## Using tokens in components
+
+Use **theme utilities**, not default Tailwind palette:
+
+| Token kind | Examples                                   | Avoid                             |
+| ---------- | ------------------------------------------ | --------------------------------- |
+| Typography | `text-h1`, `text-body-2`, `text-caption-1` | `text-2xl`, `text-sm`             |
+| Colors     | `bg-primary-600`, `text-destructive-600`   | `bg-blue-500`                     |
+| Radius     | `rounded-8`, `rounded-12`                  | `rounded-lg`                      |
+| Shadows    | `shadow-secondary`                         | arbitrary shadow strings          |
+| Spacing    | `gap-12`, `p-24`, `h-36`                   | numbers = **pixels** in our scale |
+
+**Typography responsive scale:** mobile sizes in `theme.css`; desktop sizes kick in at **`md` (768px)** for `h1`–`h6`, `body-*`, `caption-*`.
+
+**One-off Figma colors** not in the system: `bg-[#1A2B3C]` is OK. If the same hex appears in multiple components, promote to `tokens.cjs`.
+
+**Responsive component APIs:** use `Responsive<T>` + `responsiveClasses()` from `@/lib/responsive` — see `atoms/text/`.
+
+Token renames affect consumer CSS — often **major** semver if apps use those class names.
+
+## Consumer theme-only setup
+
+Consumers compile CSS locally. They do **not** import pre-built `styles.css` in new apps.
+
+```css
+/* consumer src/index.css */
+@import "tailwindcss";
+@import "@sporteev/sporteev-components/theme.css";
+@source "../node_modules/@sporteev/sporteev-components/src/components";
+@source "../node_modules/@sporteev/sporteev-components/src/lib";
+```
+
+Monorepo `file:` link: point `@source` at the linked package's `src/` paths.
+
+## JIT / static class strings (critical)
+
+Consumer Tailwind scans `src/components/` and `src/lib/` via `@source`. Every utility in component code must be discoverable at build time.
+
+**Allowed:**
+
+```ts
+const SIZE_CLASSES: Record<Size, string> = {
+  s: "h-32 px-12 text-body-2",
+  m: "h-36 px-16 text-body-1",
+};
+className={cn(SIZE_CLASSES[size], className)}
+```
+
+**Forbidden:**
+
+```ts
+// Dynamic template — JIT cannot see these utilities
+className={`bg-${color}-600`}
+className={colorMap[color]}  // if colorMap is built dynamically at runtime
+```
+
+Every key in `Record` maps must be a **static string literal**. Enumerate all variant × color cells explicitly (see `atoms/button/variants.ts`).
+
+## Class composition
+
+```ts
+import { cn } from "@/lib/utils";
+
+className={cn(BASE_CLASSES, SIZE_CLASSES[size], variantClasses, className)}
+```
+
+Rules:
+
+- Always `cn()` from `@/lib/utils` — not raw `clsx`
+- Consumer `className` **last** so `tailwind-merge` resolves conflicts
+- Per-size dimensions belong in `sizes.ts`, not inline in the component
+- Spacing: `gap-12` = 12px, `p-24` = 24px
+
+## Interactive states (default color ramp)
+
+Unless Figma specifies otherwise, per semantic color (`primary`, `secondary`, `destructive`, …):
+
+| State   | Shade         | Background example      | Text-on-tint example      |
+| ------- | ------------- | ----------------------- | ------------------------- |
+| Resting | `{color}-600` | `bg-primary-600`        | `text-primary-600`        |
+| Hover   | `{color}-700` | `hover:bg-primary-700`  | `hover:text-primary-700`  |
+| Active  | `{color}-800` | `active:bg-primary-800` | `active:text-primary-800` |
+
+Reference: `atoms/button/variants.ts` — each cell is a full static string including hover/active.
+
+**Other states** (define in `variants.ts` or `field-styles.ts`):
+
+| State      | Convention                                                                |
+| ---------- | ------------------------------------------------------------------------- |
+| Focus      | `focus:outline-none` + ring or border; fields: `focus:border-primary-600` |
+| Disabled   | Separate branch + `pointer-events-none`; grey tokens (`bg-grey-300`)      |
+| Error      | `border-destructive-600` + `errorMessage` prop on fields                  |
+| Transition | `transition-colors duration-150` unless Figma says otherwise              |
+
+## Multi-node & field styling
+
+**Multi-node components** (Modal, Toast): don't overload root `className` for inner nodes.
+
+| Node         | className prop     |
+| ------------ | ------------------ |
+| Overlay      | root `className`   |
+| Panel / body | `contentClassName` |
+| Label        | `labelClassName`   |
+| Input        | `inputClassName`   |
+
+Reference: `molecules/modal/modal.tsx`, `molecules/input-text/field-styles.ts`.
+
+**Icons inside components:** size via wrapper in `sizes.ts` + `[&_svg]:size-full` on wrapper. Consumers don't pass `className="size-full"` on icons inside DS components — but **Storybook** passes `className="size-full"` on icons used as story props (Button `startIcon`).
+
+## Field pattern
+
+Form fields share `FieldShell` + `field-styles.ts`:
+
+- `label`, `helperText`, `errorMessage` props
+- Error state: `border-destructive-600`
+- Size tokens: `s | m | l` (fields may omit `xl`)
+
+Reference: `molecules/input-text/`.

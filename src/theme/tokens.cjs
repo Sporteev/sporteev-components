@@ -1,7 +1,7 @@
 /**
  * Single source of truth for Sporteev design tokens.
  * Consumed by tailwind.preset.cjs (package + client apps) and the package Tailwind build.
- * @see .cursor/new-theme.mdx
+ * @see .ide/rules/theme.mdc
  */
 
 const letterSpacing = "-0.01em";

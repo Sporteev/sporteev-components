@@ -1,0 +1,148 @@
+---
+description: Storybook conventions — meta, stories, argTypes, icon catalog
+globs: src/components/**/*.stories.tsx
+alwaysApply: false
+---
+
+# Storybook conventions
+
+Run: `pnpm storybook`. Stories are the visual contract for the design system. Dev-only — excluded from npm build.
+
+Every exported **component** gets co-located `{name}.stories.tsx`. **Icons** use one shared catalog (exception below).
+
+Reference: `atoms/button/button.stories.tsx`, `atoms/snackbar/toast.stories.tsx` (decorators).
+
+## Title hierarchy
+
+| Layer     | Prefix       | Example                                 |
+| --------- | ------------ | --------------------------------------- |
+| Atoms     | `Atoms/`     | `Atoms/Button`                          |
+| Molecules | `Molecules/` | `Molecules/Modal`                       |
+| Organisms | `Organisms/` | `Organisms/…`                           |
+| Icons     | `Icons`      | Single catalog page — all package icons |
+
+## Meta block
+
+Use CSF3: `satisfies Meta<typeof Component>`, export `default meta`, type stories as `StoryObj<typeof meta>`.
+
+```ts
+import type { Meta, StoryObj } from "@storybook/react";
+import { Button } from ".";
+import { BUTTON_SIZES, BUTTON_VARIANTS, BUTTON_COLORS } from "./types";
+
+const meta = {
+  title: "Atoms/Button",
+  component: Button,
+  parameters: { layout: "centered" },
+  tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      control: "select",
+      options: BUTTON_VARIANTS,
+      description: "Visual style",
+    },
+    color: {
+      control: "select",
+      options: BUTTON_COLORS,
+      description: "Token palette (600 / 700 / 800)",
+    },
+    size: {
+      control: "select",
+      options: BUTTON_SIZES,
+      description: "Button size",
+    },
+    disabled: { control: "boolean" },
+    onClick: { control: false },
+    startIcon: { control: false },
+    endIcon: { control: false },
+  },
+} satisfies Meta<typeof Button>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+```
+
+### Meta rules
+
+| Field                | Rule                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------- |
+| `tags: ["autodocs"]` | **Required** on component stories — generates props tables                              |
+| `argTypes`           | Import option lists from `types.ts` (`BUTTON_VARIANTS`, `MODAL_SIZES`, …)               |
+| `control: "select"`  | Enum props from const arrays                                                            |
+| `control: false`     | Callbacks, nodes, complex props (`onClose`, `icon`, `action`, `children` when node)     |
+| `parameters.layout`  | `"centered"` default; `"fullscreen"` for Modal/Toast; `"padded"` when needed            |
+| `decorators`         | In story file for positioning (fixed toasts, modal backdrop) — not global unless shared |
+
+Add short `description` on `argTypes` when the prop name isn't obvious.
+
+## Standard stories
+
+Cover the API surface designers care about:
+
+| Story                                   | Purpose                                                         |
+| --------------------------------------- | --------------------------------------------------------------- |
+| `Default`                               | Happy-path `args` — what most consumers use                     |
+| `AllSizes`                              | Row/column via `.map()` over `*_SIZES`                          |
+| `AllVariants`                           | One entry per `*_VARIANTS` value                                |
+| `ColorPalettes` / matrix                | Variant × color grid — map const arrays, don't hand-pick        |
+| `Disabled`, `WithIcons`, `WithError`, … | Named states matching Figma or common usage                     |
+| Controlled demo                         | `useState` in `render` when open/close or value must be toggled |
+
+### Story implementation patterns
+
+**Default — args:**
+
+```ts
+export const Default: Story = {
+  args: {
+    children: "Button Text",
+    variant: "primary",
+    color: "primary",
+    size: "m",
+  },
+};
+```
+
+**Matrix — render + map:**
+
+```ts
+export const AllSizes: Story = {
+  render: () => (
+    <div className="flex flex-col items-start gap-12">
+      {BUTTON_SIZES.map((size) => (
+        <Button key={size} size={size} variant="primary" color="primary">
+          Size {size.toUpperCase()}
+        </Button>
+      ))}
+    </div>
+  ),
+};
+```
+
+**Icons as props in stories** — pass `className="size-full"` so the parent wrapper controls size:
+
+```tsx
+startIcon: <QuestionCircle className="size-full" />;
+```
+
+Use design-system spacing in layouts: `gap-12`, `gap-24`.
+
+## Icons catalog (single page)
+
+**Do not** add per-icon story files. Maintain one catalog:
+
+| Property   | Value                        |
+| ---------- | ---------------------------- |
+| File       | `icons/icons.stories.tsx`    |
+| Title      | `Icons` (not `Icons/Custom`) |
+| Categories | Custom, Social, Sports, Logo |
+
+When adding a custom icon, register it in that file. Group by category in separate story exports (e.g. `Custom`, `Social`, `Sports`, `Logo`).
+
+**Solar icons** are not catalogued here — consumers browse `@solar-icons/react-perf` directly.
+
+## New component requirement
+
+New public components ship with a story before merge. For the full scaffold workflow, see `.ide/skills/new-component/SKILL.md`.
+
+Related rules: `component-structure.mdc`, `component-api.mdc`, `component-styling.mdc`, `theme.mdc`.

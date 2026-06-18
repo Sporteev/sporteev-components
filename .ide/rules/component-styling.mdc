@@ -1,0 +1,113 @@
+---
+description: Component styling patterns — no CVA, sizes/variants, Record matrix, icon wrappers
+globs: src/components/{atoms,molecules,organisms}/**/*
+alwaysApply: false
+---
+
+# Component styling (no CVA)
+
+**Do not use `class-variance-authority` (CVA)** in new or refactored code.
+
+## Decision tree
+
+| Situation                         | Approach                                          | Reference                  |
+| --------------------------------- | ------------------------------------------------- | -------------------------- |
+| Size + variant axes               | `types.ts` + `sizes.ts` + `variants.ts`           | Most molecules             |
+| Variant × color designed cells    | `Record<Variant, Record<Color, string>>` + helper | `atoms/button/variants.ts` |
+| Multi-node (overlay, panel, body) | Inline / per-node maps in `{name}.tsx`            | `molecules/modal/`         |
+| Simple presentational atom        | Small `sizes.ts` or inline                        | `atoms/text/`              |
+| Form fields                       | `field-styles.ts` + FieldShell                    | `molecules/input-text/`    |
+
+## Composition in {name}.tsx
+
+```ts
+className={cn(BASE_CLASSES, SIZE_CLASSES[size], getVariantClasses(variant, color, disabled), className)}
+```
+
+- Always `cn()` from `@/lib/utils`
+- Consumer `className` **last**
+- Static Tailwind strings only — see `theme.mdc` for JIT rules
+
+## sizes.ts pattern
+
+```ts
+import type { ButtonSize } from "./types";
+
+export const TEXT_BUTTON_SIZE_CLASSES: Record<ButtonSize, string> = {
+  s: "h-32 px-12 text-body-2 gap-8",
+  m: "h-36 px-16 text-body-1 gap-8",
+  l: "h-40 px-20 text-body-1 gap-12",
+  xl: "h-44 px-24 text-body-1 gap-12",
+};
+
+export const TEXT_BUTTON_ICON_SIZE_CLASSES: Record<ButtonSize, string> = {
+  s: "size-16",
+  m: "size-20",
+  l: "size-24",
+  xl: "size-28",
+};
+```
+
+## variants.ts — Record matrix
+
+Every variant × color cell is a **static literal** (required for consumer `@source` JIT):
+
+```ts
+const DISABLED_CLASSES =
+  "bg-grey-300 text-grey-600 border-transparent pointer-events-none";
+
+const VARIANT_COLOR_CLASSES: Record<
+  ButtonVariant,
+  Record<ButtonColor, string>
+> = {
+  primary: {
+    primary:
+      "bg-primary-600 text-grey-100 hover:bg-primary-700 active:bg-primary-800 active:shadow-secondary",
+    // …every cell enumerated
+  },
+  // …
+};
+
+export function getButtonVariantClasses(
+  variant: ButtonVariant,
+  color: ButtonColor,
+  disabled: boolean
+) {
+  if (disabled) return DISABLED_CLASSES;
+  return VARIANT_COLOR_CLASSES[variant][color];
+}
+```
+
+Default color ramp: `600` resting → `700` hover → `800` active (unless Figma differs). Full token rules → `theme.mdc`.
+
+## Multi-node components
+
+Don't overload one `className` for all DOM nodes:
+
+| Node         | Prop               |
+| ------------ | ------------------ |
+| Overlay      | root `className`   |
+| Panel / body | `contentClassName` |
+| Label        | `labelClassName`   |
+| Input        | `inputClassName`   |
+
+Reference: `molecules/modal/modal.tsx`.
+
+## Icons inside components
+
+Size via wrapper in `sizes.ts`; SVG fills wrapper:
+
+```tsx
+<span
+  className={cn(
+    "inline-flex shrink-0 items-center justify-center [&_svg]:size-full",
+    iconSizeClass
+  )}
+>
+  {startIcon}
+</span>
+```
+
+**Storybook only:** pass `className="size-full"` on Solar/custom icons used as story props (Button `startIcon`).
+
+For custom icon implementation → `icons.mdc`. For Solar in app UI → peer `@solar-icons/react-perf/Linear`.

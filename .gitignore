@@ -17,15 +17,18 @@ dist-ssr
 storybook-static
 
 # Editor directories and files
-.vscode/*
-.cursor/*
-.claude/*
+.vscode
+.cursor
+.claude
 .kiro/
 !.vscode/extensions.json
-.idea
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# personal files
+.idea
+.archive
