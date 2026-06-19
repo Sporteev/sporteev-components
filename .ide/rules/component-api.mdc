@@ -10,18 +10,18 @@ Define public APIs in `types.ts`. Values come from **Figma** — don't invent va
 
 ## Props naming
 
-| Prop | Use | Notes |
-| ---- | --- | ----- |
-| `variant` | Visual style axis | Figma-defined; in `types.ts` |
-| `color` | Semantic palette axis | Figma-defined; separate from `variant` |
-| `size` | `s` \| `m` \| `l` \| `xl` | Default `m`; never `inputSize` |
-| `disabled` | Non-interactive | Prefer explicit boolean |
-| `fullWidth` | Stretch to container | `true` for fields, `false` for buttons typically |
-| `className` | Consumer override | Last in `cn()` — see `component-styling.mdc` |
-| `isOpen` + `onClose` | Controlled overlays | Modal (`open` reserved for Radix internally) |
-| `label`, `helperText`, `errorMessage` | Fields | Via FieldShell |
-| `startIcon` / `endIcon` | Button adornments | `ReactNode` |
-| `startAdornment` / `endAdornment` | Field adornments | `ReactNode` |
+| Prop                                  | Use                       | Notes                                            |
+| ------------------------------------- | ------------------------- | ------------------------------------------------ |
+| `variant`                             | Visual style axis         | Figma-defined; in `types.ts`                     |
+| `color`                               | Semantic palette axis     | Figma-defined; separate from `variant`           |
+| `size`                                | `s` \| `m` \| `l` \| `xl` | Default `m`; never `inputSize`                   |
+| `disabled`                            | Non-interactive           | Prefer explicit boolean                          |
+| `fullWidth`                           | Stretch to container      | `true` for fields, `false` for buttons typically |
+| `className`                           | Consumer override         | Last in `cn()` — see `component-styling.mdc`     |
+| `isOpen` + `onClose`                  | Controlled overlays       | Modal (`open` reserved for Radix internally)     |
+| `label`, `helperText`, `errorMessage` | Fields                    | Via FieldShell                                   |
+| `startIcon` / `endIcon`               | Button adornments         | `ReactNode`                                      |
+| `startAdornment` / `endAdornment`     | Field adornments          | `ReactNode`                                      |
 
 **Avoid:** `inputSize`, separate `danger` prop instead of `color`, one-off names for shared concepts.
 
@@ -57,12 +57,12 @@ export interface ButtonProps {
 
 ## forwardRef + displayName
 
-| Component | Ref target |
-| --------- | ---------- |
-| Button, IconButton | `HTMLButtonElement` |
-| InputText | `HTMLInputElement` |
-| TextArea | `HTMLTextAreaElement` |
-| Select, RadioGroup | `HTMLDivElement` |
+| Component          | Ref target            |
+| ------------------ | --------------------- |
+| Button, IconButton | `HTMLButtonElement`   |
+| InputText          | `HTMLInputElement`    |
+| TextArea           | `HTMLTextAreaElement` |
+| Select, RadioGroup | `HTMLDivElement`      |
 
 Skip for presentational-only (`Text`, `LabelChip`, `Toast`) unless needed.
 
@@ -73,12 +73,12 @@ Button.displayName = "Button";
 
 ## Controlled vs uncontrolled
 
-| Pattern | Components | API |
-| ------- | ---------- | --- |
-| Controlled | Modal | `isOpen` + `onClose` |
-| Controlled | RadioGroup, Select | `value` + `onChange` |
-| Native | InputText, TextArea | Pass `value`/`onChange` for controlled; omit for uncontrolled |
-| Imperative | Toast | `useToast()` → `showToast()` / `hideToast()` |
+| Pattern    | Components          | API                                                           |
+| ---------- | ------------------- | ------------------------------------------------------------- |
+| Controlled | Modal               | `isOpen` + `onClose`                                          |
+| Controlled | RadioGroup, Select  | `value` + `onChange`                                          |
+| Native     | InputText, TextArea | Pass `value`/`onChange` for controlled; omit for uncontrolled |
+| Imperative | Toast               | `useToast()` → `showToast()` / `hideToast()`                  |
 
 If visibility or value is app-critical, prefer **controlled** props with clear naming (`isOpen`, not internal-only state).
 
@@ -93,11 +93,11 @@ className={cn(BASE_CLASSES, SIZE_CLASSES[size], getVariantClasses(variant, color
 
 ## Default props
 
-| Prop | Global default |
-| ---- | -------------- |
-| `size` | `m` |
-| `disabled` | `false` |
-| `type` (button) | `"button"` |
+| Prop            | Global default |
+| --------------- | -------------- |
+| `size`          | `m`            |
+| `disabled`      | `false`        |
+| `type` (button) | `"button"`     |
 
 Per-component: `Button` → `variant="primary"`, `color="primary"`; `Modal` → `size="m"`, `actionLayout="row"`.
 
@@ -118,12 +118,18 @@ export type LegacyInputSize = FieldSize;
 ## HTML attribute extension
 
 ```ts
-interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+interface ButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "disabled"
+> {
   disabled?: boolean;
   size?: ButtonSize;
 }
 
-type InputTextProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> & {
+type InputTextProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> & {
   size?: InputTextSize;
 };
 ```

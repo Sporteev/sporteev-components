@@ -112,11 +112,11 @@ See [contributing.md](./contributing.md) for Storybook, pack, publish, and contr
 
 ## Package exports
 
-| Import                                       | Purpose                                  |
-| -------------------------------------------- | ---------------------------------------- |
-| `@sporteev/sporteev-components`              | React components (JS)                    |
-| `@sporteev/sporteev-components/theme.css`    | Design tokens (`@theme`)                 |
-| `@sporteev/sporteev-components/theme/tokens` | Raw `tokens.cjs` (advanced)              |
+| Import                                       | Purpose                     |
+| -------------------------------------------- | --------------------------- |
+| `@sporteev/sporteev-components`              | React components (JS)       |
+| `@sporteev/sporteev-components/theme.css`    | Design tokens (`@theme`)    |
+| `@sporteev/sporteev-components/theme/tokens` | Raw `tokens.cjs` (advanced) |
 
 ## Contributing
 
