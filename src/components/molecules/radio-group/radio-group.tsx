@@ -1,21 +1,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { cva } from "class-variance-authority";
 import { RadioButton } from "@/components/atoms/radio-button";
 import type { RadioGroupProps } from "./types";
-
-const optionWrapperVariants = cva("", {
-  variants: {
-    variant: {
-      simple: "",
-      block:
-        "border-2 border-grey-400 rounded-8 p-12 shadow-main transition-all duration-200",
-    },
-  },
-  defaultVariants: {
-    variant: "simple",
-  },
-});
+import { OPTION_WRAPPER_VARIANT_CLASSES } from "./variants";
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   (
@@ -62,7 +49,7 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
               <div
                 key={option.value}
                 className={cn(
-                  optionWrapperVariants({ variant }),
+                  OPTION_WRAPPER_VARIANT_CLASSES[variant],
                   layout === "row" && variant === "block" && "flex-1",
                   variant === "block" &&
                     isSelected &&
