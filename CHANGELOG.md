@@ -1,3 +1,71 @@
+# Component changes (v2.2.0)
+
+Finalizes v2 API cleanup — standardized size tokens, `destructive` naming, theme-only distribution, and conventions tech-debt refactors.
+
+---
+
+## Breaking changes
+
+| Area                      | Before                       | After                          |
+| ------------------------- | ---------------------------- | ------------------------------ |
+| **LabelChip**             | `size="small"` / `medium` / `large` | `size="s"` / `m` / `l`    |
+| **LabelChip**             | `color="danger"`             | `color="destructive"`          |
+| **ScoreIncreaseDecrease** | `variant` prop for size      | **`size`** prop (`s` / `m` / `l`) |
+| **ScoreIncreaseDecrease** | `danger` prop                | **`destructive`**              |
+| **InfoBox**               | `variant="danger"`           | `variant="destructive"`        |
+| **Text**                  | `color="danger"`             | `color="destructive"` (removed duplicate) |
+| **Toast**                 | `Snackbar` / `useSnackbar` aliases | **Removed** — use `Toast` / `useToast` only |
+| **Package**               | `@sporteev/sporteev-components/styles.css` | **Removed** — theme-only (`theme.css` + consumer `@source`) |
+
+---
+
+## Refactored
+
+- **File layout (Option B)** — `button`, `label-chip`, `info-box`, `text`, `radio-button`, `score-increase-decrease`, `radio-group`, `select`, `logo-flat`: impl in `{name}.tsx`, public props in `types.ts`, barrel `index.tsx`
+- **Icons Storybook** — single `Icons` catalog (`Custom`, `Social`, `Sports`, `Logo`); dropped redundant per-icon stories
+- **Styling** — removed `class-variance-authority` from `LabelChip`, `InfoBox`, `RadioGroup`, `Select`; dropped CVA from dependencies
+- **Dev / Storybook CSS** — `src/index.css` with `@source` replaces `styles.css`; library entry no longer bundles pre-built CSS
+
+---
+
+## Fixed
+
+- **Select** — dropdown anchored with `bottom` when opening above the trigger (short lists no longer float too high)
+- **Select** — option chip renders beside the label instead of at the far edge of the row
+
+---
+
+## Migration (v2.1 → v2.2)
+
+```tsx
+// LabelChip
+<LabelChip text="vs" color="primary" size="s" />
+
+// ScoreIncreaseDecrease
+<ScoreIncreaseDecrease
+  size="m"
+  destructive
+  score={2}
+  onIncrease={() => {}}
+  onDecrease={() => {}}
+/>
+
+// InfoBox
+<InfoBox variant="destructive" title="Error">Something went wrong.</InfoBox>
+
+// Toast — aliases removed
+const { showToast } = useToast();
+
+// Consumer CSS — do not import styles.css
+// app index.css:
+@import "tailwindcss";
+@import "@sporteev/sporteev-components/theme.css";
+@source "../node_modules/@sporteev/sporteev-components/src/components";
+@source "../node_modules/@sporteev/sporteev-components/src/lib";
+```
+
+---
+
 # Component changes (v2.1.0)
 
 Design system 2.0 update — Figma-aligned components, shared sizing/variant patterns, and new primitives.
@@ -14,7 +82,7 @@ Design system 2.0 update — Figma-aligned components, shared sizing/variant pat
 | **InputText** | `multiline` prop             | Use **`TextArea`** instead                          |
 | **InputText** | Hover tooltip for helper     | Inline **`helperText`** below field                 |
 | **Toast**     | `danger` variant             | `destructive`                                       |
-| **Toast**     | `Snackbar` / `useSnackbar`   | **`Toast`** / **`useToast`** (old names deprecated) |
+| **Toast**     | `Snackbar` / `useSnackbar`   | **`Toast`** / **`useToast`** (aliases removed in 2.2.0) |
 | **Modal**     | `small` / `medium` / `large` | `s` / `m` / `l`                                     |
 | **Modal**     | Custom overlay markup        | Radix Dialog (`@radix-ui/react-dialog`)             |
 | **Text**      | Preset variants (`pageTitle`, `bodySmall`, …) | Typography tokens only: `h1`–`h6`, `body-*`, `caption-*` |

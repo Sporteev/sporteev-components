@@ -17,7 +17,6 @@
       "import": "./dist/sporteev-components.es.js",
       "require": "./dist/sporteev-components.umd.js"
     },
-    "./styles.css": "./dist/sporteev-components.css",
     "./theme.css": "./src/theme/theme.css",
     "./theme/tokens": "./src/theme/tokens.cjs"
   },

@@ -23,7 +23,6 @@ const colorClasses: Record<TextColor, string> = {
   tertiary: "text-tertiary-600",
   neutral: "text-grey-950",
   destructive: "text-destructive-600",
-  danger: "text-danger-main",
   success: "text-success-main",
   warning: "text-warning-main",
 };

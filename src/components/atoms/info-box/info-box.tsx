@@ -39,11 +39,11 @@ const InfoBox = ({
         )}
       />
     ),
-    danger: (
+    destructive: (
       <DangerCircle
         className={cn(
           INFO_BOX_ICON_BASE_CLASSES,
-          INFO_BOX_ICON_CLASSES.danger
+          INFO_BOX_ICON_CLASSES.destructive
         )}
       />
     ),

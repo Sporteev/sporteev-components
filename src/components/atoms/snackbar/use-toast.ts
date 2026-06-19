@@ -18,11 +18,5 @@ export function useToast() {
     toast,
     showToast,
     hideToast,
-    /** @deprecated Use `toast` */
-    snackbar: toast,
-    /** @deprecated Use `showToast` */
-    showSnackbar: showToast,
-    /** @deprecated Use `hideToast` */
-    hideSnackbar: hideToast,
   };
 }

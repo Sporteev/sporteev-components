@@ -14,7 +14,7 @@ Peer dependencies: React 18 or 19, `@solar-icons/react-perf` ^2.1.1 (Linear icon
 
 ## Consumer setup (theme-only — recommended)
 
-Each app compiles its own CSS from shared **tokens** + **component class names**. Do **not** import `styles.css` in new apps (v2, CRM, etc.) — that keeps bundles lean.
+Each app compiles its own CSS from shared **tokens** + **component class names** via Tailwind v4 `@source` (see below).
 
 ### 1. Tailwind v4 in your app
 
@@ -110,19 +110,12 @@ See [contributing.md](./contributing.md) for Storybook, pack, publish, and contr
 
 **Duplicate React** — add `resolve.dedupe: ["react", "react-dom"]` in Vite (see setup above).
 
-**`styles.css` vs theme-only** — new apps should use theme-only setup. `styles.css` is for legacy consumers during migration only.
-
-## Legacy: `styles.css`
-
-`@sporteev/sporteev-components/styles.css` is pre-built CSS from the library build (~all component utilities). Kept for **legacy** consumers during migration. **New apps should use theme-only** (above).
-
 ## Package exports
 
 | Import                                       | Purpose                                  |
 | -------------------------------------------- | ---------------------------------------- |
 | `@sporteev/sporteev-components`              | React components (JS)                    |
 | `@sporteev/sporteev-components/theme.css`    | Design tokens (`@theme`)                 |
-| `@sporteev/sporteev-components/styles.css`   | Legacy pre-built CSS (avoid in new apps) |
 | `@sporteev/sporteev-components/theme/tokens` | Raw `tokens.cjs` (advanced)              |
 
 ## Contributing

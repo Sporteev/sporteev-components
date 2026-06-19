@@ -21,7 +21,6 @@ const meta: Meta<typeof Text> = {
         "tertiary",
         "neutral",
         "destructive",
-        "danger",
         "success",
         "warning",
       ],

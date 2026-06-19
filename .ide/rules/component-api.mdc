@@ -111,8 +111,8 @@ Document non-obvious defaults in `types.ts` JSDoc or Storybook `args`.
 4. Remove in next **major**
 
 ```ts
-/** @deprecated Use `Toast` */
-export { Toast as Snackbar } from "./toast";
+/** @deprecated Use `size` */
+export type LegacyInputSize = FieldSize;
 ```
 
 ## HTML attribute extension

@@ -5,16 +5,16 @@ export const CHIP_COLORS = [
   "tertiary",
   "success",
   "warning",
-  "danger",
+  "destructive",
   "gray",
   "dark",
 ] as const;
 
 export type ChipColor = (typeof CHIP_COLORS)[number];
 
-export type LabelChipSize = "small" | "medium" | "large";
+export type LabelChipSize = "s" | "m" | "l";
 
-export const LABEL_CHIP_SIZES: LabelChipSize[] = ["small", "medium", "large"];
+export const LABEL_CHIP_SIZES: LabelChipSize[] = ["s", "m", "l"];
 
 export interface LabelChipProps {
   text: string;

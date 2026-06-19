@@ -1,9 +1,9 @@
-export type ScoreIncreaseDecreaseSize = "small" | "medium" | "large";
+export type ScoreIncreaseDecreaseSize = "s" | "m" | "l";
 
 export const SCORE_INCREASE_DECREASE_SIZES: ScoreIncreaseDecreaseSize[] = [
-  "small",
-  "medium",
-  "large",
+  "s",
+  "m",
+  "l",
 ];
 
 export interface ScoreIncreaseDecreaseProps {
@@ -11,9 +11,9 @@ export interface ScoreIncreaseDecreaseProps {
   onIncrease: () => void;
   onDecrease: () => void;
   onScoreChange?: (score: number) => void;
-  variant?: ScoreIncreaseDecreaseSize;
+  size?: ScoreIncreaseDecreaseSize;
   disabled?: boolean;
-  danger?: boolean;
+  destructive?: boolean;
   inFocus?: boolean;
   editable?: boolean;
   scoreInputEditable?: boolean;

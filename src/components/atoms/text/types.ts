@@ -34,7 +34,6 @@ export type TextColor =
   | "tertiary"
   | "neutral"
   | "destructive"
-  | "danger"
   | "success"
   | "warning";
 

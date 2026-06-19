@@ -7,7 +7,7 @@ const LabelChip = ({
   text,
   icon,
   color = "primary",
-  size = "medium",
+  size = "m",
 }: LabelChipProps) => {
   return (
     <div

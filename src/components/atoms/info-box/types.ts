@@ -1,11 +1,11 @@
 import type { ReactNode } from "react";
 
-export type InfoBoxVariant = "info" | "warning" | "danger";
+export type InfoBoxVariant = "info" | "warning" | "destructive";
 
 export const INFO_BOX_VARIANTS: InfoBoxVariant[] = [
   "info",
   "warning",
-  "danger",
+  "destructive",
 ];
 
 export interface InfoBoxProps {

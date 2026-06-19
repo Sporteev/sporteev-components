@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { CheckRead } from "@solar-icons/react-perf/Linear";
+import { CheckCircle } from "@solar-icons/react-perf/Linear";
 import { ChevronIcon, SearchIcon } from "@/components/icons/custom";
 import {
   CHIP_COLORS,
@@ -58,47 +58,51 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
     useEffect(() => {
       if (isOpen && selectButtonRef.current) {
         const updatePosition = () => {
-          if (selectButtonRef.current) {
-            const rect = selectButtonRef.current.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
-            const viewportWidth = window.innerWidth;
-            const dropdownMaxHeight = 240;
-            const gap = 4;
+          if (!selectButtonRef.current) return;
 
-            const spaceBelow = viewportHeight - rect.bottom;
-            const spaceAbove = rect.top;
+          const rect = selectButtonRef.current.getBoundingClientRect();
+          const viewportHeight = window.innerHeight;
+          const viewportWidth = window.innerWidth;
+          const dropdownMaxHeight = 240;
+          const gap = 4;
+          const edgePadding = 8;
 
-            const openAbove =
-              spaceBelow < dropdownMaxHeight && spaceAbove > spaceBelow;
+          const spaceBelow = viewportHeight - rect.bottom;
+          const spaceAbove = rect.top;
 
-            let top: number;
-            if (openAbove) {
-              top = rect.top - dropdownMaxHeight - gap;
-            } else {
-              top = rect.bottom + gap;
-            }
+          const openAbove =
+            spaceBelow < dropdownMaxHeight && spaceAbove > spaceBelow;
 
-            const maxTop = Math.max(8, viewportHeight - dropdownMaxHeight - 8);
-            const minTop = 8;
-            top = Math.max(minTop, Math.min(maxTop, top));
+          let left = rect.left;
+          const dropdownWidth = rect.width;
 
-            let left = rect.left;
-            const dropdownWidth = rect.width;
+          if (left + dropdownWidth > viewportWidth - edgePadding) {
+            left = viewportWidth - dropdownWidth - edgePadding;
+          }
 
-            if (left + dropdownWidth > viewportWidth - 8) {
-              left = viewportWidth - dropdownWidth - 8;
-            }
+          if (left < edgePadding) {
+            left = edgePadding;
+          }
 
-            if (left < 8) {
-              left = 8;
-            }
+          if (openAbove) {
+            const maxHeight = Math.min(
+              dropdownMaxHeight,
+              rect.top - gap - edgePadding
+            );
 
-            let maxHeight = dropdownMaxHeight;
-            if (openAbove) {
-              maxHeight = Math.min(dropdownMaxHeight, rect.top - gap - 8);
-            } else {
-              maxHeight = Math.min(dropdownMaxHeight, viewportHeight - top - 8);
-            }
+            setDropdownStyle({
+              position: "fixed",
+              bottom: `${viewportHeight - rect.top + gap}px`,
+              left: `${left}px`,
+              width: `${dropdownWidth}px`,
+              maxHeight: `${maxHeight}px`,
+            });
+          } else {
+            const top = rect.bottom + gap;
+            const maxHeight = Math.min(
+              dropdownMaxHeight,
+              viewportHeight - top - edgePadding
+            );
 
             setDropdownStyle({
               position: "fixed",
@@ -289,7 +293,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
 
           {isOpen && dropdownStyle && (
             <div
-              className="border-grey-400 rounded-8 shadow-secondary z-[9999] mt-4 max-h-240 overflow-auto border bg-white"
+              className="border-grey-400 rounded-8 shadow-secondary z-[9999] max-h-240 overflow-auto border bg-white"
               style={dropdownStyle}
             >
               {filteredOptions.length > 0 ? (
@@ -316,19 +320,19 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
                           }}
                         />
                       )}
-                      <span className="min-w-0 flex-1 truncate text-base font-medium">
+                      <span className="w-fit min-w-0 flex-1 truncate text-base font-medium">
                         {option.label}
                       </span>
                       {option.chip && (
                         <LabelChip
                           text={option.chip}
-                          size="small"
+                          size="s"
                           color={getChipColor(option.chip)}
                         />
                       )}
                     </div>
                     {option.value === value && (
-                      <CheckRead className="text-primary-600 ml-8 h-16 w-16 flex-shrink-0" />
+                      <CheckCircle className="text-primary-600 ml-8 h-16 w-16 flex-shrink-0" />
                     )}
                   </div>
                 ))

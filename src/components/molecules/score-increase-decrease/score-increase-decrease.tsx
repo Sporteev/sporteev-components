@@ -8,7 +8,7 @@ import type {
   ScoreIncreaseDecreaseSize,
 } from "./types";
 
-const variantStyles: Record<
+const sizeStyles: Record<
   ScoreIncreaseDecreaseSize,
   {
     button: string;
@@ -17,19 +17,19 @@ const variantStyles: Record<
     text: "body-1" | "body-2" | "body-3";
   }
 > = {
-  small: {
+  s: {
     button: "!h-20 !w-20 sm:!h-24 sm:!w-24",
     score: "h-28 w-32 sm:h-32 sm:w-36",
     icon: "h-12 w-12 sm:h-16 sm:w-16",
     text: "body-3",
   },
-  medium: {
+  m: {
     button: "!h-24 !w-24 sm:!h-32 sm:!w-32",
     score: "h-36 w-40 sm:h-44 sm:w-48",
     icon: "h-14 w-14 sm:h-16 sm:w-16",
     text: "body-2",
   },
-  large: {
+  l: {
     button: "!h-32 !w-32 sm:!h-40 sm:!w-40",
     score: "h-48 w-56 sm:h-56 sm:w-64",
     icon: "h-16 w-16 sm:h-20 sm:w-20",
@@ -41,9 +41,9 @@ export const ScoreIncreaseDecrease = ({
   score,
   onIncrease,
   onDecrease,
-  variant = "medium",
+  size = "m",
   disabled = false,
-  danger = false,
+  destructive = false,
   inFocus = false,
   editable = true,
   scoreInputEditable = false,
@@ -51,7 +51,7 @@ export const ScoreIncreaseDecrease = ({
   min,
   max,
 }: ScoreIncreaseDecreaseProps) => {
-  const styles = variantStyles[variant];
+  const styles = sizeStyles[size];
   const [inputScore, setInputScore] = useState(score.toString());
 
   const isDecreaseDisabled = disabled || (min !== undefined && score <= min);
@@ -72,7 +72,7 @@ export const ScoreIncreaseDecrease = ({
       return `${baseClasses} border-primary-300 bg-primary-200`;
     }
 
-    if (danger) {
+    if (destructive) {
       return `${baseClasses} border-danger-main bg-danger-accent`;
     }
 
@@ -86,7 +86,7 @@ export const ScoreIncreaseDecrease = ({
           type="button"
           variant={disabled ? "ghost" : "outline"}
           size="s"
-          color={danger ? "destructive" : "primary"}
+          color={destructive ? "destructive" : "primary"}
           className={cn(
             `${styles.button} rounded-6 p-0`,
             disabled ? "bg-grey-300 text-grey-500" : "!border"
@@ -130,7 +130,7 @@ export const ScoreIncreaseDecrease = ({
           type="button"
           variant="primary"
           size="s"
-          color={danger ? "destructive" : "primary"}
+          color={destructive ? "destructive" : "primary"}
           className={`${styles.button} rounded-6 p-0`}
           onClick={onIncrease}
           disabled={isIncreaseDisabled}
