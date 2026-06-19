@@ -1,3 +1,5 @@
+import type React from "react";
+
 export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 
 export type ButtonColor =
@@ -27,3 +29,24 @@ export const BUTTON_VARIANTS: ButtonVariant[] = [
 ];
 
 export const BUTTON_SIZES: ButtonSize[] = ["s", "m", "l", "xl"];
+
+export interface ButtonProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+  variant?: ButtonVariant;
+  color?: ButtonColor;
+  size?: ButtonSize;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
+}
+
+export interface IconButtonProps
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+  variant?: ButtonVariant;
+  color?: ButtonColor;
+  size?: ButtonSize;
+  disabled?: boolean;
+  icon: React.ReactNode;
+  "aria-label": string;
+}
