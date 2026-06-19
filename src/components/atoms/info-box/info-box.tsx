@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import {
   DangerCircle,
@@ -7,61 +6,14 @@ import {
   InfoCircle,
 } from "@solar-icons/react-perf/Linear";
 import type { InfoBoxProps, InfoBoxVariant } from "./types";
-
-const infoBoxVariants = cva(
-  "flex items-start gap-8 rounded-8 p-16 shadow-main",
-  {
-    variants: {
-      variant: {
-        info: "bg-primary-100",
-        warning: "bg-warning-accent",
-        danger: "bg-danger-accent",
-      },
-    },
-    defaultVariants: {
-      variant: "info",
-    },
-  }
-);
-
-const iconVariants = cva("h-24 w-24 shrink-0", {
-  variants: {
-    variant: {
-      info: "text-primary-600",
-      warning: "text-warning-main",
-      danger: "text-danger-main",
-    },
-  },
-  defaultVariants: {
-    variant: "info",
-  },
-});
-
-const titleVariants = cva("font-bold mb-8 mt-0", {
-  variants: {
-    variant: {
-      info: "text-primary-700",
-      warning: "text-warning-main",
-      danger: "text-danger-main",
-    },
-  },
-  defaultVariants: {
-    variant: "info",
-  },
-});
-
-const descriptionVariants = cva("h-full text-sm mt-2", {
-  variants: {
-    variant: {
-      info: "text-primary-700",
-      warning: "text-warning-main",
-      danger: "text-danger-main",
-    },
-  },
-  defaultVariants: {
-    variant: "info",
-  },
-});
+import {
+  INFO_BOX_BACKGROUND_CLASSES,
+  INFO_BOX_BASE_CLASSES,
+  INFO_BOX_DESCRIPTION_CLASSES,
+  INFO_BOX_ICON_BASE_CLASSES,
+  INFO_BOX_ICON_CLASSES,
+  INFO_BOX_TITLE_CLASSES,
+} from "./variants";
 
 const InfoBox = ({
   variant = "info",
@@ -71,18 +23,49 @@ const InfoBox = ({
   icon,
 }: InfoBoxProps) => {
   const defaultIcon: Record<InfoBoxVariant, ReactNode> = {
-    info: <InfoCircle className={cn(iconVariants({ variant }))} />,
-    warning: <DangerTriangle className={cn(iconVariants({ variant }))} />,
-    danger: <DangerCircle className={cn(iconVariants({ variant }))} />,
+    info: (
+      <InfoCircle
+        className={cn(
+          INFO_BOX_ICON_BASE_CLASSES,
+          INFO_BOX_ICON_CLASSES.info
+        )}
+      />
+    ),
+    warning: (
+      <DangerTriangle
+        className={cn(
+          INFO_BOX_ICON_BASE_CLASSES,
+          INFO_BOX_ICON_CLASSES.warning
+        )}
+      />
+    ),
+    danger: (
+      <DangerCircle
+        className={cn(
+          INFO_BOX_ICON_BASE_CLASSES,
+          INFO_BOX_ICON_CLASSES.danger
+        )}
+      />
+    ),
   };
 
   return (
-    <div className={cn(infoBoxVariants({ variant }), className)}>
+    <div
+      className={cn(
+        INFO_BOX_BASE_CLASSES,
+        INFO_BOX_BACKGROUND_CLASSES[variant],
+        className
+      )}
+    >
       <div>{icon || defaultIcon[variant]}</div>
       <div>
-        {title && <h3 className={cn(titleVariants({ variant }))}>{title}</h3>}
+        {title && (
+          <h3 className={INFO_BOX_TITLE_CLASSES[variant]}>{title}</h3>
+        )}
         {children && (
-          <div className={cn(descriptionVariants({ variant }))}>{children}</div>
+          <div className={INFO_BOX_DESCRIPTION_CLASSES[variant]}>
+            {children}
+          </div>
         )}
       </div>
     </div>
