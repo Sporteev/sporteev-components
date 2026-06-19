@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { cva } from "class-variance-authority";
 import { CheckRead } from "@solar-icons/react-perf/Linear";
 import { ChevronIcon, SearchIcon } from "@/components/icons/custom";
 import {
@@ -10,22 +9,7 @@ import {
 } from "@/components/atoms/label-chip";
 import { getHashNumber } from "@/lib/utils/hash";
 import type { SelectOption, SelectProps } from "./types";
-
-const selectVariants = cva(
-  "min-w-0 inline-flex items-center justify-between rounded-8 border bg-white px-12 py-8 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500",
-  {
-    variants: {
-      variant: {
-        default: "border-grey-400 hover:border-grey-6000",
-        error:
-          "border-danger-main focus:ring-danger-main focus:border-danger-main",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-);
+import { getSelectTriggerClasses } from "./variants";
 
 export const getChipColor = (chipText: string): ChipColor => {
   const colorIndex = getHashNumber(chipText, CHIP_COLORS.length - 2);
@@ -247,7 +231,7 @@ export const Select = React.forwardRef<HTMLDivElement, SelectProps>(
           <div
             ref={selectButtonRef}
             className={cn(
-              selectVariants({ variant: hasError ? "error" : variant }),
+              getSelectTriggerClasses(hasError, variant),
               "box-border flex w-full",
               isDisabled && "cursor-not-allowed opacity-50",
               !isDisabled && "cursor-pointer",
