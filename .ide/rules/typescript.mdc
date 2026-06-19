@@ -1,0 +1,45 @@
+---
+description: TypeScript tooling — strict exports, import type, build declarations, lint/format
+globs: **/*.{ts,tsx}
+alwaysApply: false
+---
+
+# TypeScript standards
+
+## Strictness
+
+- **No `any`** on exported props, hooks, or public function signatures
+- Use **`import type`** when importing types only:
+
+```ts
+import type { ModalProps } from "./types";
+import type { ButtonProps } from "@/components/atoms";
+```
+
+- `@/` (`tsconfig.json` `paths`) is **in-repo only** — published `dist/*.d.ts` must not expose `@/` paths
+
+## Build & declarations
+
+- `pnpm build` → Vite + **`vite-plugin-dts`** → `dist/*.d.ts`
+- Stories excluded from published declarations
+- After adding exports, verify names in `dist/sporteev-components.d.ts`
+- React **18 or 19** (peer) — avoid APIs tied to one major without discussion
+
+## Linting & formatting
+
+Before finishing:
+
+```bash
+pnpm lint && pnpm format:check && pnpm build
+```
+
+| Tool     | Notes                                                                                                              |
+| -------- | ------------------------------------------------------------------------------------------------------------------ |
+| ESLint   | `eslint.config.js` — `typescript-eslint` recommended, `react-hooks`, `react-refresh/only-export-components` (warn) |
+| Prettier | `.prettierrc` — double quotes, `printWidth: 80`, semicolons; `prettier-plugin-tailwindcss` sorts classes           |
+
+Resolve all ESLint and TypeScript errors in touched files. Run `pnpm format` — don't hand-format.
+
+## Verification (no unit tests)
+
+This repo has **no Vitest/unit test suite**. Verify via Storybook, `pnpm dev` (`src/main.tsx`), and consumer smoke-test — not 100% coverage targets.

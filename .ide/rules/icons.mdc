@@ -1,0 +1,92 @@
+---
+description: Custom icons — implementation, naming, grouped modules, catalog
+globs: src/components/icons/**
+alwaysApply: false
+---
+
+# Icons
+
+Icons live in `src/components/icons/` — **never** `atoms/`.
+
+## Solar vs custom
+
+| Source                | When                                     | Import                                                  |
+| --------------------- | ---------------------------------------- | ------------------------------------------------------- |
+| Solar Linear          | Default for UI in components and apps    | `@solar-icons/react-perf/Linear`                        |
+| Custom (this package) | Solar can't cover or brand mark required | `icons/custom/`, `icons/sports.tsx`, `icons/logo-flat/` |
+
+Solar is a **peer dependency** — consumers must install `@solar-icons/react-perf`.
+
+**Add a custom icon only when Solar can't cover it.**
+
+## Custom icon implementation
+
+| Category        | Examples                                 | Location                  |
+| --------------- | ---------------------------------------- | ------------------------- |
+| Brand / product | `LogoFlat`                               | `icons/logo-flat/`        |
+| Sports          | sport glyphs                             | `icons/sports.tsx`        |
+| Social          | `GoogleIcon`, `SOCIAL_ICONS`             | `icons/custom/social.tsx` |
+| DS-specific     | `SearchIcon`, `ChevronIcon`, `CloseIcon` | `icons/custom/`           |
+
+**Rules:**
+
+- `IconProps` + `iconDefaults` in `icons/custom/types.ts` (`size` default 24, `currentColor`)
+- SVG path elements use `currentColor` — no hardcoded fills
+- Export name: `PascalCase` + `Icon` suffix (`SearchIcon`, `ChevronIcon`)
+- Source SVGs: `icons/custom/svgs/` (`kebab-case.svg`)
+
+## Grouped modules (not one folder per icon)
+
+`icons/custom/` uses domain modules with a barrel:
+
+```
+icons/custom/
+  index.tsx       # barrel
+  types.ts        # IconProps, iconDefaults
+  addons.tsx
+  social.tsx
+  svgs/
+    chevron-down.svg
+    close-filled.svg
+icons/sports.tsx
+icons/logo-flat/
+  index.tsx
+  logo-flat.tsx
+  types.ts
+```
+
+## Sizing
+
+| Context              | How to size                                                                      |
+| -------------------- | -------------------------------------------------------------------------------- |
+| Inside DS components | Wrapper in parent `sizes.ts` + `[&_svg]:size-full` — see `component-styling.mdc` |
+| Consumer app UI      | `className` on icon directly (e.g. `size-20`)                                    |
+| Storybook props      | `className="size-full"` on icon passed to Button etc.                            |
+
+## Exports
+
+Export from `icons/index.tsx` → `src/index.tsx`. Consumers import from package root:
+
+```tsx
+import { SearchIcon, LogoFlat } from "@sporteev/sporteev-components";
+```
+
+## Storybook catalog
+
+**One page only** — no per-icon story files.
+
+| Property   | Value                        |
+| ---------- | ---------------------------- |
+| File       | `icons/icons.stories.tsx`    |
+| Title      | `Icons`                      |
+| Categories | Custom, Social, Sports, Logo |
+
+Full Storybook rules → `storybook.mdc`.
+
+## Legacy
+
+| Issue                              | Target                      |
+| ---------------------------------- | --------------------------- |
+| `custom-icons.stories.tsx`         | → `icons/icons.stories.tsx` |
+| impl in `index.tsx` (`logo-flat`)  | → `logo-flat.tsx` + barrel  |
+| `SocialIndividual` duplicate story | Drop                        |

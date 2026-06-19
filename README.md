@@ -51,10 +51,14 @@ import "./index.css";
 
 ### 4. Use components
 
-```tsx
-import { Button, Text } from "@sporteev/sporteev-components";
-import { Settings } from "@solar-icons/react-perf/Linear";
+Import from the **package root only** — no `/atoms` subpaths or deep paths:
 
+```tsx
+import { Button, Modal, Text } from "@sporteev/sporteev-components";
+import { Settings } from "@solar-icons/react-perf/Linear";
+```
+
+```tsx
 function App() {
   return (
     <>
@@ -64,6 +68,9 @@ function App() {
       <Text variant="body-2" color="neutral">
         Body copy
       </Text>
+      <Button variant="primary" size="m">
+        Action
+      </Button>
     </>
   );
 }
@@ -71,7 +78,15 @@ function App() {
 
 Typography tokens (`h1`–`h6`, `body-*`, `caption-*`) scale mobile → desktop at the `md` breakpoint via `theme.css`.
 
-Your app’s build only emits CSS for components and classes you actually use.
+Your app's build only emits CSS for components and classes you actually use.
+
+### Tokens in your app UI
+
+Use the same utilities as components: `text-h1`, `bg-primary-600`, `gap-12`, etc. Prefer design tokens over raw hex when a token exists.
+
+### Extending components
+
+Pass `className` and compose with existing components first. For feature-specific UI, wrap or fork in your app. Propose upstream changes only when the component would be shared across **2+ Sporteev products** — see [contributing.md](./contributing.md).
 
 ### Local development
 
@@ -87,6 +102,16 @@ pnpm update @sporteev/sporteev-components
 
 See [contributing.md](./contributing.md) for Storybook, pack, publish, and contributor conventions.
 
+## Troubleshooting
+
+**Missing component styles** — confirm `@source` paths in `index.css` point at the library's `src/components` and `src/lib`. With pnpm, paths are usually under `node_modules/@sporteev/sporteev-components/...`. With `file:` links in a monorepo, point `@source` at the linked package's `src/` directory.
+
+**Stale styles after library changes** — run `pnpm build` in `sporteev-components`, then `pnpm update @sporteev/sporteev-components` in your app.
+
+**Duplicate React** — add `resolve.dedupe: ["react", "react-dom"]` in Vite (see setup above).
+
+**`styles.css` vs theme-only** — new apps should use theme-only setup. `styles.css` is for legacy consumers during migration only.
+
 ## Legacy: `styles.css`
 
 `@sporteev/sporteev-components/styles.css` is pre-built CSS from the library build (~all component utilities). Kept for **legacy** consumers during migration. **New apps should use theme-only** (above).
@@ -100,11 +125,11 @@ See [contributing.md](./contributing.md) for Storybook, pack, publish, and contr
 | `@sporteev/sporteev-components/styles.css`   | Legacy pre-built CSS (avoid in new apps) |
 | `@sporteev/sporteev-components/theme/tokens` | Raw `tokens.cjs` (advanced)              |
 
-## Architecture
+## Contributing
 
-Design system rules and consumer patterns: [refactor-plan.mdx](./refactor-plan.mdx) (single source of truth for v2, CRM, and all consumers).
+Design system development, conventions, and release process: [contributing.md](./contributing.md).
 
-Contributor conventions (component styling, local workflow): [contributing.md](./contributing.md).
+Consumer setup is documented in this README. AI IDE rules for contributors live in [.ide/](./.ide/) (run `pnpm setup:ide:cursor`, `setup:ide:claude`, or `setup:ide:kiro` after clone).
 
 ## License
 

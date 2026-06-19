@@ -1,0 +1,126 @@
+---
+description: Component folder layout, atomic layers, exports, TypeScript
+globs: src/components/{atoms,molecules,organisms}/**/*
+alwaysApply: false
+---
+
+# Component structure & exports
+
+**Reference implementations:**
+
+| Pattern                  | Folder                          |
+| ------------------------ | ------------------------------- |
+| Variant × color matrix   | `atoms/button/`                 |
+| Multi-node overlay       | `molecules/modal/`              |
+| Field + shell            | `molecules/input-text/`         |
+| Hook + rename            | `atoms/snackbar/` (`toast.tsx`) |
+| Custom icons             | `icons/` (see `icons.mdc`)      |
+| Icon catalog (Storybook) | `icons/icons.stories.tsx`       |
+
+## Atomic layers
+
+| Layer    | Path         | Definition                                          | Examples                             |
+| -------- | ------------ | --------------------------------------------------- | ------------------------------------ |
+| Atom     | `atoms/`     | Single primitive; one UI role; no DS composition    | Button, Text, Toast, LabelChip       |
+| Molecule | `molecules/` | Composes atoms/sub-parts into one pattern           | InputText, Modal, Select, RadioGroup |
+| Organism | `organisms/` | Section combining molecules/atoms, reused as a unit | Multi-block Figma sections           |
+| Icon     | `icons/`     | SVG / logo assets (parallel layer)                  | SearchIcon, LogoFlat, sports         |
+
+Templates and pages → **consumer apps only**.
+
+## Folder layout
+
+Each public component: **kebab-case folder** under `atoms/`, `molecules/`, or `organisms/`.
+
+| File                 | When                      | Purpose                                        |
+| -------------------- | ------------------------- | ---------------------------------------------- |
+| `index.tsx`          | **Required**              | **Exports only** — no implementation           |
+| `{name}.tsx`         | **Required**              | Implementation (`modal/modal.tsx`)             |
+| `{name}.stories.tsx` | **Required**              | Co-located Storybook (see `storybook.mdc`)     |
+| `types.ts`           | Variant/size/color API    | Unions + `*_VARIANTS` / `*_SIZES` / `*_COLORS` |
+| `sizes.ts`           | Size axis                 | `Record<Size, string>`                         |
+| `variants.ts`        | Non-trivial variant logic | Class maps, helpers                            |
+| `{sibling}.tsx`      | Extra public export       | `icon-button.tsx`, `text-area.tsx`             |
+| `use-{name}.ts`      | Stateful primitive        | `use-toast.ts`                                 |
+| `field-*.tsx`        | Internal                  | Private — not exported                         |
+
+Folder name ≠ component name → file uses **component** name (`snackbar/toast.tsx` for `Toast`).
+
+**Example — button:**
+
+```
+atoms/button/
+  index.tsx
+  button.tsx
+  icon-button.tsx
+  types.ts
+  sizes.ts
+  variants.ts
+  button.stories.tsx
+  icon-button.stories.tsx
+```
+
+**Example — input-text:**
+
+```
+molecules/input-text/
+  index.tsx
+  input-text.tsx
+  text-area.tsx
+  field-shell.tsx      # internal
+  field-styles.ts      # internal
+  types.ts
+  sizes.ts
+  input-text.stories.tsx
+  text-area.stories.tsx
+```
+
+### File naming
+
+| Kind           | Convention                        | Examples                     |
+| -------------- | --------------------------------- | ---------------------------- |
+| Folders        | `kebab-case`                      | `input-text`, `radio-button` |
+| Components     | `PascalCase` export               | `Button`, `InputText`        |
+| Implementation | `{name}.tsx`                      | `button.tsx`, `modal.tsx`    |
+| Stories        | `{component}.stories.tsx`         | `button.stories.tsx`         |
+| Hooks          | `use-{kebab}.ts` → `useCamelCase` | `use-toast.ts` → `useToast`  |
+
+**Do not:**
+
+- Put implementation in `index.tsx`
+- Use `PascalCase` folder names
+- Put stories in a separate `__stories__` tree
+- Export Storybook files from package barrels
+
+## Exports & imports
+
+**Export chain:**
+
+```
+component/index.tsx → atoms|molecules|organisms|icons/index.tsx → src/index.tsx
+```
+
+**Barrel rules:**
+
+1. Folder `index.tsx` — re-exports only
+2. Every public component reachable from `src/index.tsx`
+3. Prefer **explicit named exports** when `export *` leaks internals
+4. Export types: `export type { ButtonProps } from "./types"`
+5. Deprecated aliases: `@deprecated` JSDoc on re-export in folder barrel
+6. Do not export private subcomponents (`FieldShell`) unless intentional
+7. Add `/* eslint-disable react-refresh/only-export-components */` on barrel files that only re-export
+
+**Internal imports:** `@/` alias only — never document `@/` for consumers.
+
+**Consumer imports — root only:**
+
+```tsx
+import { Button, Modal } from "@sporteev/sporteev-components";
+```
+
+**Forbidden consumer imports:**
+
+```tsx
+import { Button } from "@sporteev/sporteev-components/atoms";
+import { Button } from "@sporteev/sporteev-components/src/components/atoms/button";
+```

@@ -1,0 +1,96 @@
+---
+description: When and how to use Radix UI primitives — wrap internally, DS API on top
+globs: src/components/{molecules,organisms}/**/*
+alwaysApply: false
+---
+
+# Radix primitives
+
+Radix provides accessible behavior (focus trap, escape, outside click, portal, ARIA) we should not rebuild by hand. Use it **inside** Sporteev components — consumers never import Radix directly.
+
+**Reference implementation:** `molecules/modal/modal.tsx`
+
+## When to use Radix
+
+| Use Radix when                                           | Don't use Radix when                                            |
+| -------------------------------------------------------- | --------------------------------------------------------------- |
+| Focus management, modal/dialog semantics, dismiss layers | Simple presentational atoms (Text, LabelChip)                   |
+| Complex keyboard / roving focus you'd get wrong          | Patterns already covered by native HTML (`<button>`, `<input>`) |
+| Portal + overlay + aria-labelledby wiring                | Custom molecules you can make accessible without a primitive    |
+
+**Default:** no new Radix package. Add one **only** when the component needs Radix-level a11y and you won't rebuild it.
+
+## Approved packages
+
+| Package                  | Component | Status |
+| ------------------------ | --------- | ------ |
+| `@radix-ui/react-dialog` | Modal     | In use |
+
+Add new `@radix-ui/react-*` packages **one at a time** — not `@radix-ui/react` meta, not a bulk import of primitives.
+
+**Bundled, not peer** — Radix ships inside `dist/`. Consumers install only `@sporteev/sporteev-components`; they must not add Radix to app `package.json`.
+
+## Implementation rules
+
+### 1. Wrap — never re-export
+
+- Import Radix **only** in `{name}.tsx` (implementation file)
+- Export **Sporteev** component + types from folder `index.tsx`
+- **Do not** export Radix primitives, parts, or types from the package barrel
+- **Do not** document Radix prop names in public `types.ts` or Storybook controls
+
+```tsx
+// modal.tsx — OK
+import * as Dialog from "@radix-ui/react-dialog";
+
+// index.tsx — export Modal, ModalProps only — never Dialog.*
+```
+
+### 2. DS API on top of Radix props
+
+Map Sporteev prop names in the implementation. Reserve Radix names for internal wiring.
+
+| Sporteev (public) | Radix (internal) | Notes                                        |
+| ----------------- | ---------------- | -------------------------------------------- |
+| `isOpen`          | `open` on `Root` | Never expose `open` on `XxxProps`            |
+| `onClose`         | `onOpenChange`   | Call `onClose()` when `open` becomes `false` |
+
+```tsx
+<Dialog.Root
+  open={isOpen}
+  onOpenChange={(open) => {
+    if (!open) onClose();
+  }}
+>
+```
+
+Other Radix primitives will have their own mappings — define them in `types.ts` with Sporteev names, translate in `{name}.tsx`.
+
+### 3. Structure and styling
+
+- Compose Radix **parts** (`Root`, `Portal`, `Overlay`, `Content`, `Title`, …) as documented by that primitive
+- Apply **all visual design** with Tailwind via `className` on Radix parts — DS owns look; Radix owns behavior
+- Use `cn(libraryClasses, className)` — consumer `className` on the outermost appropriate part (Modal: overlay)
+- Sub-slots stay Sporteev props (`contentClassName`, not Radix `className` passthrough on every part)
+- Use `fixed` / `z-50` / portal patterns consistently with Modal
+
+### 4. Accessibility
+
+- Provide required Radix a11y parts (`Dialog.Title`, `Dialog.Description` when content needs it)
+- If `title` is optional in the DS API, render `Dialog.Title` with `sr-only` fallback text when missing (see Modal)
+- Do not disable Radix focus trap or dismiss behavior without product/a11y review
+- Prefer Radix defaults for `aria-*` and focus — don't duplicate with manual `tabIndex` hacks
+
+### 5. Composition with DS atoms
+
+- Use existing atoms/molecules inside Radix content (`Button` in Modal actions) — don't restyle Radix triggers as one-off markup when a DS component exists
+- Action types: `Pick<ButtonProps, …>` in `types.ts` (see `molecules/modal/types.ts`)
+
+## Adding a new Radix-based component
+
+1. Confirm simpler HTML or existing DS patterns are insufficient
+2. Pick **one** `@radix-ui/react-*` package; PR discussion before merge
+3. Scaffold folder per `component-structure.mdc`
+4. Implement wrap pattern in `{name}.tsx`; public API in `types.ts` only
+5. Storybook story + consumer smoke test (Radix + portal behavior is risky in Storybook alone — verify in sporteev-web-v2 when needed)
+6. `CHANGELOG.md` under **New**; note new bundled dependency

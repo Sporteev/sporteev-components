@@ -1,0 +1,142 @@
+---
+description: Component props, types.ts, forwardRef, controlled patterns, deprecation
+globs: src/components/{atoms,molecules,organisms}/**/*
+alwaysApply: false
+---
+
+# Component API conventions
+
+Define public APIs in `types.ts`. Values come from **Figma** — don't invent variant/color names in code.
+
+## Props naming
+
+| Prop | Use | Notes |
+| ---- | --- | ----- |
+| `variant` | Visual style axis | Figma-defined; in `types.ts` |
+| `color` | Semantic palette axis | Figma-defined; separate from `variant` |
+| `size` | `s` \| `m` \| `l` \| `xl` | Default `m`; never `inputSize` |
+| `disabled` | Non-interactive | Prefer explicit boolean |
+| `fullWidth` | Stretch to container | `true` for fields, `false` for buttons typically |
+| `className` | Consumer override | Last in `cn()` — see `component-styling.mdc` |
+| `isOpen` + `onClose` | Controlled overlays | Modal (`open` reserved for Radix internally) |
+| `label`, `helperText`, `errorMessage` | Fields | Via FieldShell |
+| `startIcon` / `endIcon` | Button adornments | `ReactNode` |
+| `startAdornment` / `endAdornment` | Field adornments | `ReactNode` |
+
+**Avoid:** `inputSize`, separate `danger` prop instead of `color`, one-off names for shared concepts.
+
+## types.ts pattern
+
+Union first, then typed const array for Storybook and runtime iteration:
+
+```ts
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
+export type ButtonColor = "primary" | "secondary" | "destructive" | /* … */;
+export type ButtonSize = "s" | "m" | "l" | "xl";
+
+export const BUTTON_VARIANTS: ButtonVariant[] = ["primary", "secondary", "outline", "ghost"];
+export const BUTTON_COLORS: ButtonColor[] = ["primary", "secondary", /* … */];
+export const BUTTON_SIZES: ButtonSize[] = ["s", "m", "l", "xl"];
+
+export interface ButtonProps {
+  variant?: ButtonVariant;
+  color?: ButtonColor;
+  size?: ButtonSize;
+  className?: string;
+  disabled?: boolean;
+  // …explicit per component — never VariantProps from CVA
+}
+```
+
+**Rules:**
+
+- Never derive public API from `class-variance-authority` or styling helpers
+- Variant × color matrix → **two props** (Button), not one combined enum
+- Omit `xl` from size union when Figma has only three steps (e.g. Modal: `s | m | l`)
+- Export `*_VARIANTS` / `*_SIZES` / `*_COLORS` for Storybook `argTypes`
+
+## forwardRef + displayName
+
+| Component | Ref target |
+| --------- | ---------- |
+| Button, IconButton | `HTMLButtonElement` |
+| InputText | `HTMLInputElement` |
+| TextArea | `HTMLTextAreaElement` |
+| Select, RadioGroup | `HTMLDivElement` |
+
+Skip for presentational-only (`Text`, `LabelChip`, `Toast`) unless needed.
+
+```ts
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(/* … */);
+Button.displayName = "Button";
+```
+
+## Controlled vs uncontrolled
+
+| Pattern | Components | API |
+| ------- | ---------- | --- |
+| Controlled | Modal | `isOpen` + `onClose` |
+| Controlled | RadioGroup, Select | `value` + `onChange` |
+| Native | InputText, TextArea | Pass `value`/`onChange` for controlled; omit for uncontrolled |
+| Imperative | Toast | `useToast()` → `showToast()` / `hideToast()` |
+
+If visibility or value is app-critical, prefer **controlled** props with clear naming (`isOpen`, not internal-only state).
+
+## className extension
+
+```ts
+className={cn(BASE_CLASSES, SIZE_CLASSES[size], getVariantClasses(variant, color), className)}
+```
+
+- Library classes first; consumer `className` **last**
+- Sub-slots: `contentClassName`, `labelClassName`, `inputClassName` — don't overload root for inner nodes
+
+## Default props
+
+| Prop | Global default |
+| ---- | -------------- |
+| `size` | `m` |
+| `disabled` | `false` |
+| `type` (button) | `"button"` |
+
+Per-component: `Button` → `variant="primary"`, `color="primary"`; `Modal` → `size="m"`, `actionLayout="row"`.
+
+Document non-obvious defaults in `types.ts` JSDoc or Storybook `args`.
+
+## Deprecation
+
+1. New canonical export
+2. Old name as re-export alias + `@deprecated` JSDoc in folder `index.tsx`
+3. CHANGELOG entry
+4. Remove in next **major**
+
+```ts
+/** @deprecated Use `Toast` */
+export { Toast as Snackbar } from "./toast";
+```
+
+## HTML attribute extension
+
+```ts
+interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+  disabled?: boolean;
+  size?: ButtonSize;
+}
+
+type InputTextProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> & {
+  size?: InputTextSize;
+};
+```
+
+## Cross-component composition
+
+```ts
+import type { ButtonProps } from "@/components/atoms";
+
+export type ModalAction = Pick<
+  ButtonProps,
+  "children" | "onClick" | "variant" | "color" | "disabled" | "className"
+>;
+```
+
+Reference: `molecules/modal/types.ts`.
