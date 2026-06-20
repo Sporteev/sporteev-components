@@ -11,6 +11,9 @@ const meta: Meta<typeof ScoreIncreaseDecrease> = {
   },
   tags: ["autodocs"],
   argTypes: {
+    label: { control: "text" },
+    helperText: { control: "text" },
+    errorMessage: { control: "text" },
     size: {
       control: { type: "select" },
       options: SCORE_INCREASE_DECREASE_SIZES,
@@ -81,12 +84,34 @@ export const Large: Story = {
   },
 };
 
+export const WithLabel: Story = {
+  args: {
+    label: "Team score",
+    helperText: "Adjust the score using the buttons",
+    score: 3,
+    size: "m",
+    onIncrease: () => {},
+    onDecrease: () => {},
+  },
+};
+
+export const WithError: Story = {
+  args: {
+    label: "Team score",
+    errorMessage: "Score cannot exceed the maximum",
+    score: 10,
+    size: "m",
+    onIncrease: () => {},
+    onDecrease: () => {},
+  },
+};
+
 export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col items-center gap-32">
       {SCORE_INCREASE_DECREASE_SIZES.map((size) => (
         <div key={size} className="flex flex-col items-center gap-8">
-          <span className="text-sm font-medium text-gray-600">
+          <span className="text-grey-700 text-caption-1 font-medium">
             {size.toUpperCase()}
           </span>
           <ScoreIncreaseDecrease

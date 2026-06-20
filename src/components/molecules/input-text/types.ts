@@ -14,8 +14,8 @@ export interface BaseFieldProps {
   disabled?: boolean;
   readOnly?: boolean;
   size?: FieldSize;
-  startAdornment?: React.ReactNode;
-  endAdornment?: React.ReactNode;
+  iconLeft?: React.ReactNode;
+  iconRight?: React.ReactNode;
   containerClassName?: string;
   labelClassName?: string;
   inputClassName?: string;

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Select } from "./index";
+import { FIELD_SIZES } from "../input-text/types";
 import React from "react";
 
 const meta: Meta<typeof Select> = {
@@ -10,15 +11,17 @@ const meta: Meta<typeof Select> = {
   },
   tags: ["autodocs"],
   argTypes: {
-    variant: {
+    label: { control: "text" },
+    placeholder: { control: "text" },
+    errorMessage: { control: "text" },
+    helperText: { control: "text" },
+    required: { control: "boolean" },
+    fullWidth: { control: "boolean" },
+    disabled: { control: "boolean" },
+    searchable: { control: "boolean" },
+    size: {
       control: { type: "select" },
-      options: ["default", "error"],
-    },
-    disabled: {
-      control: { type: "boolean" },
-    },
-    required: {
-      control: { type: "boolean" },
+      options: FIELD_SIZES,
     },
   },
 };
@@ -64,6 +67,30 @@ export const WithError: Story = {
     options: sampleOptions,
     errorMessage: "Please select an option",
   },
+};
+
+export const WithHelperText: Story = {
+  args: {
+    label: "Select with Helper Text",
+    options: sampleOptions,
+    helperText: "Choose the option that best fits your needs",
+  },
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="w-320 space-y-16">
+      {FIELD_SIZES.map((size) => (
+        <Select
+          key={size}
+          label={`${size.toUpperCase()} Select`}
+          options={sampleOptions}
+          placeholder={`Size ${size}`}
+          size={size}
+        />
+      ))}
+    </div>
+  ),
 };
 
 export const Disabled: Story = {

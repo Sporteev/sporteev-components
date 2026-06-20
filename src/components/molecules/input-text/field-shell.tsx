@@ -1,5 +1,5 @@
 import React from "react";
-import { DangerCircle, InfoCircle } from "@solar-icons/react-perf/Linear";
+import { DangerTriangle, InfoCircle } from "@solar-icons/react-perf/Bold";
 import { cn } from "@/lib/utils";
 import {
   FIELD_STACK_GAP,
@@ -50,7 +50,7 @@ export function FieldShell({
       {label ? (
         <label
           className={cn(
-            "flex items-center gap-2 text-grey-900",
+            "text-grey-900 flex items-center gap-2",
             LABEL_SIZE_CLASSES[size],
             labelClassName
           )}
@@ -77,13 +77,16 @@ export function FieldShell({
           role={hasError ? "alert" : undefined}
         >
           {hasError ? (
-            <DangerCircle
+            <DangerTriangle
               className={cn("shrink-0", HELPER_ICON_SIZE_CLASSES[size])}
               aria-hidden
             />
           ) : (
             <InfoCircle
-              className={cn("shrink-0", HELPER_ICON_SIZE_CLASSES[size])}
+              className={cn(
+                "text-primary-600 shrink-0",
+                HELPER_ICON_SIZE_CLASSES[size]
+              )}
               aria-hidden
             />
           )}

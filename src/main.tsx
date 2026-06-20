@@ -185,7 +185,7 @@ const Page = () => {
   const { toast, showToast, hideToast } = useToast();
 
   return (
-    <div className="bg-grey-100 md:bg-warning-200 min-h-screen border p-16 md:p-24">
+    <div className="border-grey-100 md:border-warning-200 m-16 min-h-screen border-8 p-16 md:m-24">
       <div className="mx-auto max-w-5xl space-y-32">
         <header className="space-y-12 text-center">
           <Text variant="h1" color="primary">
@@ -396,6 +396,30 @@ const Page = () => {
         </Section>
 
         <Section id="radio" title="RadioButton & RadioGroup">
+          <Sub title="Sizes">
+            <div className="grid gap-24 md:grid-cols-2">
+              {FIELD_SIZES.map((size) => (
+                <RadioGroup
+                  key={size}
+                  label={`Size ${size.toUpperCase()}`}
+                  size={size}
+                  value="a"
+                  options={[
+                    {
+                      label: "Option A",
+                      value: "a",
+                      helperText: "First choice",
+                    },
+                    {
+                      label: "Option B",
+                      value: "b",
+                      helperText: "Second choice",
+                    },
+                  ]}
+                />
+              ))}
+            </div>
+          </Sub>
           <Sub title="RadioButton states">
             <div className="flex flex-col gap-12">
               <RadioButton
@@ -544,8 +568,8 @@ const Page = () => {
                 label="With adornments"
                 type="email"
                 placeholder="Email"
-                startAdornment={<Letter className="size-16" />}
-                endAdornment={<QuestionCircle className="size-16" />}
+                iconLeft={<Letter className="text-primary-950 size-16" />}
+                iconRight={<QuestionCircle className="size-16" />}
               />
             </div>
           </Sub>
@@ -568,6 +592,19 @@ const Page = () => {
         </Section>
 
         <Section id="select" title="Select">
+          <Sub title="Sizes">
+            <div className="grid gap-16 md:grid-cols-2">
+              {FIELD_SIZES.map((size) => (
+                <Select
+                  key={size}
+                  label={`Size ${size.toUpperCase()}`}
+                  options={sampleOptions}
+                  placeholder={`Size ${size}`}
+                  size={size}
+                />
+              ))}
+            </div>
+          </Sub>
           <Sub title="Basic states">
             <div className="grid gap-16 md:grid-cols-2">
               <Select
@@ -657,6 +694,17 @@ const Page = () => {
                 </div>
               ))}
             </div>
+          </Sub>
+          <Sub title="With label">
+            <ScoreIncreaseDecrease
+              label="Set score"
+              helperText="Use +/− to adjust"
+              size="m"
+              score={score}
+              onIncrease={() => setScore((s) => s + 1)}
+              onDecrease={() => setScore((s) => Math.max(0, s - 1))}
+              className="w-[50%]"
+            />
           </Sub>
           <Sub title="States">
             <div className="grid gap-24 md:grid-cols-2">

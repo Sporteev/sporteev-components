@@ -6,15 +6,15 @@ Finalizes v2 API cleanup — standardized size tokens, `destructive` naming, the
 
 ## Breaking changes
 
-| Area                      | Before                       | After                          |
-| ------------------------- | ---------------------------- | ------------------------------ |
-| **LabelChip**             | `size="small"` / `medium` / `large` | `size="s"` / `m` / `l`    |
-| **LabelChip**             | `color="danger"`             | `color="destructive"`          |
-| **ScoreIncreaseDecrease** | `variant` prop for size      | **`size`** prop (`s` / `m` / `l`) |
-| **ScoreIncreaseDecrease** | `danger` prop                | **`destructive`**              |
-| **InfoBox**               | `variant="danger"`           | `variant="destructive"`        |
-| **Text**                  | `color="danger"`             | `color="destructive"` (removed duplicate) |
-| **Toast**                 | `Snackbar` / `useSnackbar` aliases | **Removed** — use `Toast` / `useToast` only |
+| Area                      | Before                                     | After                                                       |
+| ------------------------- | ------------------------------------------ | ----------------------------------------------------------- |
+| **LabelChip**             | `size="small"` / `medium` / `large`        | `size="s"` / `m` / `l`                                      |
+| **LabelChip**             | `color="danger"`                           | `color="destructive"`                                       |
+| **ScoreIncreaseDecrease** | `variant` prop for size                    | **`size`** prop (`s` / `m` / `l`)                           |
+| **ScoreIncreaseDecrease** | `danger` prop                              | **`destructive`**                                           |
+| **InfoBox**               | `variant="danger"`                         | `variant="destructive"`                                     |
+| **Text**                  | `color="danger"`                           | `color="destructive"` (removed duplicate)                   |
+| **Toast**                 | `Snackbar` / `useSnackbar` aliases         | **Removed** — use `Toast` / `useToast` only                 |
 | **Package**               | `@sporteev/sporteev-components/styles.css` | **Removed** — theme-only (`theme.css` + consumer `@source`) |
 
 ---
@@ -74,21 +74,21 @@ Design system 2.0 update — Figma-aligned components, shared sizing/variant pat
 
 ## Breaking changes
 
-| Area          | Before                       | After                                               |
-| ------------- | ---------------------------- | --------------------------------------------------- |
-| **Button**    | `danger` prop / variant      | `color="destructive"`                               |
-| **Button**    | `small` / `medium` / `large` | `s` / `m` / `l` / `xl`                              |
-| **InputText** | `inputSize`                  | `size`                                              |
-| **InputText** | `multiline` prop             | Use **`TextArea`** instead                          |
-| **InputText** | Hover tooltip for helper     | Inline **`helperText`** below field                 |
-| **Toast**     | `danger` variant             | `destructive`                                       |
-| **Toast**     | `Snackbar` / `useSnackbar`   | **`Toast`** / **`useToast`** (aliases removed in 2.2.0) |
-| **Modal**     | `small` / `medium` / `large` | `s` / `m` / `l`                                     |
-| **Modal**     | Custom overlay markup        | Radix Dialog (`@radix-ui/react-dialog`)             |
-| **Text**      | Preset variants (`pageTitle`, `bodySmall`, …) | Typography tokens only: `h1`–`h6`, `body-*`, `caption-*` |
-| **Typography**| Desktop scale at `lg` (1024px) | Desktop scale at **`md` (768px)**                |
-| **Icons**     | `lucide-react`               | Custom icons + `@solar-icons/react-perf` (Linear)   |
-| **Install**   | Solar bundled in library     | **`@solar-icons/react-perf` is a peer dependency** — consumer apps must install it |
+| Area           | Before                                        | After                                                                              |
+| -------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Button**     | `danger` prop / variant                       | `color="destructive"`                                                              |
+| **Button**     | `small` / `medium` / `large`                  | `s` / `m` / `l` / `xl`                                                             |
+| **InputText**  | `inputSize`                                   | `size`                                                                             |
+| **InputText**  | `multiline` prop                              | Use **`TextArea`** instead                                                         |
+| **InputText**  | Hover tooltip for helper                      | Inline **`helperText`** below field                                                |
+| **Toast**      | `danger` variant                              | `destructive`                                                                      |
+| **Toast**      | `Snackbar` / `useSnackbar`                    | **`Toast`** / **`useToast`** (aliases removed in 2.2.0)                            |
+| **Modal**      | `small` / `medium` / `large`                  | `s` / `m` / `l`                                                                    |
+| **Modal**      | Custom overlay markup                         | Radix Dialog (`@radix-ui/react-dialog`)                                            |
+| **Text**       | Preset variants (`pageTitle`, `bodySmall`, …) | Typography tokens only: `h1`–`h6`, `body-*`, `caption-*`                           |
+| **Typography** | Desktop scale at `lg` (1024px)                | Desktop scale at **`md` (768px)**                                                  |
+| **Icons**      | `lucide-react`                                | Custom icons + `@solar-icons/react-perf` (Linear)                                  |
+| **Install**    | Solar bundled in library                      | **`@solar-icons/react-perf` is a peer dependency** — consumer apps must install it |
 
 ---
 
@@ -143,7 +143,7 @@ Design system 2.0 update — Figma-aligned components, shared sizing/variant pat
 
 ### Icons
 
-- Removed `lucide-react`; Solar Linear icons imported per file (`@solar-icons/react-perf/Linear`)
+- Removed `lucide-react`; Solar Linear icons imported per file (`@solar-icons/react-perf/Linear` or `@solar-icons/react-perf/Bold`)
 - **`@solar-icons/react-perf` is a peer dependency** — not bundled in `dist`; consumer apps install and import icons directly for page-level UI
 - Library build externalizes Solar subpaths in Vite (shared copy with the app)
 
@@ -181,7 +181,7 @@ pnpm add @sporteev/sporteev-components @solar-icons/react-perf react react-dom
 <Button variant="primary" color="destructive" size="m">Delete</Button>
 <IconButton variant="outline" color="primary" size="m" aria-label="Search" icon={<SearchIcon />} />
 
-// App-level Solar icons (peer dep — import directly, Linear style)
+// App-level Solar icons (peer dep — import directly, Linear or Bold style)
 import { Settings } from "@solar-icons/react-perf/Linear";
 
 // Fields
