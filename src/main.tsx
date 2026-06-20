@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./index.css";
 import "./dev.css";
 
 import React, { useState } from "react";
@@ -12,7 +12,6 @@ import {
   Text,
   Toast,
   useToast,
-  CHIP_COLORS,
   type ToastVariant,
 } from "@/components/atoms";
 import {
@@ -24,6 +23,14 @@ import {
   BUTTON_SIZES,
   BUTTON_VARIANTS,
 } from "@/components/atoms/button/types";
+import {
+  CHIP_COLORS,
+  LABEL_CHIP_SIZES,
+} from "@/components/atoms/label-chip/types";
+import { INFO_BOX_VARIANTS } from "@/components/atoms/info-box/types";
+import { TEXT_VARIANTS, type TextColor } from "@/components/atoms/text/types";
+import { RADIO_GROUP_VARIANTS } from "@/components/molecules/radio-group/types";
+import { SCORE_INCREASE_DECREASE_SIZES } from "@/components/molecules/score-increase-decrease/types";
 import {
   InputText,
   TextArea,
@@ -111,6 +118,33 @@ const sampleOptions = [
   { label: "Option 3", value: "option3" },
 ];
 
+const selectOptionsWithMeta = [
+  { label: "Alice", value: "alice", chip: "Captain" },
+  {
+    label: "Bob",
+    value: "bob",
+    chip: "Player",
+    photoUrl: "https://i.pravatar.cc/64?u=bob",
+  },
+  { label: "Charlie", value: "charlie", chip: "Guest", disabled: true },
+  {
+    label: "Diana",
+    value: "diana",
+    chip: "Coach",
+    photoUrl: "https://i.pravatar.cc/64?u=diana",
+  },
+];
+
+const TEXT_COLORS: TextColor[] = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "neutral",
+  "destructive",
+  "success",
+  "warning",
+];
+
 function toastAction(variant: ToastVariant) {
   const color = TOAST_ACTION_BUTTON_COLOR[variant];
   if (variant === "promises") {
@@ -138,9 +172,14 @@ function toastAction(variant: ToastVariant) {
 
 const Page = () => {
   const [selectValue, setSelectValue] = useState("");
+  const [searchSelectValue, setSearchSelectValue] = useState("");
+  const [metaSelectValue, setMetaSelectValue] = useState("alice");
   const [radioValue, setRadioValue] = useState("a");
   const [blockRadioValue, setBlockRadioValue] = useState("x");
+  const [rowRadioValue, setRowRadioValue] = useState("1");
+  const [rowBlockRadioValue, setRowBlockRadioValue] = useState("a");
   const [score, setScore] = useState(2);
+  const [editableScore, setEditableScore] = useState(4);
   const [modalOpen, setModalOpen] = useState(false);
   const [showFieldError, setShowFieldError] = useState(false);
   const { toast, showToast, hideToast } = useToast();
@@ -169,19 +208,47 @@ const Page = () => {
         </header>
 
         <Section id="text" title="Text">
-          <div className="space-y-8">
-            <p className="text-h1">Heading 1 with token</p>
-            <Text variant="h1" as="h1">
-              Heading 1
-            </Text>
-            <Text variant="h2">Heading 2</Text>
-            <Text variant="h3">Heading 3</Text>
-            <Text variant="body-1">Body 1 — primary paragraph text</Text>
-            <Text variant="body-2">Body 2 — secondary paragraph text</Text>
-            <Text variant="body-3">Body 3 — compact text</Text>
-            <Text variant="caption-1">Caption 1</Text>
-            <Text variant="caption-2">Caption 2</Text>
-          </div>
+          <Sub title="Typography variants">
+            <div className="space-y-8">
+              {TEXT_VARIANTS.map((variant) => (
+                <Text key={variant} variant={variant}>
+                  {variant} — The quick brown fox jumps over the lazy dog
+                </Text>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="Semantic colors">
+            <div className="flex flex-wrap gap-16">
+              {TEXT_COLORS.map((color) => (
+                <Text key={color} variant="body-2" color={color}>
+                  {color}
+                </Text>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="Weight & alignment">
+            <div className="space-y-8">
+              <Text variant="body-1" weight="regular">
+                Regular weight
+              </Text>
+              <Text variant="body-1" weight="semibold">
+                Semibold weight
+              </Text>
+              <Text variant="body-1" weight="bold">
+                Bold weight
+              </Text>
+              <Text
+                variant="body-2"
+                textAlign="center"
+                className="block w-full"
+              >
+                Center aligned
+              </Text>
+              <Text variant="body-2" textAlign="right" className="block w-full">
+                Right aligned
+              </Text>
+            </div>
+          </Sub>
         </Section>
 
         <Section id="buttons" title="Button & IconButton">
@@ -264,29 +331,72 @@ const Page = () => {
         </Section>
 
         <Section id="chips" title="LabelChip">
-          <div className="flex flex-wrap gap-8">
-            {CHIP_COLORS.map((color) => (
-              <LabelChip key={color} text={color} color={color} size="medium" />
-            ))}
-          </div>
+          <Sub title="Colors (m)">
+            <div className="flex flex-wrap gap-8">
+              {CHIP_COLORS.map((color) => (
+                <LabelChip key={color} text={color} color={color} size="m" />
+              ))}
+            </div>
+          </Sub>
+          <Sub title="Sizes (primary)">
+            <div className="flex flex-wrap items-center gap-8">
+              {LABEL_CHIP_SIZES.map((size) => (
+                <LabelChip key={size} text={size} color="primary" size={size} />
+              ))}
+            </div>
+          </Sub>
+          <Sub title="With icon">
+            <div className="flex flex-wrap gap-8">
+              <LabelChip
+                text="Verified"
+                color="success"
+                size="m"
+                icon={<QuestionCircle className="size-16" />}
+              />
+              <LabelChip
+                text="vs"
+                color="primary"
+                size="s"
+                icon={<FootballIcon size={16} />}
+              />
+            </div>
+          </Sub>
         </Section>
 
         <Section id="info-box" title="InfoBox">
-          <div className="space-y-12">
-            <InfoBox variant="info" title="Info">
-              Informational message for the user.
+          <Sub title="Variants">
+            <div className="space-y-12">
+              {INFO_BOX_VARIANTS.map((variant) => (
+                <InfoBox
+                  key={variant}
+                  variant={variant}
+                  title={variant.charAt(0).toUpperCase() + variant.slice(1)}
+                >
+                  {variant === "info" && "Informational message for the user."}
+                  {variant === "warning" && "Something needs attention."}
+                  {variant === "destructive" && "Something went wrong."}
+                </InfoBox>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="Without title">
+            <InfoBox variant="info">
+              Info box with body only — no title prop.
             </InfoBox>
-            <InfoBox variant="warning" title="Warning">
-              Something needs attention.
+          </Sub>
+          <Sub title="Custom icon">
+            <InfoBox
+              variant="warning"
+              title="Custom icon"
+              icon={<Settings className="text-warning-main size-24 shrink-0" />}
+            >
+              Override the default Solar icon with a custom node.
             </InfoBox>
-            <InfoBox variant="danger" title="Error">
-              Something went wrong.
-            </InfoBox>
-          </div>
+          </Sub>
         </Section>
 
         <Section id="radio" title="RadioButton & RadioGroup">
-          <Sub title="RadioButton">
+          <Sub title="RadioButton states">
             <div className="flex flex-col gap-12">
               <RadioButton
                 label="Selected"
@@ -309,35 +419,92 @@ const Page = () => {
               />
             </div>
           </Sub>
-          <Sub title="RadioGroup — simple">
+          {RADIO_GROUP_VARIANTS.map((groupVariant) => (
+            <Sub
+              key={`col-${groupVariant}`}
+              title={`RadioGroup — ${groupVariant}, column`}
+            >
+              <RadioGroup
+                label={`${groupVariant} / column`}
+                variant={groupVariant}
+                layout="column"
+                value={groupVariant === "simple" ? radioValue : blockRadioValue}
+                onChange={
+                  groupVariant === "simple" ? setRadioValue : setBlockRadioValue
+                }
+                options={[
+                  {
+                    label: "Option A",
+                    value: groupVariant === "simple" ? "a" : "x",
+                    helperText: "First option",
+                  },
+                  {
+                    label: "Option B",
+                    value: groupVariant === "simple" ? "b" : "y",
+                    helperText: "Second option",
+                  },
+                  {
+                    label: "Option C (disabled)",
+                    value: groupVariant === "simple" ? "c" : "z",
+                    disabled: true,
+                  },
+                ]}
+              />
+            </Sub>
+          ))}
+          {RADIO_GROUP_VARIANTS.map((groupVariant) => (
+            <Sub
+              key={`row-${groupVariant}`}
+              title={`RadioGroup — ${groupVariant}, row`}
+            >
+              <RadioGroup
+                label={`${groupVariant} / row`}
+                variant={groupVariant}
+                layout="row"
+                value={
+                  groupVariant === "simple" ? rowRadioValue : rowBlockRadioValue
+                }
+                onChange={
+                  groupVariant === "simple"
+                    ? setRowRadioValue
+                    : setRowBlockRadioValue
+                }
+                options={[
+                  {
+                    label: "One",
+                    value: groupVariant === "simple" ? "1" : "a",
+                  },
+                  {
+                    label: "Two",
+                    value: groupVariant === "simple" ? "2" : "b",
+                  },
+                  {
+                    label: "Three",
+                    value: groupVariant === "simple" ? "3" : "c",
+                  },
+                ]}
+              />
+            </Sub>
+          ))}
+          <Sub title="RadioGroup — required & error">
             <RadioGroup
-              label="Choose one"
-              value={radioValue}
-              onChange={setRadioValue}
+              label="Required group"
+              required
+              errorMessage="Please select an option"
               options={[
-                { label: "Option A", value: "a" },
-                { label: "Option B", value: "b" },
-                { label: "Option C", value: "c", disabled: true },
+                { label: "Yes", value: "yes" },
+                { label: "No", value: "no" },
               ]}
             />
           </Sub>
-          <Sub title="RadioGroup — block">
+          <Sub title="RadioGroup — disabled">
             <RadioGroup
-              label="Block layout"
-              variant="block"
-              value={blockRadioValue}
-              onChange={setBlockRadioValue}
+              label="Disabled group"
+              disabled
+              value="locked"
               options={[
-                {
-                  label: "Block X",
-                  value: "x",
-                  helperText: "First block option",
-                },
-                {
-                  label: "Block Y",
-                  value: "y",
-                  helperText: "Second block option",
-                },
+                { label: "Locked A", value: "locked" },
+                { label: "Locked B", value: "other" },
               ]}
             />
           </Sub>
@@ -401,53 +568,175 @@ const Page = () => {
         </Section>
 
         <Section id="select" title="Select">
-          <div className="grid gap-16 md:grid-cols-2">
+          <Sub title="Basic states">
+            <div className="grid gap-16 md:grid-cols-2">
+              <Select
+                label="Default"
+                options={sampleOptions}
+                value={selectValue}
+                onChange={setSelectValue}
+                placeholder="Choose an option"
+              />
+              <Select
+                label="Required"
+                options={sampleOptions}
+                required
+                placeholder="Required select"
+              />
+              <Select
+                label="With error"
+                options={sampleOptions}
+                errorMessage={showFieldError ? "Selection required" : undefined}
+              />
+              <Select
+                label="Disabled"
+                options={sampleOptions}
+                value="option1"
+                disabled
+              />
+              <Select
+                label="Empty options"
+                options={[]}
+                emptyLabel="No items available"
+                placeholder="Nothing to select"
+              />
+              <Select
+                label="Disabled option"
+                options={[
+                  { label: "Active", value: "active" },
+                  { label: "Inactive", value: "inactive", disabled: true },
+                  { label: "Pending", value: "pending" },
+                ]}
+                placeholder="One option disabled"
+              />
+            </div>
+          </Sub>
+          <Sub title="Searchable">
             <Select
-              label="Default"
-              options={sampleOptions}
-              value={selectValue}
-              onChange={setSelectValue}
-              placeholder="Choose an option"
+              label="Searchable select"
+              options={[
+                { label: "Apple", value: "apple" },
+                { label: "Banana", value: "banana" },
+                { label: "Cherry", value: "cherry" },
+                { label: "Durian", value: "durian" },
+                { label: "Elderberry", value: "elderberry" },
+              ]}
+              value={searchSelectValue}
+              onChange={setSearchSelectValue}
+              searchable
+              searchPlaceholder="Filter fruits…"
+              placeholder="Pick a fruit"
             />
+          </Sub>
+          <Sub title="With photo & chip">
             <Select
-              label="Required"
-              options={sampleOptions}
-              required
-              placeholder="Required select"
+              label="Player roster"
+              options={selectOptionsWithMeta}
+              value={metaSelectValue}
+              onChange={setMetaSelectValue}
+              searchable
+              placeholder="Select player"
             />
-            <Select
-              label="With error"
-              options={sampleOptions}
-              errorMessage={showFieldError ? "Selection required" : undefined}
-            />
-            <Select
-              label="Disabled"
-              options={sampleOptions}
-              value="option1"
-              disabled
-            />
-          </div>
+          </Sub>
         </Section>
 
         <Section id="score" title="ScoreIncreaseDecrease">
-          <div className="flex flex-wrap items-center gap-24">
-            {(["small", "medium", "large"] as const).map((variant) => (
-              <ScoreIncreaseDecrease
-                key={variant}
-                variant={variant}
-                score={score}
-                onIncrease={() => setScore((s) => s + 1)}
-                onDecrease={() => setScore((s) => Math.max(0, s - 1))}
-              />
-            ))}
-            <ScoreIncreaseDecrease
-              variant="medium"
-              score={1}
-              danger
-              onIncrease={() => {}}
-              onDecrease={() => {}}
-            />
-          </div>
+          <Sub title="Sizes">
+            <div className="flex flex-col gap-24">
+              {SCORE_INCREASE_DECREASE_SIZES.map((size) => (
+                <div key={size} className="flex flex-col items-center gap-8">
+                  <Text variant="caption-1" className="text-grey-700">
+                    {size}
+                  </Text>
+                  <ScoreIncreaseDecrease
+                    size={size}
+                    score={score}
+                    onIncrease={() => setScore((s) => s + 1)}
+                    onDecrease={() => setScore((s) => Math.max(0, s - 1))}
+                  />
+                </div>
+              ))}
+            </div>
+          </Sub>
+          <Sub title="States">
+            <div className="grid gap-24 md:grid-cols-2">
+              <div className="flex flex-col items-center gap-8">
+                <Text variant="caption-1" className="text-grey-700">
+                  destructive
+                </Text>
+                <ScoreIncreaseDecrease
+                  size="m"
+                  score={score}
+                  destructive
+                  onIncrease={() => setScore((s) => s + 1)}
+                  onDecrease={() => setScore((s) => s - 1)}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-8">
+                <Text variant="caption-1" className="text-grey-700">
+                  inFocus
+                </Text>
+                <ScoreIncreaseDecrease
+                  size="m"
+                  score={score}
+                  inFocus
+                  onIncrease={() => setScore((s) => s + 1)}
+                  onDecrease={() => setScore((s) => s - 1)}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-8">
+                <Text variant="caption-1" className="text-grey-700">
+                  disabled
+                </Text>
+                <ScoreIncreaseDecrease
+                  size="m"
+                  score={score}
+                  disabled
+                  onIncrease={() => setScore((s) => s + 1)}
+                  onDecrease={() => setScore((s) => s - 1)}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-8">
+                <Text variant="caption-1" className="text-grey-700">
+                  min / max (0–5)
+                </Text>
+                <ScoreIncreaseDecrease
+                  size="m"
+                  score={score}
+                  min={0}
+                  max={5}
+                  onIncrease={() => setScore((s) => Math.min(5, s + 1))}
+                  onDecrease={() => setScore((s) => Math.max(0, s - 1))}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-8">
+                <Text variant="caption-1" className="text-grey-700">
+                  read-only score (editable=false)
+                </Text>
+                <ScoreIncreaseDecrease
+                  size="m"
+                  score={score}
+                  editable={false}
+                  onIncrease={() => setScore((s) => s + 1)}
+                  onDecrease={() => setScore((s) => s - 1)}
+                />
+              </div>
+              <div className="flex flex-col items-center gap-8">
+                <Text variant="caption-1" className="text-grey-700">
+                  editable input
+                </Text>
+                <ScoreIncreaseDecrease
+                  size="m"
+                  score={editableScore}
+                  scoreInputEditable
+                  editable={false}
+                  onIncrease={() => setScore((s) => s + 1)}
+                  onDecrease={() => setScore((s) => s - 1)}
+                  onScoreChange={setEditableScore}
+                />
+              </div>
+            </div>
+          </Sub>
         </Section>
 
         <Section id="modal" title="Modal">

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { LabelChip } from ".";
 import { CheckCircle } from "@solar-icons/react-perf/Linear";
+import { CHIP_COLORS, LABEL_CHIP_SIZES } from "./types";
 
 const meta: Meta<typeof LabelChip> = {
   title: "Atoms/LabelChip",
@@ -12,31 +13,23 @@ const meta: Meta<typeof LabelChip> = {
   argTypes: {
     color: {
       control: "select",
-      options: [
-        "primary",
-        "tertiary",
-        "success",
-        "warning",
-        "danger",
-        "gray",
-        "dark",
-      ],
-      description: "The visual style of the button",
+      options: CHIP_COLORS,
+      description: "Chip color palette",
       defaultValue: "primary",
     },
     text: {
       control: "text",
-      description: "The content inside the button",
-      defaultValue: "Click here",
+      description: "Label text",
+      defaultValue: "Label",
     },
     size: {
       control: "select",
-      options: ["small", "medium", "large"],
-      description: "The size of the cnip",
-      defaultValue: "medium",
+      options: LABEL_CHIP_SIZES,
+      description: "Chip size",
+      defaultValue: "m",
     },
     icon: {
-      description: "The icon to display inside the label",
+      description: "Optional icon",
       control: false,
     },
   },
@@ -49,7 +42,7 @@ export const Primary: Story = {
   args: {
     text: "Primary Label",
     color: "primary",
-    size: "medium",
+    size: "m",
     icon: <CheckCircle size={16} />,
   },
 };

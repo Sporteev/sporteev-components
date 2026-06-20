@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Bell } from "@solar-icons/react-perf/Linear";
 import { InfoBox } from ".";
+import { INFO_BOX_VARIANTS } from "./types";
 
 const meta = {
   title: "Atoms/InfoBox",
@@ -12,8 +13,8 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["info", "warning", "danger"],
-      description: "The visual style of the alert box",
+      options: INFO_BOX_VARIANTS,
+      description: "Alert style",
       defaultValue: "info",
     },
     title: {
@@ -52,9 +53,9 @@ export const Warning: Story = {
   },
 };
 
-export const Danger: Story = {
+export const Destructive: Story = {
   args: {
-    variant: "danger",
+    variant: "destructive",
     title: "Error",
     children:
       "This action cannot be undone. Please make sure you want to proceed with this operation.",

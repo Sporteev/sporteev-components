@@ -375,19 +375,6 @@ Each command bumps the version in `package.json`, commits that change, tags, bui
 
 Deprecations: alias + `@deprecated` JSDoc in a **minor**; remove in the **next major**.
 
-## Migration backlog
-
-Some existing code predates these conventions. **Fix when you touch a component.**
-
-Common legacy patterns:
-
-- **CVA** — LabelChip, InfoBox, Select, RadioGroup
-- **Implementation in `index.tsx`** — button, text, select, radio-group, logo-flat, …
-- **Old size tokens** (`small` / `medium` / `large`) — LabelChip, ScoreIncreaseDecrease
-- **Per-icon stories** — consolidate into `icons/icons.stories.tsx`
-
-Full inventory: [docs/archive/conventions-outline.md — Appendix](./docs/archive/conventions-outline.md#appendix-migration--tech-debt).
-
 ## License
 
 MIT — see [LICENSE](LICENSE).

@@ -28,11 +28,6 @@ export default defineConfig({
           react: "React",
           "react-dom": "ReactDOM",
         },
-        assetFileNames: (assetInfo) => {
-          return assetInfo.name === "style.css"
-            ? "sporteev-components.css"
-            : assetInfo.name || "unknown";
-        },
       },
     },
     sourcemap: true,

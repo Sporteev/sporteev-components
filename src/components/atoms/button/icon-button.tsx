@@ -4,18 +4,8 @@ import {
   ICON_BUTTON_ICON_SIZE_CLASSES,
   ICON_BUTTON_SIZE_CLASSES,
 } from "./sizes";
-import type { ButtonColor, ButtonSize, ButtonVariant } from "./types";
+import type { IconButtonProps } from "./types";
 import { BUTTON_BASE_CLASSES, getButtonVariantClasses } from "./variants";
-
-interface IconButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
-  variant?: ButtonVariant;
-  color?: ButtonColor;
-  size?: ButtonSize;
-  disabled?: boolean;
-  icon: React.ReactNode;
-  "aria-label": string;
-}
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
   (
@@ -61,4 +51,3 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 IconButton.displayName = "IconButton";
 
 export { IconButton };
-export type { IconButtonProps };

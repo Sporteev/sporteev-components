@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ScoreIncreaseDecrease } from "./index";
 import { useState } from "react";
+import { SCORE_INCREASE_DECREASE_SIZES } from "./types";
 
 const meta: Meta<typeof ScoreIncreaseDecrease> = {
   title: "Molecules/ScoreIncreaseDecrease",
@@ -10,11 +11,11 @@ const meta: Meta<typeof ScoreIncreaseDecrease> = {
   },
   tags: ["autodocs"],
   argTypes: {
-    variant: {
+    size: {
       control: { type: "select" },
-      options: ["small", "medium", "large"],
-      description: "The size variant of the component",
-      defaultValue: "medium",
+      options: SCORE_INCREASE_DECREASE_SIZES,
+      description: "Component size",
+      defaultValue: "m",
     },
     score: {
       control: { type: "number" },
@@ -47,7 +48,7 @@ type Story = StoryObj<typeof ScoreIncreaseDecrease>;
 export const Default: Story = {
   args: {
     score: 0,
-    variant: "medium",
+    size: "m",
     onIncrease: () => {},
     onDecrease: () => {},
   },
@@ -56,7 +57,7 @@ export const Default: Story = {
 export const Small: Story = {
   args: {
     score: 3,
-    variant: "small",
+    size: "s",
     onIncrease: () => {},
     onDecrease: () => {},
   },
@@ -65,7 +66,7 @@ export const Small: Story = {
 export const Medium: Story = {
   args: {
     score: 7,
-    variant: "medium",
+    size: "m",
     onIncrease: () => {},
     onDecrease: () => {},
   },
@@ -74,42 +75,28 @@ export const Medium: Story = {
 export const Large: Story = {
   args: {
     score: 10,
-    variant: "large",
+    size: "l",
     onIncrease: () => {},
     onDecrease: () => {},
   },
 };
 
-export const AllVariants: Story = {
+export const AllSizes: Story = {
   render: () => (
     <div className="flex flex-col items-center gap-32">
-      <div className="flex flex-col items-center gap-8">
-        <span className="text-sm font-medium text-gray-600">Small</span>
-        <ScoreIncreaseDecrease
-          score={5}
-          variant="small"
-          onIncrease={() => {}}
-          onDecrease={() => {}}
-        />
-      </div>
-      <div className="flex flex-col items-center gap-8">
-        <span className="text-sm font-medium text-gray-600">Medium</span>
-        <ScoreIncreaseDecrease
-          score={5}
-          variant="medium"
-          onIncrease={() => {}}
-          onDecrease={() => {}}
-        />
-      </div>
-      <div className="flex flex-col items-center gap-8">
-        <span className="text-sm font-medium text-gray-600">Large</span>
-        <ScoreIncreaseDecrease
-          score={5}
-          variant="large"
-          onIncrease={() => {}}
-          onDecrease={() => {}}
-        />
-      </div>
+      {SCORE_INCREASE_DECREASE_SIZES.map((size) => (
+        <div key={size} className="flex flex-col items-center gap-8">
+          <span className="text-sm font-medium text-gray-600">
+            {size.toUpperCase()}
+          </span>
+          <ScoreIncreaseDecrease
+            score={5}
+            size={size}
+            onIncrease={() => {}}
+            onDecrease={() => {}}
+          />
+        </div>
+      ))}
     </div>
   ),
 };
@@ -131,7 +118,7 @@ export const Controlled: Story = {
         <div className="flex flex-col items-center gap-16">
           <ScoreIncreaseDecrease
             score={score}
-            variant="medium"
+            size="m"
             onIncrease={handleIncrease}
             onDecrease={handleDecrease}
           />
@@ -155,7 +142,7 @@ export const EditableScoreInput: Story = {
         <div className="flex flex-col items-center gap-16">
           <ScoreIncreaseDecrease
             score={score}
-            variant="medium"
+            size="m"
             editable={false}
             scoreInputEditable
             onIncrease={() => {}}
