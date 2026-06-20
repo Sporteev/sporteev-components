@@ -1,4 +1,4 @@
-export type SelectVariant = "default" | "error";
+import type { FieldSize } from "../input-text/types";
 
 export interface SelectOption {
   label: string;
@@ -16,8 +16,10 @@ export interface SelectProps {
   placeholder?: string;
   required?: boolean;
   errorMessage?: string;
+  helperText?: string;
   disabled?: boolean;
-  variant?: SelectVariant;
+  size?: FieldSize;
+  fullWidth?: boolean;
   className?: string;
   emptyLabel?: string;
   searchable?: boolean;

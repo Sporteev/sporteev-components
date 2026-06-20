@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useId } from "react";
 import { cn } from "@/lib/utils";
 import { RadioButton } from "@/components/atoms/radio-button";
+import { FieldShell } from "@/components/molecules/input-text/field-shell";
 import type { RadioGroupProps } from "./types";
-import { OPTION_WRAPPER_VARIANT_CLASSES } from "./variants";
+import {
+  RADIO_GROUP_COLUMN_GAP_CLASSES,
+  RADIO_GROUP_ROW_GAP_CLASSES,
+} from "./sizes";
+import { getBlockOptionWrapperClasses } from "./variants";
 
 export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
   (
@@ -13,13 +18,19 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
       options,
       required = false,
       errorMessage,
+      helperText,
       disabled = false,
+      size = "m",
+      fullWidth = true,
       layout = "column",
       variant = "simple",
       className,
     },
     ref
   ) => {
+    const groupName = useId();
+    const hasError = Boolean(errorMessage);
+
     const handleOptionChange = (optionValue: string) => {
       if (!disabled && onChange) {
         onChange(optionValue);
@@ -27,51 +38,60 @@ export const RadioGroup = React.forwardRef<HTMLDivElement, RadioGroupProps>(
     };
 
     return (
-      <div ref={ref} className={cn("flex flex-col gap-12", className)}>
-        {label && (
-          <div className="flex items-center gap-4">
-            <span className="font-medium select-none">{label}</span>
-            {required && <span className="text-red-500">*</span>}
-          </div>
-        )}
-
-        <div
-          className={cn(
-            "flex",
-            layout === "column" ? "flex-col gap-8" : "flex-row flex-wrap",
-            layout === "row" && variant === "simple" ? "gap-16" : "gap-8",
-            disabled && "pointer-events-none opacity-60"
-          )}
+      <div ref={ref} className={cn(fullWidth && "w-full", className)}>
+        <FieldShell
+          size={size}
+          label={label}
+          required={required}
+          helperText={helperText}
+          errorMessage={errorMessage}
+          fullWidth={fullWidth}
         >
-          {options.map((option) => {
-            const isSelected = value === option.value;
-            return (
-              <div
-                key={option.value}
-                className={cn(
-                  OPTION_WRAPPER_VARIANT_CLASSES[variant],
-                  layout === "row" && variant === "block" && "flex-1",
-                  variant === "block" &&
-                    isSelected &&
-                    "border-primary-500 bg-primary-200 shadow-secondary"
-                )}
-              >
-                <RadioButton
-                  label={option.label}
-                  value={option.value}
-                  checked={isSelected}
-                  onChange={handleOptionChange}
-                  disabled={disabled || option.disabled}
-                  helperText={option.helperText}
-                />
-              </div>
-            );
-          })}
-        </div>
+          <div
+            role="radiogroup"
+            aria-required={required || undefined}
+            aria-invalid={hasError || undefined}
+            className={cn(
+              "flex flex-wrap",
+              layout === "column"
+                ? cn("flex-col", RADIO_GROUP_COLUMN_GAP_CLASSES[size])
+                : cn("flex-row", RADIO_GROUP_ROW_GAP_CLASSES[size]),
+              disabled && "pointer-events-none opacity-50"
+            )}
+          >
+            {options.map((option) => {
+              const isSelected = value === option.value;
+              const isOptionDisabled = disabled || option.disabled;
 
-        {errorMessage && (
-          <span className="text-xs text-red-500">{errorMessage}</span>
-        )}
+              return (
+                <div
+                  key={option.value}
+                  className={cn(
+                    variant === "block" &&
+                      getBlockOptionWrapperClasses(
+                        hasError,
+                        Boolean(isOptionDisabled),
+                        size,
+                        isSelected
+                      ),
+                    layout === "row" && variant === "block" && "min-w-0 flex-1"
+                  )}
+                >
+                  <RadioButton
+                    label={option.label}
+                    value={option.value}
+                    name={groupName}
+                    checked={isSelected}
+                    onChange={handleOptionChange}
+                    disabled={isOptionDisabled}
+                    size={size}
+                    helperText={option.helperText}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </FieldShell>
       </div>
     );
   }

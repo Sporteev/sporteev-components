@@ -1,3 +1,5 @@
+import type { FieldSize } from "../input-text/types";
+
 export type RadioGroupVariant = "simple" | "block";
 
 export const RADIO_GROUP_VARIANTS: RadioGroupVariant[] = ["simple", "block"];
@@ -16,7 +18,10 @@ export interface RadioGroupProps {
   options: RadioOption[];
   required?: boolean;
   errorMessage?: string;
+  helperText?: string;
   disabled?: boolean;
+  size?: FieldSize;
+  fullWidth?: boolean;
   layout?: "column" | "row";
   variant?: RadioGroupVariant;
   className?: string;

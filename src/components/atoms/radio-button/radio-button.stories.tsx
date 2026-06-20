@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+import { FIELD_SIZES } from "@/components/molecules/input-text/types";
 import { RadioButton } from "./index";
 
 const meta: Meta<typeof RadioButton> = {
@@ -11,6 +12,11 @@ const meta: Meta<typeof RadioButton> = {
   tags: ["autodocs"],
   argTypes: {
     onChange: { action: "changed" },
+    disabled: { control: "boolean" },
+    size: {
+      control: { type: "select" },
+      options: FIELD_SIZES,
+    },
   },
 };
 
@@ -61,6 +67,24 @@ export const DisabledChecked: Story = {
     checked: true,
     disabled: true,
   },
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="space-y-16">
+      {FIELD_SIZES.map((size) => (
+        <RadioButton
+          key={size}
+          label={`${size.toUpperCase()} size`}
+          value={size}
+          checked={size === "m"}
+          size={size}
+          helperText={`Helper text for size ${size}`}
+          onChange={() => {}}
+        />
+      ))}
+    </div>
+  ),
 };
 
 // Radio Group Example

@@ -396,6 +396,30 @@ const Page = () => {
         </Section>
 
         <Section id="radio" title="RadioButton & RadioGroup">
+          <Sub title="Sizes">
+            <div className="grid gap-24 md:grid-cols-2">
+              {FIELD_SIZES.map((size) => (
+                <RadioGroup
+                  key={size}
+                  label={`Size ${size.toUpperCase()}`}
+                  size={size}
+                  value="a"
+                  options={[
+                    {
+                      label: "Option A",
+                      value: "a",
+                      helperText: "First choice",
+                    },
+                    {
+                      label: "Option B",
+                      value: "b",
+                      helperText: "Second choice",
+                    },
+                  ]}
+                />
+              ))}
+            </div>
+          </Sub>
           <Sub title="RadioButton states">
             <div className="flex flex-col gap-12">
               <RadioButton
@@ -568,6 +592,19 @@ const Page = () => {
         </Section>
 
         <Section id="select" title="Select">
+          <Sub title="Sizes">
+            <div className="grid gap-16 md:grid-cols-2">
+              {FIELD_SIZES.map((size) => (
+                <Select
+                  key={size}
+                  label={`Size ${size.toUpperCase()}`}
+                  options={sampleOptions}
+                  placeholder={`Size ${size}`}
+                  size={size}
+                />
+              ))}
+            </div>
+          </Sub>
           <Sub title="Basic states">
             <div className="grid gap-16 md:grid-cols-2">
               <Select
@@ -657,6 +694,17 @@ const Page = () => {
                 </div>
               ))}
             </div>
+          </Sub>
+          <Sub title="With label">
+            <ScoreIncreaseDecrease
+              label="Set score"
+              helperText="Use +/− to adjust"
+              size="m"
+              score={score}
+              onIncrease={() => setScore((s) => s + 1)}
+              onDecrease={() => setScore((s) => Math.max(0, s - 1))}
+              className="w-[50%]"
+            />
           </Sub>
           <Sub title="States">
             <div className="grid gap-24 md:grid-cols-2">

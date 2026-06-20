@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { RadioGroup } from "./index";
 import { useState } from "react";
+import { FIELD_SIZES } from "../input-text/types";
 
 const meta: Meta<typeof RadioGroup> = {
   title: "Molecules/RadioGroup",
@@ -10,6 +11,9 @@ const meta: Meta<typeof RadioGroup> = {
   },
   tags: ["autodocs"],
   argTypes: {
+    label: { control: "text" },
+    errorMessage: { control: "text" },
+    helperText: { control: "text" },
     layout: {
       control: { type: "select" },
       options: ["column", "row"],
@@ -17,6 +21,10 @@ const meta: Meta<typeof RadioGroup> = {
     variant: {
       control: { type: "select" },
       options: ["simple", "block"],
+    },
+    size: {
+      control: { type: "select" },
+      options: FIELD_SIZES,
     },
     disabled: {
       control: { type: "boolean" },
@@ -82,6 +90,31 @@ export const WithError: Story = {
     options: sampleOptions,
     errorMessage: "Please select an option",
   },
+};
+
+export const WithGroupHelperText: Story = {
+  args: {
+    label: "Selection with helper text",
+    options: sampleOptions,
+    helperText: "Choose the option that best fits your needs",
+    value: "option1",
+  },
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div className="w-320 space-y-16">
+      {FIELD_SIZES.map((size) => (
+        <RadioGroup
+          key={size}
+          label={`${size.toUpperCase()} size`}
+          options={sampleOptions}
+          value="option1"
+          size={size}
+        />
+      ))}
+    </div>
+  ),
 };
 
 export const Disabled: Story = {

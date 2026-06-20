@@ -1,16 +1,18 @@
-export type ScoreIncreaseDecreaseSize = "s" | "m" | "l";
+import type { FieldSize } from "../input-text/types";
 
-export const SCORE_INCREASE_DECREASE_SIZES: ScoreIncreaseDecreaseSize[] = [
-  "s",
-  "m",
-  "l",
-];
+export type ScoreIncreaseDecreaseSize = FieldSize;
+
+export { FIELD_SIZES as SCORE_INCREASE_DECREASE_SIZES } from "../input-text/types";
 
 export interface ScoreIncreaseDecreaseProps {
   score: number;
   onIncrease: () => void;
   onDecrease: () => void;
   onScoreChange?: (score: number) => void;
+  label?: string;
+  required?: boolean;
+  helperText?: string;
+  errorMessage?: string;
   size?: ScoreIncreaseDecreaseSize;
   disabled?: boolean;
   destructive?: boolean;
@@ -19,4 +21,5 @@ export interface ScoreIncreaseDecreaseProps {
   scoreInputEditable?: boolean;
   min?: number;
   max?: number;
+  className?: string;
 }
