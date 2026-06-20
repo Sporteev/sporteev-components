@@ -185,7 +185,7 @@ const Page = () => {
   const { toast, showToast, hideToast } = useToast();
 
   return (
-    <div className="bg-grey-100 md:bg-warning-200 min-h-screen border p-16 md:p-24">
+    <div className="border-grey-100 md:border-warning-200 m-16 min-h-screen border-8 p-16 md:m-24">
       <div className="mx-auto max-w-5xl space-y-32">
         <header className="space-y-12 text-center">
           <Text variant="h1" color="primary">
@@ -544,8 +544,8 @@ const Page = () => {
                 label="With adornments"
                 type="email"
                 placeholder="Email"
-                startAdornment={<Letter className="size-16" />}
-                endAdornment={<QuestionCircle className="size-16" />}
+                iconLeft={<Letter className="text-primary-950 size-16" />}
+                iconRight={<QuestionCircle className="size-16" />}
               />
             </div>
           </Sub>

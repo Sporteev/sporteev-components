@@ -223,7 +223,9 @@ Full agent rules: [`.ide/rules/radix-primitives.mdc`](./.ide/rules/radix-primiti
 
 ## Icons
 
-- **Default:** Solar Linear — `@solar-icons/react-perf/Linear` (peer dependency; apps must install it)
+- **Solar (peer dep):** install `@solar-icons/react-perf` once — import **Linear** or **Bold** via subpath (`@solar-icons/react-perf/Linear`, `@solar-icons/react-perf/Bold`). No separate package per style.
+- **Default in DS components:** Linear
+- **App UI:** Linear or Bold — match Figma
 - **Custom icons:** only when Solar can't cover the use case — live in `icons/custom/`, use `currentColor`, `PascalCase` + `Icon` suffix
 - **Inside components:** size the icon wrapper in `sizes.ts`, use `[&_svg]:size-full` on the wrapper
 - **Storybook:** one catalog file `icons/icons.stories.tsx` (title `Icons`) — don't add per-icon story files

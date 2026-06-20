@@ -110,4 +110,4 @@ Size via wrapper in `sizes.ts`; SVG fills wrapper:
 
 **Storybook only:** pass `className="size-full"` on Solar/custom icons used as story props (Button `startIcon`).
 
-For custom icon implementation → `icons.mdc`. For Solar in app UI → peer `@solar-icons/react-perf/Linear`.
+For custom icon implementation → `icons.mdc`. For Solar in app UI → peer `@solar-icons/react-perf` (`/Linear` or `/Bold`).

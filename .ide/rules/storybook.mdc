@@ -139,7 +139,7 @@ Use design-system spacing in layouts: `gap-12`, `gap-24`.
 
 When adding a custom icon, register it in that file. Group by category in separate story exports (e.g. `Custom`, `Social`, `Sports`, `Logo`).
 
-**Solar icons** are not catalogued here — consumers browse `@solar-icons/react-perf` directly.
+**Solar icons** (Linear, Bold, …) are not catalogued here — consumers browse `@solar-icons/react-perf` directly.
 
 ## New component requirement
 

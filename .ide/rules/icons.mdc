@@ -12,10 +12,11 @@ Icons live in `src/components/icons/` — **never** `atoms/`.
 
 | Source                | When                                     | Import                                                  |
 | --------------------- | ---------------------------------------- | ------------------------------------------------------- |
-| Solar Linear          | Default for UI in components and apps    | `@solar-icons/react-perf/Linear`                        |
+| Solar Linear          | Default inside DS components             | `@solar-icons/react-perf/Linear`                        |
+| Solar Bold            | App UI (or DS when Figma specifies Bold) | `@solar-icons/react-perf/Bold`                          |
 | Custom (this package) | Solar can't cover or brand mark required | `icons/custom/`, `icons/sports.tsx`, `icons/logo-flat/` |
 
-Solar is a **peer dependency** — consumers must install `@solar-icons/react-perf`.
+**One peer dependency** — `@solar-icons/react-perf` includes all style subpaths (`Linear`, `Bold`, etc.). Consumers install it once; no separate package per style.
 
 **Add a custom icon only when Solar can't cover it.**
 

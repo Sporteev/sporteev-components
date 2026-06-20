@@ -10,7 +10,7 @@ Reusable React components and design tokens for Sporteev apps (and any consumer)
 pnpm add @sporteev/sporteev-components @solar-icons/react-perf
 ```
 
-Peer dependencies: React 18 or 19, `@solar-icons/react-perf` ^2.1.1 (Linear icons used by components and recommended for app UI).
+Peer dependencies: React 18 or 19, `@solar-icons/react-perf` ^2.1.1 — one install covers **Linear** and **Bold** (and other style subpaths). DS components use Linear by default; apps may import either style.
 
 ## Consumer setup (theme-only — recommended)
 
@@ -56,6 +56,7 @@ Import from the **package root only** — no `/atoms` subpaths or deep paths:
 ```tsx
 import { Button, Modal, Text } from "@sporteev/sporteev-components";
 import { Settings } from "@solar-icons/react-perf/Linear";
+import { Star } from "@solar-icons/react-perf/Bold";
 ```
 
 ```tsx

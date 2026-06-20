@@ -22,8 +22,8 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
       readOnly = false,
       size = "m",
       type = "text",
-      startAdornment,
-      endAdornment,
+      iconLeft,
+      iconRight,
       containerClassName,
       labelClassName,
       inputClassName,
@@ -48,14 +48,14 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
         helperTextClassName={helperTextClassName}
       >
         <div className="relative flex w-full items-center">
-          {startAdornment ? (
+          {iconLeft ? (
             <div
               className={cn(
-                "pointer-events-none absolute left-8 flex items-center text-grey-500",
+                "text-grey-500 pointer-events-none absolute left-8 flex items-center",
                 adornmentSize
               )}
             >
-              {startAdornment}
+              {iconLeft}
             </div>
           ) : null}
 
@@ -66,8 +66,8 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
               "flex items-center",
               getFieldControlClasses(hasError, disabled, readOnly),
               INPUT_FIELD_SIZE_CLASSES[size],
-              startAdornment && INPUT_ADORNMENT_PADDING[size].start,
-              endAdornment && INPUT_ADORNMENT_PADDING[size].end,
+              iconLeft && INPUT_ADORNMENT_PADDING[size].start,
+              iconRight && INPUT_ADORNMENT_PADDING[size].end,
               inputClassName
             )}
             placeholder={placeholder}
@@ -78,14 +78,14 @@ export const InputText = React.forwardRef<HTMLInputElement, InputTextProps>(
             {...restProps}
           />
 
-          {endAdornment ? (
+          {iconRight ? (
             <div
               className={cn(
-                "pointer-events-none absolute right-8 flex items-center text-grey-500",
+                "pointer-events-none absolute right-8 flex items-center",
                 adornmentSize
               )}
             >
-              {endAdornment}
+              {iconRight}
             </div>
           ) : null}
         </div>
