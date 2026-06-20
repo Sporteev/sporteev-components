@@ -21,8 +21,6 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
   size = "m",
   helperText,
   className,
-  labelClassName,
-  helperTextClassName,
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!disabled && onChange) {
@@ -53,7 +51,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
         >
           <span
             className={cn(
-              "rounded-full bg-primary-600 transition-transform duration-200",
+              "bg-primary-600 rounded-full transition-transform duration-200",
               RADIO_DOT_SIZE_CLASSES[size],
               checked ? "scale-100" : "scale-0",
               disabled && "bg-grey-600"
@@ -76,8 +74,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
             className={cn(
               "text-grey-900 select-none",
               RADIO_LABEL_SIZE_CLASSES[size],
-              disabled && "text-grey-600",
-              labelClassName
+              disabled && "text-grey-600"
             )}
           >
             {label}
@@ -90,8 +87,7 @@ export const RadioButton: React.FC<RadioButtonProps> = ({
           className={cn(
             "text-grey-700",
             RADIO_HELPER_SIZE_CLASSES[size],
-            RADIO_OPTION_HELPER_INDENT_CLASSES[size],
-            helperTextClassName
+            RADIO_OPTION_HELPER_INDENT_CLASSES[size]
           )}
         >
           {helperText}

@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuestionCircle } from "@solar-icons/react-perf/Linear";
 import { IconButton } from "./icon-button";
-import {
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-  BUTTON_VARIANTS,
-} from "./types";
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_VARIANTS } from "./types";
 
 const meta = {
   title: "Atoms/IconButton",

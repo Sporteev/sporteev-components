@@ -57,7 +57,7 @@ function toastAction(variant: ToastVariant) {
       <Button
         variant="primary"
         size="m"
-        className="w-full bg-grey-900 hover:bg-grey-800 active:bg-grey-700 md:w-auto"
+        className="bg-grey-900 hover:bg-grey-800 active:bg-grey-700 w-full md:w-auto"
         onClick={() => alert("Action clicked!")}
       >
         Lihat Detail
@@ -146,7 +146,11 @@ export const AllVariants: Story = {
 
 export const WithAction: Story = {
   render: (args) => (
-    <Toast {...args} action={toastAction(args.variant ?? "info")} duration={0} />
+    <Toast
+      {...args}
+      action={toastAction(args.variant ?? "info")}
+      duration={0}
+    />
   ),
   args: {
     variant: "success",
@@ -222,9 +226,7 @@ const WithHookDemoComponent = ({
       >
         Show Toast
       </Button>
-      {toast ? (
-        <Toast {...toast} onClose={hideToast} />
-      ) : null}
+      {toast ? <Toast {...toast} onClose={hideToast} /> : null}
     </div>
   );
 };

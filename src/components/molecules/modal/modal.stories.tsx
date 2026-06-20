@@ -171,8 +171,8 @@ const ActionLayoutWrapper = ({
         ]}
       >
         <p className="text-grey-700">
-          Footer buttons use flex with <code>actionLayout="{actionLayout}"</code>
-          .
+          Footer buttons use flex with{" "}
+          <code>actionLayout="{actionLayout}"</code>.
         </p>
       </Modal>
     </div>

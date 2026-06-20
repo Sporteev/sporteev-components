@@ -3,7 +3,13 @@ import { iconDefaults, type IconProps } from "./types";
 
 export function SearchIcon({ size = 24, className, ...props }: IconProps) {
   return (
-    <svg {...iconDefaults({ size, className: cn("text-grey-900", className), ...props })}>
+    <svg
+      {...iconDefaults({
+        size,
+        className: cn("text-grey-900", className),
+        ...props,
+      })}
+    >
       <path
         d="M10.6393 17.8538C14.6232 17.8538 17.8528 14.6242 17.8528 10.6403C17.8528 6.65638 14.6232 3.42676 10.6393 3.42676C6.6554 3.42676 3.42578 6.65638 3.42578 10.6403C3.42578 14.6242 6.6554 17.8538 10.6393 17.8538Z"
         stroke="currentColor"

@@ -25,10 +25,7 @@ const InfoBox = ({
   const defaultIcon: Record<InfoBoxVariant, ReactNode> = {
     info: (
       <InfoCircle
-        className={cn(
-          INFO_BOX_ICON_BASE_CLASSES,
-          INFO_BOX_ICON_CLASSES.info
-        )}
+        className={cn(INFO_BOX_ICON_BASE_CLASSES, INFO_BOX_ICON_CLASSES.info)}
       />
     ),
     warning: (
@@ -59,9 +56,7 @@ const InfoBox = ({
     >
       <div>{icon || defaultIcon[variant]}</div>
       <div>
-        {title && (
-          <h3 className={INFO_BOX_TITLE_CLASSES[variant]}>{title}</h3>
-        )}
+        {title && <h3 className={INFO_BOX_TITLE_CLASSES[variant]}>{title}</h3>}
         {children && (
           <div className={INFO_BOX_DESCRIPTION_CLASSES[variant]}>
             {children}

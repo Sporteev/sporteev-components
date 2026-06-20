@@ -30,8 +30,10 @@ export const BUTTON_VARIANTS: ButtonVariant[] = [
 
 export const BUTTON_SIZES: ButtonSize[] = ["s", "m", "l", "xl"];
 
-export interface ButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+export interface ButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "disabled"
+> {
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;
@@ -41,8 +43,10 @@ export interface ButtonProps
   endIcon?: React.ReactNode;
 }
 
-export interface IconButtonProps
-  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> {
+export interface IconButtonProps extends Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "disabled"
+> {
   variant?: ButtonVariant;
   color?: ButtonColor;
   size?: ButtonSize;

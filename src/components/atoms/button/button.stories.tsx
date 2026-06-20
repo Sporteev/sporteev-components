@@ -1,11 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { QuestionCircle } from "@solar-icons/react-perf/Linear";
 import { Button } from ".";
-import {
-  BUTTON_COLORS,
-  BUTTON_SIZES,
-  BUTTON_VARIANTS,
-} from "./types";
+import { BUTTON_COLORS, BUTTON_SIZES, BUTTON_VARIANTS } from "./types";
 
 const meta = {
   title: "Atoms/Button",
@@ -95,7 +91,12 @@ export const ColorPalettes: Story = {
       {BUTTON_COLORS.map((color) => (
         <div key={color} className="flex flex-wrap items-center gap-12">
           {BUTTON_VARIANTS.map((variant) => (
-            <Button key={`${color}-${variant}`} variant={variant} color={color} size="m">
+            <Button
+              key={`${color}-${variant}`}
+              variant={variant}
+              color={color}
+              size="m"
+            >
               {color} / {variant}
             </Button>
           ))}
@@ -109,7 +110,13 @@ export const Disabled: Story = {
   render: () => (
     <div className="flex flex-wrap gap-12">
       {BUTTON_VARIANTS.map((variant) => (
-        <Button key={variant} variant={variant} color="primary" size="m" disabled>
+        <Button
+          key={variant}
+          variant={variant}
+          color="primary"
+          size="m"
+          disabled
+        >
           {variant}
         </Button>
       ))}

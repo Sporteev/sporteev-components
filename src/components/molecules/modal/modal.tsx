@@ -25,11 +25,11 @@ export function Modal({
     >
       <Dialog.Portal>
         <Dialog.Overlay
-          className={cn("fixed inset-0 z-50 bg-grey-900/50", className)}
+          className={cn("bg-grey-900/50 fixed inset-0 z-50", className)}
         />
         <Dialog.Content
           className={cn(
-            "fixed top-1/2 left-1/2 z-50 flex w-[calc(100%-32px)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden rounded-16 bg-white shadow-secondary focus:outline-none",
+            "rounded-16 shadow-secondary fixed top-1/2 left-1/2 z-50 flex w-[calc(100%-32px)] -translate-x-1/2 -translate-y-1/2 flex-col overflow-hidden bg-white focus:outline-none",
             MODAL_SIZE_CLASSES[size]
           )}
         >
@@ -39,7 +39,7 @@ export function Modal({
           >
             <Dialog.Title
               className={cn(
-                "mb-16 w-full text-center text-body-1 font-semibold text-grey-900",
+                "text-body-1 text-grey-900 mb-16 w-full text-center font-semibold",
                 !title && "sr-only"
               )}
             >
@@ -49,7 +49,7 @@ export function Modal({
           </div>
 
           {actions.length > 0 && (
-            <div className="shrink-0 border-t border-grey-400 bg-white px-24 py-16">
+            <div className="border-grey-400 shrink-0 border-t bg-white px-24 py-16">
               <div
                 className={cn(
                   "flex gap-8",

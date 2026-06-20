@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import { InputText } from "./input-text";
 import { FIELD_SIZES } from "./types";
+import {
+  Dollar,
+  SaleSquare,
+} from "@solar-icons/react-perf/category/style/Linear";
 
 const meta = {
   title: "Molecules/InputText",
@@ -111,8 +115,16 @@ export const Types: Story = {
         placeholder="Enter password"
         type="password"
       />
-      <InputText label="Number Input" placeholder="Enter number" type="number" />
-      <InputText label="Phone Input" placeholder="Enter phone number" type="tel" />
+      <InputText
+        label="Number Input"
+        placeholder="Enter number"
+        type="number"
+      />
+      <InputText
+        label="Phone Input"
+        placeholder="Enter phone number"
+        type="tel"
+      />
       <InputText label="URL Input" placeholder="Enter URL" type="url" />
       <InputText label="Search Input" placeholder="Search..." type="search" />
     </div>
@@ -126,20 +138,13 @@ export const WithAdornments: Story = {
         label="With Start Adornment"
         placeholder="Enter amount"
         type="number"
-        startAdornment="$"
+        iconLeft={<Dollar />}
       />
       <InputText
         label="With End Adornment"
         placeholder="Enter percentage"
         type="number"
-        endAdornment="%"
-      />
-      <InputText
-        label="With Both Adornments"
-        placeholder="Enter price"
-        type="number"
-        startAdornment="$"
-        endAdornment="USD"
+        iconRight={<SaleSquare />}
       />
     </div>
   ),

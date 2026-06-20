@@ -38,8 +38,8 @@ Rules use `.mdc` (Cursor format with YAML frontmatter). Claude and Kiro read the
 | `rules/icons.mdc`               | Custom icon implementation              | `icons/`                             |
 | `rules/storybook.mdc`           | Stories + icon catalog                  | `*.stories.tsx`                      |
 | `rules/theme.mdc`               | Tokens, theme.css, JIT                  | `src/theme/`, scripts                |
-| `rules/typescript.mdc`          | import type, build, lint/format        | `**/*.{ts,tsx}`                      |
-| `skills/new-component/`         | Agent workflow                        | on demand                            |
+| `rules/typescript.mdc`          | import type, build, lint/format         | `**/*.{ts,tsx}`                      |
+| `skills/new-component/`         | Agent workflow                          | on demand                            |
 
 Human-readable summary: `contributing.md`.
 
