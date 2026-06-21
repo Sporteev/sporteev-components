@@ -26,6 +26,7 @@
     "src/components/",
     "src/lib/",
     "src/theme/",
+    "src/tailwind-source.css",
     "README.md",
     "LICENSE"
   ],

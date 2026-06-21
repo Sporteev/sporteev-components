@@ -1,3 +1,15 @@
+# Component changes (v2.2.2)
+
+## Fixed
+
+- **`tailwind-source.css` missing from npm tarball** — add `src/tailwind-source.css` to package `files` (v2.2.1 export pointed at a file that was not published)
+
+## Added
+
+- **`tailwind-source.css` export** — consumers import `@sporteev/sporteev-components/tailwind-source.css` instead of `@source` paths into `node_modules`
+
+---
+
 # Component changes (v2.2.0)
 
 Finalizes v2 API cleanup — standardized size tokens, `destructive` naming, theme-only distribution, and conventions tech-debt refactors.
