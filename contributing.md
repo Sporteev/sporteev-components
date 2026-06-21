@@ -73,7 +73,7 @@ The default workflow is unchanged: open Figma in the browser, match variant name
 
 **Consumers today:**
 
-- **sporteev-web-v2**, **sporteev-crm** — theme-only Tailwind v4 (`theme.css` + `@source`)
+- **sporteev-web-v2**, **sporteev-crm** — theme-only Tailwind v4 (`theme.css` + `tailwind-source.css`)
 - **sporteev-web** — legacy `styles.css` path (migration only; don't add new features for pre-built CSS)
 
 ## Repository structure
@@ -318,7 +318,7 @@ pnpm add file:/path/to/sporteev-sporteev-components-1.1.21.tgz
 
 3. Wire **theme-only** Tailwind in the consumer (see [README](./README.md#consumer-setup-theme-only--recommended)):
 
-- `src/index.css` — import `theme.css` + `@source` library `src/components` and `src/lib`
+- `src/index.css` — import `theme.css` + `tailwind-source.css`
 - `src/main.tsx` — import `./index.css` only (do **not** import `styles.css`)
 
 4. Use components in the test project:

@@ -18,6 +18,7 @@
       "require": "./dist/sporteev-components.umd.js"
     },
     "./theme.css": "./src/theme/theme.css",
+    "./tailwind-source.css": "./src/tailwind-source.css",
     "./theme/tokens": "./src/theme/tokens.cjs"
   },
   "files": [

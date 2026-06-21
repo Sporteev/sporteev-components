@@ -6,16 +6,16 @@ Finalizes v2 API cleanup — standardized size tokens, `destructive` naming, the
 
 ## Breaking changes
 
-| Area                      | Before                                     | After                                                       |
-| ------------------------- | ------------------------------------------ | ----------------------------------------------------------- |
-| **LabelChip**             | `size="small"` / `medium` / `large`        | `size="s"` / `m` / `l`                                      |
-| **LabelChip**             | `color="danger"`                           | `color="destructive"`                                       |
-| **ScoreIncreaseDecrease** | `variant` prop for size                    | **`size`** prop (`s` / `m` / `l`)                           |
-| **ScoreIncreaseDecrease** | `danger` prop                              | **`destructive`**                                           |
-| **InfoBox**               | `variant="danger"`                         | `variant="destructive"`                                     |
-| **Text**                  | `color="danger"`                           | `color="destructive"` (removed duplicate)                   |
-| **Toast**                 | `Snackbar` / `useSnackbar` aliases         | **Removed** — use `Toast` / `useToast` only                 |
-| **Package**               | `@sporteev/sporteev-components/styles.css` | **Removed** — theme-only (`theme.css` + consumer `@source`) |
+| Area                      | Before                                     | After                                                          |
+| ------------------------- | ------------------------------------------ | -------------------------------------------------------------- |
+| **LabelChip**             | `size="small"` / `medium` / `large`        | `size="s"` / `m` / `l`                                         |
+| **LabelChip**             | `color="danger"`                           | `color="destructive"`                                          |
+| **ScoreIncreaseDecrease** | `variant` prop for size                    | **`size`** prop (`s` / `m` / `l`)                              |
+| **ScoreIncreaseDecrease** | `danger` prop                              | **`destructive`**                                              |
+| **InfoBox**               | `variant="danger"`                         | `variant="destructive"`                                        |
+| **Text**                  | `color="danger"`                           | `color="destructive"` (removed duplicate)                      |
+| **Toast**                 | `Snackbar` / `useSnackbar` aliases         | **Removed** — use `Toast` / `useToast` only                    |
+| **Package**               | `@sporteev/sporteev-components/styles.css` | **Removed** — theme-only (`theme.css` + `tailwind-source.css`) |
 
 ---
 
@@ -60,8 +60,7 @@ const { showToast } = useToast();
 // app index.css:
 @import "tailwindcss";
 @import "@sporteev/sporteev-components/theme.css";
-@source "../node_modules/@sporteev/sporteev-components/src/components";
-@source "../node_modules/@sporteev/sporteev-components/src/lib";
+@import "@sporteev/sporteev-components/tailwind-source.css";
 ```
 
 ---

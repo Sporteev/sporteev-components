@@ -49,11 +49,8 @@ Consumers compile CSS locally. They do **not** import pre-built `styles.css` in 
 /* consumer src/index.css */
 @import "tailwindcss";
 @import "@sporteev/sporteev-components/theme.css";
-@source "../node_modules/@sporteev/sporteev-components/src/components";
-@source "../node_modules/@sporteev/sporteev-components/src/lib";
+@import "@sporteev/sporteev-components/tailwind-source.css";
 ```
-
-Monorepo `file:` link: point `@source` at the linked package's `src/` paths.
 
 ## JIT / static class strings (critical)
 

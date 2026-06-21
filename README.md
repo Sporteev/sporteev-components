@@ -37,10 +37,7 @@ export default defineConfig({
 ```css
 @import "tailwindcss";
 @import "@sporteev/sporteev-components/theme.css";
-
-/* Scan library components so Tailwind generates their utilities */
-@source "../node_modules/@sporteev/sporteev-components/src/components";
-@source "../node_modules/@sporteev/sporteev-components/src/lib";
+@import "@sporteev/sporteev-components/tailwind-source.css";
 ```
 
 ### 3. App entry (`src/main.tsx`)
@@ -105,9 +102,7 @@ See [contributing.md](./contributing.md) for Storybook, pack, publish, and contr
 
 ## Troubleshooting
 
-**Missing component styles** — confirm `@source` paths in `index.css` point at the library's `src/components` and `src/lib`. With pnpm, paths are usually under `node_modules/@sporteev/sporteev-components/...`. With `file:` links in a monorepo, point `@source` at the linked package's `src/` directory.
-
-**Stale styles after library changes** — run `pnpm build` in `sporteev-components`, then `pnpm update @sporteev/sporteev-components` in your app.
+**Missing component styles** — confirm `tailwind-source.css` is imported in `index.css` (alongside `theme.css`). After library changes, run `pnpm build` in `sporteev-components`, then `pnpm update @sporteev/sporteev-components` in your app.
 
 **Duplicate React** — add `resolve.dedupe: ["react", "react-dom"]` in Vite (see setup above).
 
@@ -116,8 +111,9 @@ See [contributing.md](./contributing.md) for Storybook, pack, publish, and contr
 | Import                                       | Purpose                     |
 | -------------------------------------------- | --------------------------- |
 | `@sporteev/sporteev-components`              | React components (JS)       |
-| `@sporteev/sporteev-components/theme.css`    | Design tokens (`@theme`)    |
-| `@sporteev/sporteev-components/theme/tokens` | Raw `tokens.cjs` (advanced) |
+| `@sporteev/sporteev-components/theme.css`         | Design tokens (`@theme`)              |
+| `@sporteev/sporteev-components/tailwind-source.css` | Tailwind scan paths for library classes |
+| `@sporteev/sporteev-components/theme/tokens`      | Raw `tokens.cjs` (advanced)           |
 
 ## Contributing
 
